@@ -4,7 +4,7 @@ const UserFunction = require('./models/user')
 const CategoryBillFunction = require('./models/categoryBill')
 const CategoryEarningFunction = require('./models/categoryEarning')
 const Card = require("./models/card")
-
+const Earning = require("./models/earning");
 
 const sequelize = new Sequelize(
     process.env.DB_URI,
@@ -16,6 +16,7 @@ UserFunction(sequelize);
 CategoryEarningFunction(sequelize);
 CategoryBillFunction(sequelize);
 Card(Sequelize);
+Earning(sequelize);
 
 // ASSOCIATIONS
 
