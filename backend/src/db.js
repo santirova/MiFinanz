@@ -3,7 +3,8 @@ require('dotenv').config()
 const UserFunction = require('./models/user')
 const CategoryBillFunction = require('./models/categoryBill')
 const CategoryEarningFunction = require('./models/categoryEarning')
-
+const BillFunction = require('./models/bill')
+const SavingFunction =require('./models/saving')
 
 const sequelize = new Sequelize(
     process.env.DB_URI,
@@ -14,6 +15,9 @@ const sequelize = new Sequelize(
 UserFunction(sequelize);
 CategoryEarningFunction(sequelize);
 CategoryBillFunction(sequelize);
+BillFunction(sequelize)
+SavingFunction(sequelize)
+
 
 // ASSOCIATIONS
 
