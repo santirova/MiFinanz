@@ -3,11 +3,10 @@ require('dotenv').config()
 const UserFunction = require('./models/user')
 const CategoryBillFunction = require('./models/categoryBill')
 const CategoryEarningFunction = require('./models/categoryEarning')
-
 const BillFunction = require('./models/bill')
 const SavingFunction =require('./models/saving')
-const Card = require("./models/card")
-const Earning = require("./models/earning");
+const CardFunction = require("./models/card")
+const EarningFunction = require("./models/earning");
 
 
 const sequelize = new Sequelize(
@@ -21,11 +20,18 @@ CategoryEarningFunction(sequelize);
 CategoryBillFunction(sequelize);
 BillFunction(sequelize)
 SavingFunction(sequelize)
-Card(sequelize);
-Earning(sequelize);
+CardFunction(sequelize);
+EarningFunction(sequelize);
+
+const {User,Bill,Earning,CategoryBill,CategoryEarning,Card} = sequelize.models
 
 
 // ASSOCIATIONS
+User.hasMany(Bill);
+Bill.belongsTo(User);
+
+Card.hasMany(Bill);
+Bill.belongsTo(Card);
 
 
 module.exports = {sequelize}
