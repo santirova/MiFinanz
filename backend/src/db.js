@@ -33,10 +33,12 @@ Bill.belongsTo(User);
 Card.hasMany(Bill);
 Bill.belongsTo(Card);
 
+
 CategoryEarning.hasMany(Earning);
 Earning.belongsTo(CategoryEarning);
 
 CategoryBill.hasMany(Bill);
 Bill.belongsTo(CategoryBill)
+
 
 module.exports = {sequelize}
