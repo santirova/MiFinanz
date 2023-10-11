@@ -3,6 +3,7 @@ require('dotenv').config()
 const UserFunction = require('./models/user')
 const CategoryBillFunction = require('./models/categoryBill')
 const CategoryEarningFunction = require('./models/categoryEarning')
+const Card = require("./models/card")
 
 
 const sequelize = new Sequelize(
@@ -14,6 +15,7 @@ const sequelize = new Sequelize(
 UserFunction(sequelize);
 CategoryEarningFunction(sequelize);
 CategoryBillFunction(sequelize);
+Card(Sequelize);
 
 // ASSOCIATIONS
 
