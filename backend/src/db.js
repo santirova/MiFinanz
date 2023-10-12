@@ -30,15 +30,20 @@ const {User,Bill,Earning,CategoryBill,CategoryEarning,Card} = sequelize.models
 User.hasMany(Bill);
 Bill.belongsTo(User);
 
+User.hasMany(Card);
+Card.belongsTo(User);
+
 Card.hasMany(Bill);
 Bill.belongsTo(Card);
-
 
 CategoryEarning.hasMany(Earning);
 Earning.belongsTo(CategoryEarning);
 
-CategoryBill.hasMany(Bill);
-Bill.belongsTo(CategoryBill)
 
+CategoryBill.hasMany(Bill);
+Bill.belongsTo(CategoryBill);
+
+User.hasMany(Earning);
+Earning.belongsTo(User);
 
 module.exports = {sequelize}
