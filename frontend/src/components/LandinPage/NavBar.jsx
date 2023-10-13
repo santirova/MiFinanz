@@ -1,6 +1,10 @@
-import React from 'react'
+"use client"
+
+import { useAppDispatch,useAppSelector } from "@/redux/hooks"
 
 const NavBar = () => {
+    const theme = useAppSelector(state => state.theme)
+    console.log(theme);
     return (
         <nav className='flex bg-slate-900 w-full p-3 justify-between'>
             <div className=''>Logo</div>
