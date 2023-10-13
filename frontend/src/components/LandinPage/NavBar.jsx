@@ -3,6 +3,7 @@
 import { setTheme } from "@/redux/features/themeSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { useEffect } from "react";
+import { BsWindows } from 'react-icons/bs';
 
 const NavBar = () => {
     const dispatch = useAppDispatch();
@@ -28,6 +29,7 @@ const NavBar = () => {
                     <li>PLUS</li>
                     <li>SOPORTE</li>
                     <li>NOSOTROS</li>
+                    <li><BsWindows /></li>
                     <button onClick={handleChangeTheme}>Cambiar tema</button>
                 </ul>
             </div>
