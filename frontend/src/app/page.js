@@ -1,7 +1,7 @@
 import ContactForm from '@/components/LandinPage/ContactForm'
 import NavBar from '@/components/LandinPage/NavBar'
 import PriceCard from '@/components/LandinPage/PriceCard'
-import Image from 'next/image'
+import TeamInfo from '@/components/LandinPage/TeamInfo'
 
 export default function Home() {
   return (
@@ -11,6 +11,7 @@ export default function Home() {
         <div className='flex flex-col items-center justify-center'>
           <PriceCard />
           <ContactForm />
+          <TeamInfo />
         </div>
       </>
     </main>
