@@ -1,4 +1,5 @@
 import NavBar from '@/components/LandinPage/NavBar'
+import PriceCard from '@/components/LandinPage/PriceCard'
 import Image from 'next/image'
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
       < >
         <NavBar />
         <p>Hola mundo</p>
+        <PriceCard />
       </>
     </main>
   )
