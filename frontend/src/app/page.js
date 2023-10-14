@@ -1,3 +1,4 @@
+import ContactForm from '@/components/LandinPage/ContactForm'
 import NavBar from '@/components/LandinPage/NavBar'
 import PriceCard from '@/components/LandinPage/PriceCard'
 import Image from 'next/image'
@@ -7,8 +8,10 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center bg-black text-white">
       < >
         <NavBar />
-        <p>Hola mundo</p>
-        <PriceCard />
+        <div className='flex flex-col items-center justify-center'>
+          <PriceCard />
+          <ContactForm />
+        </div>
       </>
     </main>
   )
