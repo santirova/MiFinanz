@@ -15,7 +15,7 @@ const ContactForm = () => {
 
             <form
                 className="flex flex-col flex-1 justify-center gap-y-3 dark:text-black"
-                action={onFormSubmit}
+                onSubmit={onFormSubmit}
             >
                 <input
                     className="h-14 rounded-md p-4 placeholder-white bg-gray-700 focus:bg-white focus:placeholder-black transition-all "

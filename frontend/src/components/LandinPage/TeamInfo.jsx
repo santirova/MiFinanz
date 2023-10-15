@@ -60,7 +60,7 @@ const TeamInfo = () => {
                 otherSocialMedia: ""
             },
             {
-                id: 1,
+                id: 7,
                 name: "Roberta Mendoza",
                 position: "QA",
                 image: "",
