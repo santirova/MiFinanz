@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
@@ -26,11 +26,11 @@ const Login = () => {
 
   return (
     <div className="  h-screen  bg-black flex flex-col justify-center items-center">
-      <figure className=" w-80 text-center ">
+      <div className=" w-80 text-center ">
         <img
           src="/logo_app.png"
           alt="Logo de la aplicación"
-          class="w-16 mx-auto"
+          className="w-16 mx-auto"
         />
         <p className="text-white text-2xl mb-4">MiFinanz</p>
         <h2 className="text-1xl font-bold mb-4 uppercase text-white text-center ">
@@ -70,35 +70,35 @@ const Login = () => {
               <a href="#">Inscríbete</a>
             </span>
           </div>
-          <div class="flex items-center">
-            <div class="flex-grow h-0.5 bg-white"></div>
-            <span class="px-2 text-white">o</span>
-            <div class="flex-grow h-0.5 bg-white"></div>
+          <div className="flex items-center">
+            <div className="flex-grow h-0.5 bg-white"></div>
+            <span className="px-2 text-white">o</span>
+            <div className="flex-grow h-0.5 bg-white"></div>
           </div>
 
-          <a href="#" class="   inline-block ">
+          <a href="#" className="   inline-block ">
             <img
               src="/g_button.png"
               alt="Iniciar sesión con Google"
-              class="w-full h-auto hover:transform hover:scale-105"
+              className="w-full h-auto hover:transform hover:scale-105"
             />
           </a>
-          <a href="#" class="   inline-block ">
+          <a href="#" className="   inline-block ">
             <img
               src="/fb_button.png"
               alt="Iniciar sesión con Facebook"
-              class="w-full h-auto hover:transform hover:scale-105"
+              className="w-full h-auto hover:transform hover:scale-105"
             />
           </a>
-          <a href="#" class="   inline-block ">
+          <a href="#" className="   inline-block ">
             <img
               src="/tw_button.png"
               alt="Iniciar sesión con Twitter"
-              class="w-full h-auto hover:transform hover:scale-105"
+              className="w-full h-auto hover:transform hover:scale-105"
             />
           </a>
         </form>
-      </figure>
+      </div>
     </div>
   );
 };
