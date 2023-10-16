@@ -1,4 +1,19 @@
-const getUserByIdController = () => {
-    return 'Deberia volver el detalle de un usuario'
+const {User} = require('../db')
+const { encrypt } = require('../helpers/bcrypt')
+const getUserByIdController = async () => {
+    const users = await User.findAll()
+    console.log(users);
+    return users
 }
-module.exports ={getUserByIdController}
+
+const postUserController = async (name,password,email) =>{
+    console.log(password,name,email);
+    const hashPassword = await encrypt(password)
+    const newUser = User.create({
+        name,
+        email,
+        password: hashPassword
+    })
+    return newUser
+}
+module.exports ={getUserByIdController,postUserController}
