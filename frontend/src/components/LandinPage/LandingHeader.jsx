@@ -2,6 +2,7 @@ import Image from "next/image";
 import imagePc from "@/assets/landing/desktopLaptop.png";
 import imagePhone from "@/assets/landing/responsivePhone.png";
 import { FaGooglePlay } from "react-icons/fa";
+import {FaWindows} from "react-icons/fa"
 export default function LandingHeader() {
   return (
     <section className="flex w-full justify-between">
@@ -24,21 +25,20 @@ export default function LandingHeader() {
           Crear una cuenta
         </button>
         <div className="flex gap-6">
-          <button className="flex border-solid border-2 border-white p-4 w-60 rounded-xl gap-2">
-            <section>
-              <i>
-                <FaGooglePlay />
-              </i>
-            </section>
-            <section>
-              <p>Download on the</p>
-              <h4>Google Play</h4>
-            </section>
-          </button>
-          <button className="border-solid border-2 border-white p-4 w-60 rounded-xl">
-            <p>Download on the</p>
-            <h4>Windows Store</h4>
-          </button>
+          <div className="flex p-1 gap-3 text-white w-96 h-15 text-sm rounded-lg items-center border-solid border-2  border-white cursor-pointer">
+            <FaGooglePlay className="text-white text-5xl" />
+            <div className="">
+              <p className="font-semibold text-white">Download on the</p>
+              <p className=" ">Google Play</p>
+            </div>
+          </div>
+          <div className="flex p-1 gap-3 text-white w-96 h-15 text-sm rounded-lg items-center border-solid border-2  border-white cursor-pointer">
+            <FaWindows className="text-white text-5xl"/>
+            <div className="">
+              <p className="font-semibold text-white">Download on the</p>
+              <p className=" ">Windows Store</p>
+            </div>
+          </div>
         </div>
       </div>
       <figure id="rigthside" className="flex h-[500px] w-1/2 relative">
