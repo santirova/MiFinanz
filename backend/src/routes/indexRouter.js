@@ -2,9 +2,9 @@ const {Router} = require('express');
 const {userRouter} = require('./userRouter');
 const {cardRouter} = require('./cardRouter');
 const {earningRouter} = require('./earningRouter');
-//const {earningRouter} = require('./earningRouter');
 const billsRouters = require('./billsRouter');
 const { categoryBills } = require('./categoryBillsRouter');
+
 
 const router = Router();
 
@@ -14,8 +14,6 @@ router.use('/card', cardRouter);
 router.use('/earning', earningRouter);
 router.use('/bill', billsRouters);
 router.use('/categoryBill', categoryBills);
-
-//router.use('/earning', earningRouter);
 
 
 module.exports = router
