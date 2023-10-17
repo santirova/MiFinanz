@@ -44,5 +44,7 @@ Bill.belongsTo(CategoryBill);
 User.hasMany(Earning);
 Earning.belongsTo(User);
 
+
 module.exports = {sequelize,
     ...sequelize.models}
+
