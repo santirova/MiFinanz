@@ -13,6 +13,7 @@ try {
     throw new Error(error)
 }
 
+
 app.listen(port, () => {
     console.log(`Server is running. http://localhost:${port}`)
 })

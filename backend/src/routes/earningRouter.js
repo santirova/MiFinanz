@@ -1,10 +1,12 @@
 const {Router} = require('express');
-const { getEarnigsByUserIdHandler } = require('../handlers/earningHandlers');
+const { getEarnigsByUserIdHandler, postEarnigsByUserIdHandler, putEarnigsByUserIdHandler, deleteEarnigsByUserIdHandler } = require('../handlers/earningHandlers');
 
 
 const earningRouter = Router();
 
-earningRouter.get('/:id',getEarnigsByUserIdHandler);
-
+earningRouter.get('/:UserId',getEarnigsByUserIdHandler);
+earningRouter.post('/:UserId',postEarnigsByUserIdHandler);
+earningRouter.put('/:id',putEarnigsByUserIdHandler);
+earningRouter.delete('/:id',deleteEarnigsByUserIdHandler);
 
 module.exports ={earningRouter};
