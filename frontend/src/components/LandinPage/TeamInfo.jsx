@@ -53,7 +53,7 @@ const TeamInfo = () => {
             },
             {
                 id: 6,
-                name: "Lucas Barcelo",
+                name: "Lucas Barceló",
                 position: "FRONTEND",
                 image: "",
                 linkedin: "",
