@@ -1,4 +1,4 @@
-const {getUserByIdController,postUserController} = require('../controllers/userControllers')
+const {getUserByIdController,postUserController, loginController} = require('../controllers/userControllers')
 
 const getUserByIdHandler = async (req,res) =>{
     try {
@@ -19,5 +19,15 @@ const postUserHandler = async (req,res) =>{
     }
 }
 
+const loginHandler = async (req,res)=>{
+    try {
+        const {email,password} = req.body
+        const token = await loginController(email,password)
+        res.status(200).send(token)
+    } catch (error) {
+        res.status(400).send({error:error.message})
+    }
+}
 
-module.exports = {getUserByIdHandler,postUserHandler}
+
+module.exports = {getUserByIdHandler,postUserHandler,loginHandler}
