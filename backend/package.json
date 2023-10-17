@@ -3,11 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  
   "scripts": {
     "start": "node index.js",
     "server": "nodemon index.js",
     "db:import": "node ./seed/seeder.js -i"
   },
+
   "author": "Not Country",
   "license": "ISC",
   "dependencies": {
