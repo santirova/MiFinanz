@@ -45,6 +45,7 @@ User.hasMany(Earning);
 Earning.belongsTo(User);
 
 
-module.exports = {sequelize,
-    ...sequelize.models}
+module.exports = {
+    sequelize,
+    ...sequelize.models};
 
