@@ -47,5 +47,7 @@ Earning.belongsTo(User);
 
 module.exports = {
     sequelize,
-    ...sequelize.models};
+    ...sequelize.models
+}
+
 
