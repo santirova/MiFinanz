@@ -7,7 +7,7 @@ const poppins = Poppins({
   style: ['normal', 'italic'],
   subsets: ['latin'],
   display: 'swap',
-  fallback: ['Helvetica', 'Arial', 'sans-serif'],
+  fallback: ['Helvetica', 'sans-serif'],
 })
 
 export const metadata = {
