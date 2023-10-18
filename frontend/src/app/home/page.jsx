@@ -1,7 +1,7 @@
 
 const AppHome = () => {
   return (
-    <div className="dark:bg-black">AppHome</div>
+    <div className="dark:bg-mBlack">AppHome</div>
   )
 }
 

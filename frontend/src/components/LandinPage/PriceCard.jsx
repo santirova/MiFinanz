@@ -41,13 +41,13 @@ const PriceCard = () => {
             },
         ];
     return (
-        <section id='section-card' className='w-full flex justify-center items-center gap-14 p-5 flex-wrap text-black'>
+        <section id='section-card' className='w-full flex flex-col justify-center items-center gap-14 p-5 flex-wrap text-mBlack md:flex-row'>
             {initialState.map(item => (
-                <div id='container-card' className='grid w-[320px] h-[500px] bg-white border border-solid border-blue-400 rounded-xl text-center p-8 gap-4' key={item.id}>
+                <div id='container-card' className='grid w-[320px] h-[500px] bg-mWhite border border-solid border-mBlue rounded-xl text-center p-8 gap-4' key={item.id}>
                     <h2 className='font-bold'>{item.name}</h2>
                     <div>
-                        <h3 className='text-blue-400 text-4xl font-bold'>{item.price}$</h3>
-                        <p className='text-blue-400 text-sm'>por mes</p>
+                        <h3 className='text-mBlue text-4xl font-bold'>{item.price}$</h3>
+                        <p className='text-mBlue text-sm'>por mes</p>
                     </div>
                     <ul className='grid gap-3 text-left'>
                         {item.feautures.map(feature => (
@@ -57,7 +57,7 @@ const PriceCard = () => {
                             </div>
                         ))}
                     </ul>
-                    <button className='p-2 bg-blue-400 text-white rounded-md'>Try for free</button>
+                    <button className='p-2 bg-mBlue text-mWhite rounded-md'>Try for free</button>
                 </div>
             ))}
         </section>

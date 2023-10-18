@@ -9,10 +9,11 @@ import Footer from '@/components/LandinPage/Footer'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center bg-white dark:bg-black text-white">
+    <main className="flex min-h-screen flex-col items-center bg-mWhite text-mBlack dark:bg-mBlack dark:text-mWhite">
       < >
         <NavBar />
-        <div className='flex flex-col items-center justify-center'>
+        <hr className="bg-mlightGray w-full h-px my-2 border-0 dark:bg-mWhite" />
+        <div className='flex flex-col items-center justify-center gap-24'>
           <LandingHeader/>
           <LandingTwo/>
           <LandingThree/>

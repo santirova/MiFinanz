@@ -2,7 +2,7 @@ import Image from "next/image"
 import graphics from "@/assets/landing/graphics.png"
 export default function LandingTwo () {
     return(
-        <section className="flex justify-between w-full">
+        <section className="flex flex-col items-center justify-between w-full md:flex-row">
             <div>
                 <Image src={graphics}/>
             </div>
@@ -28,7 +28,7 @@ export default function LandingTwo () {
                         <p>Configura notificaciones personalizadas para recibir recordatorios de pagos pendientes, fechas límite de facturas y vencimientos de préstamos.</p>
                     </details>
                 </div>
-                <button className="bg-yellow-300 text-black rounded-full p-4 w-96 font-semibold text-2xl">Prueba una Demo</button>
+                <button className="bg-mYellow text-mBlack rounded-full p-4 w-96 font-semibold text-2xl">Prueba una Demo</button>
             </div>
         </section>
     )

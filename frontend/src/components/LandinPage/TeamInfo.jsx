@@ -69,10 +69,10 @@ const TeamInfo = () => {
             }
         ]
     return (
-        <section className="w-full grid grid-cols-4 gap-4">
+        <section className="w-full grid grid-cols-2 gap-4 md:grid-cols-4">
             {initialState.map(item => (
                 <div key={item.id} className='flex flex-col justify-center items-center gap-2'>
-                    <div className="bg-white w-24 h-24 rounded-full"> </div>
+                    <div className="bg-mWhite w-24 h-24 rounded-full"> </div>
                     <h3 className='font-bold text-xl'>{item.name}</h3>
                     <div className='flex items-center gap-2'>
                         <p>{item.position}</p>

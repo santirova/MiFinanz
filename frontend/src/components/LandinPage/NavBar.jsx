@@ -22,19 +22,22 @@ const NavBar = () => {
     }
     console.log(theme);
     return (
-        <nav className='flex bg-slate-400 dark:bg-gray-950 w-full p-3 justify-between'>
+        <nav className='flex w-full bg-mWhite dark:bg-mBlack  p-3 justify-between'>
             <div className='font-bold'>miFinanzs</div>
 
-            <div className=''>
+            <div className='nav-action hidden md:block'>
                 <ul className='flex items-center gap-4 lg:mr-8'>
-                    <li>BLOG</li>
-                    <li>PLUS</li>
-                    <li>SOPORTE</li>
-                    <li>NOSOTROS</li>
+                    <li className="cursor-pointer">BLOG</li>
+                    <li className="cursor-pointer">PLUS</li>
+                    <li className="cursor-pointer">SOPORTE</li>
+                    <li className="cursor-pointer">NOSOTROS</li>
                     <li>|</li>
                     <ToggleThemeBtn handleOnClick={handleChangeTheme} />
-                    <button className="bg-white text-black font-semibold p-1 w-20 rounded-2xl">LOGIN</button>
+                    <button className="bg-mWhite text-mBlack font-semibold p-1 w-20 rounded-2xl">LOGIN</button>
                 </ul>
+            </div>
+            <div className="nav-hamburger hidden">
+
             </div>
         </nav>
     )
