@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
         },
        frequency:{
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
        },
        data:{
         type: DataTypes.DATEONLY,
