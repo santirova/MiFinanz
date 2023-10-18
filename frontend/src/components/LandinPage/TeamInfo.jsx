@@ -1,5 +1,6 @@
 import { AiOutlineLinkedin } from 'react-icons/ai';
-
+import profiles from '@/assets/profiles/index'
+import Image from 'next/image';
 const TeamInfo = () => {
     const initialState =
         [
@@ -7,7 +8,7 @@ const TeamInfo = () => {
                 id: 0,
                 name: "Josefina Eciolaza",
                 position: "PM",
-                image: "",
+                image: profiles.josefina,
                 linkedin: "",
                 otherSocialMedia: ""
             },
@@ -15,7 +16,7 @@ const TeamInfo = () => {
                 id: 1,
                 name: "Santiago Rovaletti",
                 position: "BACKEND",
-                image: "",
+                image: profiles.santiago,
                 linkedin: "",
                 otherSocialMedia: ""
             },
@@ -23,7 +24,7 @@ const TeamInfo = () => {
                 id: 2,
                 name: "Víctor Morales",
                 position: "FRONTEND",
-                image: "",
+                image: profiles.victor,
                 linkedin: "",
                 otherSocialMedia: ""
             },
@@ -31,7 +32,7 @@ const TeamInfo = () => {
                 id: 3,
                 name: "Nazareno Susunday",
                 position: "UI-UX",
-                image: "",
+                image: profiles.nazareno,
                 linkedin: "",
                 otherSocialMedia: ""
             },
@@ -39,7 +40,7 @@ const TeamInfo = () => {
                 id: 4,
                 name: "Mirgelys Serrano",
                 position: "BACKEND",
-                image: "",
+                image: profiles.mirge,
                 linkedin: "",
                 otherSocialMedia: ""
             },
@@ -47,7 +48,7 @@ const TeamInfo = () => {
                 id: 5,
                 name: "Esmir R.Castellano",
                 position: "FRONTEND",
-                image: "",
+                image: profiles.esmir,
                 linkedin: "",
                 otherSocialMedia: ""
             },
@@ -55,7 +56,7 @@ const TeamInfo = () => {
                 id: 6,
                 name: "Lucas Barceló",
                 position: "FRONTEND",
-                image: "",
+                image: profiles.lucas,
                 linkedin: "",
                 otherSocialMedia: ""
             },
@@ -63,7 +64,7 @@ const TeamInfo = () => {
                 id: 7,
                 name: "Roberta Mendoza",
                 position: "QA",
-                image: "",
+                image: profiles.roberta,
                 linkedin: "",
                 otherSocialMedia: ""
             }
@@ -72,7 +73,7 @@ const TeamInfo = () => {
         <section className="w-full grid grid-cols-2 gap-4 md:grid-cols-4">
             {initialState.map(item => (
                 <div key={item.id} className='flex flex-col justify-center items-center gap-2'>
-                    <div className="bg-mWhite w-24 h-24 rounded-full"> </div>
+                    <Image src={item.image} alt={item.name} width={100} height={100} className="rounded-full" />
                     <h3 className='font-bold text-xl'>{item.name}</h3>
                     <div className='flex items-center gap-2'>
                         <p>{item.position}</p>
