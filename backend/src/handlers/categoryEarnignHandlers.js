@@ -7,13 +7,14 @@ const postCategoryEarnignsByUserIdHandler = async (req,res) => {
         const categoryEarnigns = await postCategoryEarnignsByUserController(name)
         res.status(200).send(categoryEarnigns)
     } catch (error) {
+        console.log(error);
         res.status(400).send({error:error.messages})
     }
 }
 const getCategoryEarnignsByUserIdHandler = async (req,res) => {
     try {
         const {id}= req.params
-        const categoryEarnigns = await getCategoryEarnignsByUserController(id)
+        const categoryEarnigns = await getCategoryEarnignsByUserController()
         res.status(200).send(categoryEarnigns)
     } catch (error) {
         res.status(400).send({error:error.messages})

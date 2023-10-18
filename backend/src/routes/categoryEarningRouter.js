@@ -3,7 +3,7 @@ const {getCategoryEarnignsByUserIdHandler, postCategoryEarnignsByUserIdHandler} 
 
 const categoryEarningRouter = Router();
 
-categoryEarningRouter.get('/:id', getCategoryEarnignsByUserIdHandler);
+categoryEarningRouter.get('/', getCategoryEarnignsByUserIdHandler);
 categoryEarningRouter.post('/',postCategoryEarnignsByUserIdHandler);
 
 module.exports ={categoryEarningRouter};

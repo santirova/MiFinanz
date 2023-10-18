@@ -29,7 +29,10 @@ const putEarningByUserIdController = async( id, amount, date, name, CategoryEarn
   console.log(edict_earning);
 
   if (!edict_earning) {
-    return`No existe el ${edict_earning}` ;
+    return`No existe el reguistro :${edict_earning}` ;
+  }
+  if (edict_earning.length==0) {
+    return "Registro vacio"
   }
   //guardar cambios 
   const earning = await Earning.update({amount, date, name, CategoryEarningId}, {where:{id}});
