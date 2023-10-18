@@ -5,7 +5,7 @@ import { FaGooglePlay } from "react-icons/fa";
 import { FaWindows } from "react-icons/fa"
 export default function LandingHeader() {
   return (
-    <section className="flex flex-col w-full justify-between md:flex-row">
+    <section className="h-[calc(100vh_-_90px)] mt-12 flex flex-col w-full justify-evenly md:flex-row">
       <div id="leftside" className="flex flex-col w-full gap-8 justify-center items-center mt-16 md:items-start md:w-1/2">
         <div className="flex flex-col items-center justify-center ">
           <h3 className="text-[28px] uppercase font-bold leading-3">
@@ -39,11 +39,11 @@ export default function LandingHeader() {
         </div>
       </div>
       <figure id="rigthside" className="justify-center flex h-auto w-full  md:w-1/2 relative">
-        <Image src={imagePc} alt="Image Pc" className="w-1/2 md:w-full" />
+        <Image src={imagePc} alt="Image Pc" className="w-[500px] md:w-full" />
         <Image
           src={imagePhone}
           alt="Image Phone"
-          className="absolute w-80 h-auto md:right-4 md:top-10 md:w-96 md:h-96"
+          className="absolute w-64 h-auto md:right-4 md:top-10 md:w-[600px]"
         />
       </figure>
     </section>

@@ -2,8 +2,10 @@
 
 import { setTheme } from "@/redux/features/themeSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ToggleThemeBtn from "./ToggleThemeBtn";
+import Image from "next/image";
+import logo from '@/assets/shared/logo.png'
 
 const NavBar = () => {
 
@@ -22,8 +24,11 @@ const NavBar = () => {
     }
     console.log(theme);
     return (
-        <nav className='flex w-full bg-mWhite dark:bg-mBlack  p-3 justify-between'>
-            <div className='font-bold'>miFinanzs</div>
+        <nav className='fixed flex w-full bg-mWhite border-b-2 border-b-mlightGray dark:border-b-mWhite dark:bg-mBlack p-5 justify-between z-50'>
+            <div className='flex items-center gap-1'>
+                <Image src={logo} alt="miFinanzas" width={39} height={39} />
+                <span className="font-semibold text-xl">miFinanzs</span>
+            </div>
 
             <div className='nav-action hidden md:block'>
                 <ul className='flex items-center gap-4 lg:mr-8'>

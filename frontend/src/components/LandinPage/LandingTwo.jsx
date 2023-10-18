@@ -12,7 +12,7 @@ top: 837px;
 background: linear-gradient(180deg, #44444C 0%, rgba(68, 68, 76, 0) 42.71%);
  */
     return (
-        <section className="w-full flex flex-col p-20 items-center justify-evenly md:flex-row">
+        <section className="h-[calc(100vh_-_120px)] w-full flex flex-col p-20 items-center justify-evenly md:flex-row">
             <div className="md:w-1/2">
                 <Image className="w-full md:w-[500px]" src={graphics} />
             </div>
