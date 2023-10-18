@@ -13,15 +13,20 @@ export default function Home() {
       < >
         <NavBar />
         <hr className="bg-mlightGray w-full h-px my-2 border-0 dark:bg-mWhite" />
+
         <div className='flex flex-col items-center justify-center gap-24'>
-          <LandingHeader/>
-          <LandingTwo/>
-          <LandingThree/>
-          <PriceCard />
-          <ContactForm />
-          <TeamInfo />
+          <LandingHeader />
         </div>
-        <Footer/>
+        <div className='w-full bg-gradient-to-b from-[#44444C] from-5% via-[#313135] via-25% to-mBlack flex flex-col items-center justify-center gap-24'>
+          <LandingTwo />
+        </div>
+        <div className='flex flex-col items-center justify-center gap-24'>
+          <LandingThree />
+          <PriceCard />
+          <TeamInfo />
+          <ContactForm />
+        </div>
+        <Footer />
       </>
     </main>
   )
