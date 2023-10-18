@@ -25,7 +25,6 @@ EarningFunction(sequelize);
 
 const {User,Bill,Earning,CategoryBill,CategoryEarning,Card} = sequelize.models
 
-
 // ASSOCIATIONS
 User.hasMany(Bill);
 Bill.belongsTo(User);
@@ -39,12 +38,12 @@ Bill.belongsTo(Card);
 CategoryEarning.hasMany(Earning);
 Earning.belongsTo(CategoryEarning);
 
-
 CategoryBill.hasMany(Bill);
 Bill.belongsTo(CategoryBill);
 
 User.hasMany(Earning);
 Earning.belongsTo(User);
+
 
 module.exports = {
     sequelize,
