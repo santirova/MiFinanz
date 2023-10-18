@@ -1,8 +1,7 @@
-
+"use client";
+import AuthLogin from "@/components/LandinPage/auth/Login";
 const Login = () => {
-  return (
-    <div>page</div>
-  )
-}
+  return <AuthLogin />;
+};
 
-export default Login
+export default Login;
