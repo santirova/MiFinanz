@@ -1,8 +1,5 @@
-
 const AppHome = () => {
-  return (
-    <div className="dark:bg-black">AppHome</div>
-  )
-}
+  return <div className="dark:bg-black">AppHdome</div>;
+};
 
-export default AppHome
+export default AppHome;

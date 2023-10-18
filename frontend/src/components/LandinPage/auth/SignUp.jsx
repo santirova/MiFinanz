@@ -3,8 +3,15 @@
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
 import Link from "next/link";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { signup } from "@/redux/features/useInfoSlice";
 
-const Login = () => {
+const SignUp = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -12,17 +19,27 @@ const Login = () => {
     reset,
   } = useForm({
     defaultValues: {
+      name: "",
       email: "",
       password: "",
-      name: "",
     },
     mode: "onSubmit",
   });
 
-  const onSubmit = (data) => {
-    if (isValid) {
-      alert(JSON.stringify(data));
-      reset();
+  const submit = async (data) => {
+    try {
+      // console.log(data);
+      await dispatch(signup(data));
+      reset({
+        name: "",
+        email: "",
+        password: "",
+      });
+      setErrorMessage("");
+      window.location.replace("/home");
+    } catch (error) {
+      setErrorMessage("Error al registrarse");
+      console.log(error);
     }
   };
 
@@ -44,7 +61,25 @@ const Login = () => {
         <h2 className="text-1xl font-bold mb-4 uppercase text-white text-center ">
           Bienvenido
         </h2>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        {errorMessage && (
+          <div className="text-red-500 text-center mt-2">{errorMessage}</div>
+        )}
+        <form onSubmit={handleSubmit(submit)}>
+          <div className="mb-4">
+            <input
+              placeholder="Name*"
+              type="text"
+              className={`w-full border rounded p-1 bg-[#44444C] text-white ${
+                errors.name ? "border-red-500" : ""
+              }`}
+              {...register("name", {
+                required: "*Este campo es obligatorio",
+              })}
+            />
+            <div className="text-xs text-red-500 mt-1">
+              <ErrorMessage errors={errors} name="name" as="span" />
+            </div>
+          </div>
           <div className="mb-4">
             <input
               placeholder="Email*"
@@ -86,21 +121,6 @@ const Login = () => {
             />
             <div className="text-xs text-red-500 mt-1">
               <ErrorMessage errors={errors} name="password" as="span" />
-            </div>
-          </div>
-          <div className="mb-4">
-            <input
-              placeholder="Name*"
-              type="text"
-              className={`w-full border rounded p-1 bg-[#44444C] text-white ${
-                errors.name ? "border-red-500" : ""
-              }`}
-              {...register("name", {
-                required: "*Este campo es obligatorio",
-              })}
-            />
-            <div className="text-xs text-red-500 mt-1">
-              <ErrorMessage errors={errors} name="name" as="span" />
             </div>
           </div>
 
@@ -147,4 +167,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignUp;

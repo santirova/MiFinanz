@@ -2,8 +2,13 @@
 
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "@/redux/features/useInfoSlice";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const Login = () => {
+  const [errorMessage, setErrorMessage] = useState("");
   const {
     register,
     handleSubmit,
@@ -17,12 +22,31 @@ const Login = () => {
     mode: "onSubmit",
   });
 
-  const onSubmit = (data) => {
-    if (isValid) {
-      alert(JSON.stringify(data));
-      reset();
+  const dispatch = useDispatch();
+
+  const submit = async (data) => {
+    try {
+      await dispatch(loginUser(data));
+      reset({
+        email: "",
+        password: "",
+      });
+      setErrorMessage("");
+      window.location.href = "/home";
+    } catch (error) {
+      console.log(error);
+      setErrorMessage("Usuario o clave incorrecta");
     }
   };
+  const { token } = useSelector((store) => store.userInfo);
+  useEffect(() => {
+    // const storedToken = localStorage.getItem("token");
+
+    if (token) {
+      // Redirigir al usuario a /home
+      window.location.href = "/home";
+    }
+  }, []);
 
   return (
     <div className="  h-screen  bg-black flex flex-col justify-center items-center">
@@ -36,7 +60,10 @@ const Login = () => {
         <h2 className="text-1xl font-bold mb-4 uppercase text-white text-center ">
           Bienvenido otra vez
         </h2>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        {errorMessage && (
+          <div className="text-red-500 text-center mt-2">{errorMessage}</div>
+        )}
+        <form onSubmit={handleSubmit(submit)}>
           <div className="mb-4">
             <input
               placeholder="Email*"
@@ -65,9 +92,15 @@ const Login = () => {
             Login
           </button>
           <div className="mt-3 text-sm flex justify-around">
+            <label className="text-white">¿Se te olvido la contraseña?</label>
+            <span className="text-yellow-200">
+              <Link href="/#">Recuperar</Link>
+            </span>
+          </div>
+          <div className="mt-3 text-sm flex justify-around">
             <label className="text-white">¿No tienes cuenta?</label>
             <span className="text-yellow-200">
-              <a href="#">Inscríbete</a>
+              <Link href="/signup">Inscríbete</Link>
             </span>
           </div>
           <div className="flex items-center">
