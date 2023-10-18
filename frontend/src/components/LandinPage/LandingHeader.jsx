@@ -6,17 +6,17 @@ import { FaWindows } from "react-icons/fa"
 export default function LandingHeader() {
   return (
     <section className="flex flex-col w-full justify-between md:flex-row">
-      <div id="leftside" className="flex flex-col w-full gap-9 mt-16 md:w-1/2">
-        <div className="flex flex-col items-center gap-2">
-          <h3 className="text-2xl uppercase font-bold ">
+      <div id="leftside" className="flex flex-col w-full gap-9 justify-center items-start mt-16 md:w-1/2">
+        <div className="flex flex-col items-center justify-center ">
+          <h3 className="text-[28px] uppercase font-bold leading-3">
             Toma el control de tus
           </h3>
-          <h2 className="text-4xl font-bold text-mYellow uppercase">
+          <h2 className="text-[52px] font-bold text-mYellow uppercase">
             Movimientos
           </h2>
         </div>
-        <p className="italic">
-          Aplicación de gestión de finanzas personales que te empoderan.
+        <p className="italic text-lg">
+          Aplicación de gestión de finanzas <br /> personales que te empoderan.
         </p>
         <button className="bg-mBlue rounded-full p-4">
           Crear una cuenta
