@@ -21,14 +21,14 @@ const ContactForm = () => {
                 onSubmit={onFormSubmit}
             >
                 <input
-                    className="h-14 rounded-md p-4 placeholder-mWhite bg-gray-700 focus:bg-mWhite focus:placeholder-mBlack transition-all "
+                    className="h-14 rounded-md p-4 placeholder-mWhite bg-mDarkGray focus:bg-mWhite focus:placeholder-mBlack transition-all "
                     name="name"
                     required
                     maxLength={500}
-                    placeholder="Name*"
+                    placeholder="Nombre*"
                 />
                 <input
-                    className="h-14 rounded-md p-4rounded-md  p-4 placeholder-mWhite bg-gray-700 focus:bg-mWhite focus:placeholder-mBlack transition-all "
+                    className="h-14 rounded-md p-4rounded-md  p-4 placeholder-mWhite bg-mDarkGray focus:bg-mWhite focus:placeholder-mBlack transition-all "
                     name="senderEmail"
                     type="email"
                     required
@@ -36,9 +36,9 @@ const ContactForm = () => {
                     placeholder="Email*"
                 />
                 <textarea
-                    className="h-52 rounded-md p-4 placeholder-mWhite bg-gray-700 focus:bg-mWhite focus:placeholder-mBlack transition-all "
+                    className="h-52 rounded-md p-4 placeholder-mWhite bg-mDarkGray focus:bg-mWhite focus:placeholder-mBlack transition-all "
                     name="message"
-                    placeholder="Message*"
+                    placeholder="Mensaje*"
                     required
                     maxLength={5000}
                 />
