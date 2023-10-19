@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "server": "nodemon index.js",
-    "db:import": "node ./seed/seeder.js -i"
+    "server": "nodemon index.js"
   },
   "author": "Not Country",
   "license": "ISC",

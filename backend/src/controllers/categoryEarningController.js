@@ -6,14 +6,23 @@ const postCategoryEarnignsByUserController = async (name) => {
     return categoryEarnigns
 }
 
-//Arreglar
-const getCategoryEarnignsByUserController = async (id) => {
+
+const getCategoryEarnignsController = async (id) => {
     console.log(id);
-    const categoryEarnigns = await CategoryEarning.findByPk(id);
-    if (!categoryEarnigns) {
-        return "La categoria no existe"
-       } 
-    return categoryEarnigns
+
+    try {
+        const categoryEarnigns = await CategoryEarning.findAll();
+    
+        if (categoryEarnigns.length == 0) {
+            return "No tiene registro"
+            }
+        return categoryEarnigns
+    } catch (error) {
+        console.log(error);
+    }
+    //const categoryEarnigns = await CategoryEarning.findByPk({where:{id}});
+    
+   
 }
 
 const postMultiCatEarningsController = async () => {
@@ -26,5 +35,7 @@ const postMultiCatEarningsController = async () => {
     
 }
 
-module.exports = {getCategoryEarnignsByUserController,
+
+module.exports = {getCategoryEarnignsController,
 postCategoryEarnignsByUserController,postMultiCatEarningsController}
+

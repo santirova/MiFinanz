@@ -1,9 +1,9 @@
 const {Router} = require('express');
-const {getCategoryEarnignsByUserIdHandler, postCategoryEarnignsByUserIdHandler,postMultiCatEarningsHandler} = require('../handlers/categoryEarnignHandlers');
+const {getCategoryEarnignsHandler, postCategoryEarnignsByUserIdHandler,postMultiCatEarningsHandler} = require('../handlers/categoryEarnignHandlers');
 
 const categoryEarningRouter = Router();
 
-categoryEarningRouter.get('/:id', getCategoryEarnignsByUserIdHandler);
+categoryEarningRouter.get('/', getCategoryEarnignsHandler);
 categoryEarningRouter.post('/',postCategoryEarnignsByUserIdHandler);
 categoryEarningRouter.post('/multi',postMultiCatEarningsHandler);
 
