@@ -1,3 +1,4 @@
+const { earningsCategories } = require("../helpers/categories.js");
 const {CategoryEarning} = require("./../db.js");
 
 const postCategoryEarnignsByUserController = async (name) => {
@@ -15,6 +16,15 @@ const getCategoryEarnignsByUserController = async (id) => {
     return categoryEarnigns
 }
 
+const postMultiCatEarningsController = async () => {
+    try {
+        const categories = await CategoryEarning.bulkCreate(earningsCategories)
+        return categories
+    } catch (error) {
+        console.log(error.message);
+    }
+    
+}
 
 module.exports = {getCategoryEarnignsByUserController,
-postCategoryEarnignsByUserController}
+postCategoryEarnignsByUserController,postMultiCatEarningsController}
