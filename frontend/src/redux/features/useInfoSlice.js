@@ -7,9 +7,10 @@ const initialState = {
 
 const userInfoSlice = createSlice({
   name: "userInfo",
-  initialState: localStorage.getItem("userInfo")
-    ? JSON.parse(localStorage.getItem("userInfo"))
-    : initialState,
+  initialState:
+    typeof window !== "undefined" && localStorage.getItem("userInfo")
+      ? JSON.parse(localStorage.getItem("userInfo"))
+      : initialState,
   reducers: {
     setUserInfoGlobal: (state, action) => {
       return action.payload;
@@ -47,7 +48,7 @@ export const signup = (data) => (dispatch) => {
   return new Promise((resolve, reject) => {
     axiosMiFinanz.post("/user/register", data).then((res) => {
       //  console.log("Respuesta del servidor:", res.data);
-      localStorage.setItem("userInfo", JSON.stringify(res.data));
+      //localStorage.setItem("userInfo", JSON.stringify(res.data));
       dispatch(setUserInfoGlobal(res.data));
       resolve();
     });

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "@/redux/features/useInfoSlice";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -22,6 +23,8 @@ const Login = () => {
     mode: "onSubmit",
   });
 
+  const { push } = useRouter();
+
   const dispatch = useDispatch();
 
   const submit = async (data) => {
@@ -32,19 +35,21 @@ const Login = () => {
         password: "",
       });
       setErrorMessage("");
-      window.location.href = "/home";
+      push("/home");
     } catch (error) {
       console.log(error);
       setErrorMessage("Usuario o clave incorrecta");
     }
   };
   const { token } = useSelector((store) => store.userInfo);
+
   useEffect(() => {
     // const storedToken = localStorage.getItem("token");
 
     if (token) {
       // Redirigir al usuario a /home
-      window.location.href = "/home";
+      push("/home");
+      //window.location.href = "/home";
     }
   }, []);
 

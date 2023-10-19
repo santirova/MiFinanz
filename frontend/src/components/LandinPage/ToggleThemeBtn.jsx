@@ -10,7 +10,7 @@ const ToggleThemeBtn = ({ handleOnClick }) => {
     }
 
     return (
-        <label className='flex bg-white rounded-2xl cursor-pointer select-none items-center'>
+        <label className='flex bg-mBlack rounded-2xl cursor-pointer select-none items-center dark:bg-mWhite'>
             <div className='relative'>
                 <input
                     type='checkbox'
@@ -23,7 +23,7 @@ const ToggleThemeBtn = ({ handleOnClick }) => {
                 <div
                     className={`dot absolute top-1 flex h-6 w-6
                      items-center justify-center rounded-full transition 
-                      ${isChecked ? '!bg-slate-500 left-1 ' : 'bg-black right-1 '}`}
+                      ${isChecked ? '!bg-mWhite left-1 ' : 'bg-mBlack right-1 '}`}
                 >
                 </div>
             </div>

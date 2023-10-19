@@ -6,11 +6,13 @@ import Link from "next/link";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signup } from "@/redux/features/useInfoSlice";
+import { useRouter } from "next/navigation";
 
 const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const dispatch = useDispatch();
+  const { push } = useRouter();
 
   const {
     register,
@@ -36,7 +38,7 @@ const SignUp = () => {
         password: "",
       });
       setErrorMessage("");
-      window.location.replace("/home");
+      push("/login");
     } catch (error) {
       setErrorMessage("Error al registrarse");
       console.log(error);
@@ -114,7 +116,7 @@ const SignUp = () => {
                     "La contraseña debe incluir al menos una letra mayúscula y minuscula, un valor numérico y un carácter especial",
                 },
                 minLength: {
-                  value: 8,
+                  value: 6,
                   message: "La longitud mínima requerida es de 8 caracteres",
                 },
               })}
