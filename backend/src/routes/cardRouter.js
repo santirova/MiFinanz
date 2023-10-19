@@ -1,9 +1,12 @@
 const {Router} = require('express');
-const { getCardsByUserIdHandler } = require('../handlers/cardHandlers');
+const { getCardsByUserIdHandler,postCardHandler, putCardHandler, deleteCardHandler } = require('../handlers/cardHandlers');
 
 const cardRouter = Router();
 
-cardRouter.get('/userCards',getCardsByUserIdHandler);
+cardRouter.post('/:userId', postCardHandler)
+cardRouter.get('/:userId',getCardsByUserIdHandler);
+cardRouter.put('/:cardId', putCardHandler);
+cardRouter.delete('/:cardId', deleteCardHandler);
 
 
 module.exports = {cardRouter};
