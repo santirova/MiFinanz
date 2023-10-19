@@ -8,6 +8,16 @@ module.exports = {
   "darkMode": "class",
   theme: {
     extend: {
+      colors: {
+        'mBlack': '#0B0909',
+        'mDarkGray': '#333333',
+        'mlightGray': '#8C8C8C',
+        'mWhite': '#EEEEEE',
+        'mBlue': '#23A6F0',
+        'mYellow': '#F0EB0C',
+        'mRed': '#F03C43',
+
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
