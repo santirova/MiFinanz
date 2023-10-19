@@ -6,7 +6,7 @@ const postCategoryEarnignsByUserController = async (name) => {
 }
 
 
-const getCategoryEarnignsByUserController = async (id) => {
+const getCategoryEarnignsController = async (id) => {
     console.log(id);
 
     try {
@@ -25,5 +25,5 @@ const getCategoryEarnignsByUserController = async (id) => {
 }
 
 
-module.exports = {getCategoryEarnignsByUserController,
+module.exports = {getCategoryEarnignsController,
 postCategoryEarnignsByUserController}
