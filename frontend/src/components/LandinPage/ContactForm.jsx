@@ -8,7 +8,7 @@ const ContactForm = () => {
         /* Pendiente */
     }
     return (
-        <section className="h-[calc(100vh_-_120px)] flex flex-col items-center justify-center gap-6 w-full p-5 md:flex-wrap md:flex-row">
+        <section id='soporte' className="h-[calc(100vh_-_120px)] flex flex-col items-center justify-center gap-6 w-full p-5 md:flex-wrap md:flex-row">
             <h2 className='block text-4xl font-semibold text-mBlack md:hidden dark:text-mWhite'>
                 Contact
             </h2>

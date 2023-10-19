@@ -70,7 +70,7 @@ const TeamInfo = () => {
             }
         ]
     return (
-        <section className="w-full grid grid-cols-2 gap-4 md:grid-cols-4">
+        <section id='nosotros' className="w-full grid grid-cols-2 gap-4 md:grid-cols-4">
             {initialState.map(item => (
                 <div key={item.id} className='flex flex-col justify-center items-center gap-2'>
                     <Image src={item.image} alt={item.name} width={100} height={100} className="rounded-full" />

@@ -1,17 +1,20 @@
 "use client"
-
+import { useRouter } from 'next/navigation';
 import { setTheme } from "@/redux/features/themeSlice";
+import { setSection } from "@/redux/features/activeSectionSlice";
+import { links } from "../../../lib/data";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks"
 import { useEffect } from "react";
 import ToggleThemeBtn from "./ToggleThemeBtn";
 import Image from "next/image";
 import logo from '@/assets/shared/logo.png'
+import Link from 'next/link';
 
 const NavBar = () => {
-
+    const { route, push, pathname } = useRouter();
     const dispatch = useAppDispatch();
-    const theme = useAppSelector(state => state.theme.darkMode)
-
+    const theme = useAppSelector(state => state.theme.darkMode);
+    const activeSection = useAppSelector(state => state.activeSection.activeSection);
     useEffect(() => {
         if (theme === 'dark') {
             document.documentElement.classList.add('dark')
@@ -32,19 +35,28 @@ const NavBar = () => {
 
             <div className='nav-action hidden md:block'>
                 <ul className='flex items-center gap-4 lg:mr-8'>
-                    <li className="cursor-pointer">BLOG</li>
-                    <li className="cursor-pointer">PLUS</li>
-                    <li className="cursor-pointer">SOPORTE</li>
-                    <li className="cursor-pointer">NOSOTROS</li>
+                    {links.map((link, index) => (
+                        <li key={index}>
+                            <Link
+                                className=''
+                                href={link.hash}
+                                onClick={() => {
+                                    dispatch(setSection(link.name));
+                                }}
+                            >
+                                {link.name}
+                            </Link>
+                        </li>
+                    ))}
                     <li>|</li>
                     <ToggleThemeBtn handleOnClick={handleChangeTheme} />
-                    <button className="bg-mWhite text-mBlack font-semibold p-1 w-20 rounded-2xl">LOGIN</button>
+                    <button className="bg-mWhite text-mBlack font-semibold p-1 w-20 rounded-2xl" onClick={() => push('/login')} >LOGIN</button>
                 </ul>
             </div>
             <div className="nav-hamburger hidden">
 
             </div>
-        </nav>
+        </nav >
     )
 }
 

@@ -5,7 +5,7 @@ import { FaGooglePlay } from "react-icons/fa";
 import { FaWindows } from "react-icons/fa"
 export default function LandingHeader() {
   return (
-    <section className="h-[calc(100vh_-_90px)] mt-12 flex flex-col w-full justify-evenly md:flex-row">
+    <section id="blog" className="h-[calc(100vh_-_90px)] mt-12 flex flex-col w-full justify-evenly md:flex-row">
       <div id="leftside" className="flex flex-col w-full gap-8 justify-center items-center mt-16 md:items-start md:w-1/2">
         <div className="flex flex-col items-center justify-center ">
           <h3 className="text-[28px] uppercase font-bold leading-3">
