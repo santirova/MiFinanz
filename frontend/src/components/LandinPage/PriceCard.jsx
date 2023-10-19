@@ -57,9 +57,9 @@ const PriceCard = () => {
           </div>
           <ul className="grid gap-3 text-left">
             {item.feautures.map((feature) => (
-              <div className="flex gap-2" key={`${item.id}${feature}`}>
+              <div className="flex gap-2" key={`${item.id}-${feature}`}>
                 <GoCheckCircleFill className="text-mYellow rounded-full text-3xl" />
-                <li key={feature}>{feature}</li>
+                <li>{feature}</li>
               </div>
             ))}
           </ul>
