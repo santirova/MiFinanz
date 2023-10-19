@@ -5,6 +5,7 @@ const {earningRouter} = require('./earningRouter');
 const { categoryEarningRouter } = require('./categoryEarningRouter');
 const billsRouters = require('./billsRouter');
 const { categoryBills } = require('./categoryBillsRouter');
+const { filtersRouter } = require('./filtersRouter');
 
 const router = Router();
 
@@ -15,7 +16,7 @@ router.use('/earning', earningRouter);
 router.use('/categoryEarning', categoryEarningRouter);
 router.use('/bill', billsRouters);
 router.use('/categoryBill', categoryBills);
-
+router.use('/filter',filtersRouter)
 
 
 module.exports = router

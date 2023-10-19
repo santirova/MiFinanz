@@ -1,6 +1,5 @@
 const { 
-    getEarningByUserIdController, 
-    filterCategoryEarningByUserIdController,
+    getEarningByUserIdController,
     postEarningByUserIdController, 
     putEarningByUserIdController,
     deleteEarningByUserIdController } = require("../controllers/earnignControllers")
@@ -17,16 +16,6 @@ const getEarnigsByUserIdHandler = async (req,res) => {
     }
 }
 
-const  filterCategoryEarnigsByUserIdHandler = async (req,res) => {
-    try {
-        const category = await filterCategoryEarningByUserIdController(req)
-        res.status(200).send(category)
-    } catch (error) {
-        console.log(error);
-        res.status(400).send({error:error.messages})
-
-    }
-}
 const postEarnigsByUserIdHandler = async (req,res) => {
     try {     
         const {UserId}=req.params   
@@ -66,7 +55,6 @@ const deleteEarnigsByUserIdHandler = async (req,res) => {
 
 module.exports = {
     getEarnigsByUserIdHandler,
-    filterCategoryEarnigsByUserIdHandler,
     postEarnigsByUserIdHandler, 
     putEarnigsByUserIdHandler,
     deleteEarnigsByUserIdHandler} 

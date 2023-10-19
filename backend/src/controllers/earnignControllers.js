@@ -15,32 +15,15 @@ const getEarningByUserIdController=async(UserId)=>{
    return earnings
  }
 
- const filterCategoryEarningByUserIdController=async(req)=>{
-  const {id} =req.query
-  if (!id) {
-    return "Incluye la categoria"
-  }
 
-  const CategoryEarnings = await Earning.findAll(
-    {where : {CategoryEarningId: id}},
-    {include : {
-       model: CategoryEarning,
-        attributes :["name"]}
-      }
-      )
-
- if(CategoryEarning.length===0){
-  return"No hay Ingresos asociados con esa categoria"
- }
- 
-   //  console.log(earning);
-  return CategoryEarnings
-}
 
 
 const postEarningByUserIdController= async (amount, date, name, CategoryEarningId, UserId)=>{
   // Aca hago las validaciones
-    const earning = await Earning.create({amount, date, name, CategoryEarningId, UserId});
+  const earning = await Earning.create({amount, date, name, CategoryEarningId, UserId,include: [{
+    model: CategoryEarning,
+    attributes: ["name"]
+  }]});
   return earning;
 
 }
@@ -77,7 +60,6 @@ const deleteEarningByUserIdController = async(id)=>{
 
 module.exports={
   getEarningByUserIdController,
-  filterCategoryEarningByUserIdController,
   postEarningByUserIdController,
   putEarningByUserIdController,
   deleteEarningByUserIdController
