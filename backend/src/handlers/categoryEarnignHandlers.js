@@ -1,4 +1,6 @@
-const { getCategoryEarnignsController,  postCategoryEarnignsByUserController } = require("../controllers/categoryEarningController")
+
+const { getCategoryEarnignsController,  postCategoryEarnignsByUserController,postMultiCatEarningsController } = require("../controllers/categoryEarningController")
+
 
 
 const postCategoryEarnignsByUserIdHandler = async (req,res) => {
@@ -19,5 +21,15 @@ const getCategoryEarnignsHandler = async (req,res) => {
         res.status(400).send({error:error.messages})
     }
 }
+const postMultiCatEarningsHandler = async (req,res)=>{
+    try {
+        console.log('hola');
+        const response = await postMultiCatEarningsController()
+        res.status(200).send(response)
+    } catch (error) {
+        res.status(400).send({error:error.messages})
+    }
+}
 
-module.exports = {getCategoryEarnignsHandler,postCategoryEarnignsByUserIdHandler}
+module.exports = {getCategoryEarnignsHandler,postCategoryEarnignsByUserIdHandler,postMultiCatEarningsHandler}
+

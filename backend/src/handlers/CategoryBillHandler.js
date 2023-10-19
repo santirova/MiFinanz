@@ -1,4 +1,4 @@
-const { categoryBillPostController, catGetController } = require('../controllers/categoryBillsController');
+const { categoryBillPostController, catGetController,postMultiCatBillController } = require('../controllers/categoryBillsController');
 
 catBillPostHandler = async (req, res) => {
     const { name } = req.body;
@@ -18,4 +18,12 @@ catGetHandler = async (req, res) => {
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 };
-module.exports = { catBillPostHandler, catGetHandler };
+postMultiCatBillHandler = async (req,res) =>{
+    try {
+        const response = await postMultiCatBillController()
+        res.status(200).send(response)
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
+module.exports = { catBillPostHandler, catGetHandler,postMultiCatBillHandler };
