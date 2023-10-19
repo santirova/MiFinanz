@@ -28,7 +28,7 @@ const NavBar = () => {
     console.log(theme);
     return (
         <nav className='fixed flex w-full bg-mWhite border-b-2 border-b-mlightGray dark:border-b-mWhite dark:bg-mBlack p-5 justify-between z-50'>
-            <div className='flex items-center gap-1'>
+            <div className='flex items-center gap-1 cursor-pointer' onClick={() => push('/')}>
                 <Image src={logo} alt="miFinanzas" width={39} height={39} />
                 <span className="font-semibold text-xl">miFinanzs</span>
             </div>
@@ -36,9 +36,10 @@ const NavBar = () => {
             <div className='nav-action hidden md:block'>
                 <ul className='flex items-center gap-4 lg:mr-8'>
                     {links.map((link, index) => (
-                        <li key={index}>
+                        <li key={index} className={pathname?.includes(link.hash) && 'text-purple-600'}>
+                            {console.log('pathname:', pathname)}
+                            {console.log('link.hash:', link.hash)}
                             <Link
-                                className=''
                                 href={link.hash}
                                 onClick={() => {
                                     dispatch(setSection(link.name));

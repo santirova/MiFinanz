@@ -41,7 +41,7 @@ const PriceCard = () => {
             },
         ];
     return (
-        <section id='section-card' className='w-full flex flex-col justify-center items-center gap-14 p-5 flex-wrap text-mWhite md:flex-row'>
+        <section id='plus' className='w-full flex flex-col justify-center items-center gap-14 p-5 flex-wrap text-mWhite md:flex-row'>
             {initialState.map(item => (
                 <div id='container-card' className='grid w-[320px] h-[500px] bg-mDarkGray hover:border hover:border-solid hover:border-mYellow rounded-xl text-center p-8 gap-4' key={item.id}>
                     <h2 className='font-bold'>{item.name}</h2>
