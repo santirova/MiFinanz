@@ -1,5 +1,7 @@
-const {Earning,CategoryEarning} = require('../db')
+const {Earning,CategoryEarning,Bill,CategoryBill} = require('../db')
 const { Sequelize } = require('sequelize');
+
+//Earnings
 const filterEarningsController=async(catId,amount)=>{
     // if (!catId) {
     //   return "Incluye la categoria"
@@ -51,5 +53,31 @@ const filterEarningsController=async(catId,amount)=>{
     });
     return registrosOrdenados
   }
+//Bills
+const filterBillsController=async(catId,payment_method,UserId)=>{
+    const where = {
+        UserId
+    }
 
-  module.exports = {filterEarningsController, filterEarningsbydataController, orderEarningsbydataController}
+    if (payment_method) {
+        where.payment_method = payment_method
+    }
+
+    if(catId){
+        where.CategoryBillId = catId
+    }
+    const bills = await Bill.findAll({
+        where,
+        include:[{
+            model:CategoryBill,
+            attributes:["name"]
+        }]  
+    })
+  
+   if(bills.length===0){
+    return"No se encontraron gastos"
+   }
+
+    return bills
+  }
+  module.exports = {filterEarningsController, filterEarningsbydataController, orderEarningsbydataController,filterBillsController}
