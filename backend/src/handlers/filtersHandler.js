@@ -1,5 +1,5 @@
-const { filterEarningsController, filterEarningsbydataController, orderEarningsbydataController } = require("../controllers/filtersControllers");
-
+const { filterEarningsController, filterEarningsbydataController, orderEarningsbydataController, filterBillsController } = require("../controllers/filtersControllers");
+//Earnings
 const  filterEarningsHandler = async (req,res) => {
     const {catId,amount} = req.query
     try {
@@ -36,4 +36,19 @@ const orderEarningsbydataHandler = async (req,res) => {
     }
 }
 
-module.exports={filterEarningsHandler, filterEarningsbydataHandler,orderEarningsbydataHandler}
+//Bills
+
+const  filterBillsHandler = async (req,res) => {
+    const {UserId} = req.params
+    const {catId,payment_method} = req.query
+    try {
+        const bills = await filterBillsController(catId,payment_method,UserId)
+        res.status(200).send(bills)
+    } catch (error) {
+        console.log(error);
+        res.status(400).send({error:error.messages})
+
+    }
+}
+
+module.exports={filterEarningsHandler, filterEarningsbydataHandler,orderEarningsbydataHandler,filterBillsHandler}
