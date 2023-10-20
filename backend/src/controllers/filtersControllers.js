@@ -1,6 +1,7 @@
 const {Earning,CategoryEarning} = require('../db')
 const { Sequelize } = require('sequelize');
-const filterEarningsController=async(catId,amount)=>{
+
+const filterEarningsController= async (catId,amount) => {
     // if (!catId) {
     //   return "Incluye la categoria"
     // }
@@ -28,7 +29,7 @@ const filterEarningsController=async(catId,amount)=>{
     return earnings
   }
 
-  const filterEarningsbydataController=async(req,res)=>{
+  const filterEarningsbydataController = async (req,res) => {
     const {fechaInicio} =req.query;
     const {fechaFin} = req.query;
 
