@@ -3,10 +3,8 @@ const {billUserGet, createBill} = require('../controllers/billsContorller');
 
 const getBillByUserIdHandler = async (req,res) =>{
     try {
-      console.log("hola");
         const userId = req.params.userId;
         const Bills = await billUserGet(userId)
-        console.log(Bills);
         res.status(200).send({message: "hola",Bills})
     } catch (error) {
         res.status(400).send({error:error.message})
@@ -16,7 +14,7 @@ const getBillByUserIdHandler = async (req,res) =>{
 const createBillHandler = async (req, res) => {
     try {
 
-      const userId = req.params.userId; // 
+      const userId = req.params.userId; 
       const { amount, name, data, payment_method, categoryId, cardId, frequency } = req.body;
   
       const bill = await createBill(userId, amount, data, name, payment_method, categoryId, cardId, frequency);
