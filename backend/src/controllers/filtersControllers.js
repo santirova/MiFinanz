@@ -1,5 +1,7 @@
 const {Earning,CategoryEarning} = require('../db')
 const { Sequelize } = require('sequelize');
+
+//filtrar las Categorias
 const filterEarningsController=async(catId,amount)=>{
     // if (!catId) {
     //   return "Incluye la categoria"
@@ -28,7 +30,8 @@ const filterEarningsController=async(catId,amount)=>{
     return earnings
   }
 
-  const filterEarningsbydataController=async(req,res)=>{
+  //filtro de fechas por rango y ordena 
+  const filterEarningsbydateController=async(req,res)=>{
     const {fechaInicio} =req.query;
     const {fechaFin} = req.query;
 
@@ -45,11 +48,28 @@ const filterEarningsController=async(catId,amount)=>{
    return registrosFiltrados
   }
 
-  const orderEarningsbydataController = async()=>{
+//Odenamiento por Fecha
+  const orderEarningsbydateController = async(req, res)=>{
+    //ojo la direccion solo puede ser ASC / DESC por que si no explota
+  const {direction}=req.query
     const registrosOrdenados = await Earning.findAll({
-      order: [['date', 'ASC']],
+      order: [['date', direction]],
     });
     return registrosOrdenados
   }
 
-  module.exports = {filterEarningsController, filterEarningsbydataController, orderEarningsbydataController}
+//Odenamiento por Monto
+  const orderEarningsbyamountController = async(req, res)=>{
+    //ojo la direccion solo puede ser ASC / DESC por que si no explota
+  const {direction}=req.query
+    const registrosOrdenados = await Earning.findAll({
+      order: [['amount', direction]],
+    });
+    return registrosOrdenados
+  }
+
+  module.exports = {
+     filterEarningsController,
+     filterEarningsbydateController, 
+     orderEarningsbydateController, 
+     orderEarningsbyamountController}
