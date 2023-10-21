@@ -18,7 +18,7 @@ catGetHandler = async (req, res) => {
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 };
-postMultiCatBillHandler = async (req,res) =>{
+const postMultiCatBillHandler = async (req,res) =>{
     try {
         const response = await postMultiCatBillController()
         res.status(200).send(response)

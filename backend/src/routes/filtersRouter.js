@@ -1,10 +1,12 @@
 const {Router} = require('express');
-const { filterEarningsHandler, filterEarningsbydateHandler, orderEarningsbydateHandler,  orderEarningsbyamountHandler } = require('../handlers/filtersHandler');
+const { filterEarningsHandler, filterEarningsbydateHandler, orderEarningsbydateHandler,  orderEarningsbyamountHandler,filterBillsHandler } = require('../handlers/filtersHandler');
 const filtersRouter = Router()
 
+//Filtros earning
 filtersRouter.get('/earnings',filterEarningsHandler)
 filtersRouter.get('/', filterEarningsbydateHandler)
 filtersRouter.get('/order-date', orderEarningsbydateHandler)
 filtersRouter.get('/order-amount', orderEarningsbyamountHandler)
-
+//filtros bills
+filtersRouter.get('/bills/:UserId',filterBillsHandler)
 module.exports= {filtersRouter}

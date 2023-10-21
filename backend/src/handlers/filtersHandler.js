@@ -1,8 +1,11 @@
 const { filterEarningsController, 
     filterEarningsbydateController,
     orderEarningsbydateController,
-    orderEarningsbyamountController } = require("../controllers/filtersControllers");
+    orderEarningsbyamountController ,
+    filterBillsController} = require("../controllers/filtersControllers");
 
+
+//Earnings
 const  filterEarningsHandler = async (req,res) => {
     const {catId,amount} = req.query
     try {
@@ -44,7 +47,21 @@ const orderEarningsbydateHandler = async (req,res) => {
 const orderEarningsbyamountHandler = async (req,res) => {
     try {
         const category = await orderEarningsbyamountController(req,res)
-        res.status(200).send(category)
+        res.status(200).send(category)     
+    }catch (error) {
+        console.log(error);
+        res.status(400).send({error:error.messages})
+
+    }
+}
+
+//Bills
+const  filterBillsHandler = async (req,res) => {
+    const {UserId} = req.params
+    const {catId,payment_method} = req.query
+    try {
+        const bills = await filterBillsController(catId,payment_method,UserId)
+        res.status(200).send(bills)
     } catch (error) {
         console.log(error);
         res.status(400).send({error:error.messages})
@@ -56,4 +73,6 @@ module.exports={
     filterEarningsHandler,
      filterEarningsbydateHandler,
      orderEarningsbydateHandler, 
-     orderEarningsbyamountHandler}
+     orderEarningsbyamountHandler,
+     filterBillsHandler}
+

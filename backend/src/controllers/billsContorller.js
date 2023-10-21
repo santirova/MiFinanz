@@ -19,6 +19,10 @@ const billUserGet = async (userId) => {
 
 const createBill = async (userId, amount, data, name, payment_method, categoryId, cardId, frequency) => {
   try {
+    const user = await User.findByPk(userId);
+    if (!user) {
+      throw new Error('Usuario no encontrado.');
+    }
     // Crea una instancia de Bill sin asociar con CategoryBill ni User.
     const bill = await Bill.create({
       amount,
@@ -48,10 +52,6 @@ const createBill = async (userId, amount, data, name, payment_method, categoryId
     await bill.setCategoryBill(category);
 
     // Asocia la factura con el usuario (User) usando userId.
-    const user = await User.findByPk(userId);
-    if (!user) {
-      throw new Error('Usuario no encontrado.');
-    }
     await bill.setUser(user);
 
     return bill;

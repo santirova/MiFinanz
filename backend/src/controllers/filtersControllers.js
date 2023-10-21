@@ -1,11 +1,12 @@
-const {Earning,CategoryEarning} = require('../db')
+const {Earning,CategoryEarning,Bill,CategoryBill} = require('../db')
 const { Sequelize } = require('sequelize');
 
-//filtrar las Categorias
-const filterEarningsController=async(catId,amount)=>{
-    // if (!catId) {
-    //   return "Incluye la categoria"
-    // }
+//Earnings
+//Filtrar por Categorias
+  const filterEarningsController=async(catId,amount)=>{
+     if (!catId) {
+      return "Incluye la categoria"
+    }
     const where = {}
 
     if (amount) {
@@ -30,7 +31,8 @@ const filterEarningsController=async(catId,amount)=>{
     return earnings
   }
 
-  //filtro de fechas por rango y ordena 
+
+  //Filtrar fechas por rango y ordenar 
   const filterEarningsbydateController=async(req,res)=>{
     const {fechaInicio} =req.query;
     const {fechaFin} = req.query;
@@ -48,6 +50,7 @@ const filterEarningsController=async(catId,amount)=>{
    return registrosFiltrados
   }
 
+
 //Odenamiento por Fecha
   const orderEarningsbydateController = async(req, res)=>{
     //ojo la direccion solo puede ser ASC / DESC por que si no explota
@@ -58,18 +61,51 @@ const filterEarningsController=async(catId,amount)=>{
     return registrosOrdenados
   }
 
+
 //Odenamiento por Monto
   const orderEarningsbyamountController = async(req, res)=>{
-    //ojo la direccion solo puede ser ASC / DESC por que si no explota
+  //ojo la direccion solo puede ser ASC / DESC por que si no explota
   const {direction}=req.query
-    const registrosOrdenados = await Earning.findAll({
-      order: [['amount', direction]],
-    });
-    return registrosOrdenados
+  const registrosOrdenados = await Earning.findAll({
+    order: [['amount', direction]],
+  });
+  return registrosOrdenados
+  }
+
+
+//Bills
+const filterBillsController=async(catId,payment_method,UserId)=>{
+    const where = {
+        UserId
+    }
+
+    if (payment_method) {
+        where.payment_method = payment_method
+    }
+
+    if(catId){
+        where.CategoryBillId = catId
+    }
+    
+    const bills = await Bill.findAll({
+        where,
+        include:[{
+            model:CategoryBill,
+            attributes:["name"]
+        }]  
+    })
+  
+   if(bills.length===0){
+    return"No se encontraron gastos"
+   }
+
+    return bills
   }
 
   module.exports = {
-     filterEarningsController,
-     filterEarningsbydateController, 
-     orderEarningsbydateController, 
-     orderEarningsbyamountController}
+    filterEarningsController,
+    filterEarningsbydateController, 
+    orderEarningsbydateController, 
+    orderEarningsbyamountController,
+    filterBillsController
+  }
