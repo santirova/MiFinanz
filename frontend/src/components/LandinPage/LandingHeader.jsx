@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function LandingHeader() {
   return (
     <section
-      id="blog"
+      id="inicio"
       className="h-[calc(100vh_-_90px)] mt-12 flex flex-col w-full justify-evenly md:flex-row"
     >
       <div

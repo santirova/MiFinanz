@@ -11,7 +11,7 @@ import logo from '@/assets/shared/logo.png'
 import Link from 'next/link';
 
 const NavBar = () => {
-    const { route, push, pathname } = useRouter();
+    const { push } = useRouter();
     const dispatch = useAppDispatch();
     const theme = useAppSelector(state => state.theme.darkMode);
     const activeSection = useAppSelector(state => state.activeSection.activeSection);
@@ -22,10 +22,14 @@ const NavBar = () => {
             document.documentElement.classList.remove('dark')
         }
     }, [theme])
+
     const handleChangeTheme = () => {
         dispatch(setTheme(theme === 'dark' ? 'light' : 'dark'))
     }
-    console.log(theme);
+
+    const handleSectionClick = (section) => {
+        dispatch(setSection(section))
+    }
     return (
         <nav className='fixed flex w-full bg-mWhite border-b-2 border-b-mlightGray dark:border-b-mWhite dark:bg-mBlack p-5 justify-between z-50'>
             <div className='flex items-center gap-1 cursor-pointer' onClick={() => push('/')}>
@@ -36,14 +40,10 @@ const NavBar = () => {
             <div className='nav-action hidden md:block'>
                 <ul className='flex items-center gap-4 lg:mr-8'>
                     {links.map((link, index) => (
-                        <li key={index} className={pathname?.includes(link.hash) && 'text-purple-600'}>
-                            {console.log('pathname:', pathname)}
-                            {console.log('link.hash:', link.hash)}
+                        <li key={index} className={activeSection == link.hash && 'underline'}>
                             <Link
                                 href={link.hash}
-                                onClick={() => {
-                                    dispatch(setSection(link.name));
-                                }}
+                                onClick={() => handleSectionClick(link.hash)}
                             >
                                 {link.name}
                             </Link>

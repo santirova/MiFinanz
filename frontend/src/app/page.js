@@ -3,8 +3,8 @@ import NavBar from '@/components/LandinPage/NavBar'
 import PriceCard from '@/components/LandinPage/PriceCard'
 import TeamInfo from '@/components/LandinPage/TeamInfo'
 import LandingHeader from '../components/LandinPage/LandingHeader'
-import LandingTwo from '@/components/LandinPage/LandingTwo'
-import LandingThree from '@/components/LandinPage/LandingThree'
+import TryDemo from '@/components/LandinPage/TryDemo'
+import Blog from '@/components/LandinPage/Blog'
 import Footer from '@/components/LandinPage/Footer'
 
 export default function Home() {
@@ -16,10 +16,10 @@ export default function Home() {
           <LandingHeader />
         </div>
         <div className='w-full bg-gradient-to-b from-[#44444C] from-5% via-[#313135] via-25% to-mBlack flex flex-col items-center justify-center gap-24'>
-          <LandingTwo />
+          <TryDemo />
         </div>
         <div className='flex flex-col items-center justify-center gap-24'>
-          <LandingThree />
+          <Blog />
           <PriceCard />
           <TeamInfo />
           <ContactForm />
