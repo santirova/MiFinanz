@@ -40,10 +40,11 @@ const NavBar = () => {
             <div className='nav-action hidden md:block'>
                 <ul className='flex items-center gap-4 lg:mr-8'>
                     {links.map((link, index) => (
-                        <li key={index} className={activeSection == link.hash && 'underline'}>
+                        <li key={index} className={activeSection == link.hash && 'font-extrabold text-mRed dark:text-mYellow'}>
                             <Link
                                 href={link.hash}
                                 onClick={() => handleSectionClick(link.hash)}
+                                className=''
                             >
                                 {link.name}
                             </Link>
