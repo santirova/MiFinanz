@@ -7,6 +7,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signup } from "@/redux/features/useInfoSlice";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import logo from "@/assets/shared/logo.png";
 
 const SignUp = () => {
   const [errorMessage, setErrorMessage] = useState("");
@@ -37,8 +39,13 @@ const SignUp = () => {
         email: "",
         password: "",
       });
-      setErrorMessage("");
-      push("/login");
+      setErrorMessage(
+        "Se ha enviado un link confirmación a la dirección de correo eléctronico proporcionada  "
+      );
+      setTimeout(() => {
+        setErrorMessage("");
+        push("/login");
+      }, 5000);
     } catch (error) {
       setErrorMessage("Error al registrarse");
       console.log(error);
@@ -52,15 +59,17 @@ const SignUp = () => {
     /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[~`!@#$%^&*()--+={}|\\:;"'<>,.?/_₹])[a-zA-Z0-9~`!@#$%^&*()--+={}|\\:;"'<>,.?/_₹]{8,}$/;
 
   return (
-    <div className="  min-h-screen  bg-black flex flex-col justify-center items-center">
+    <div className="  min-h-screen bg-mWhite dark:bg-mBlack flex flex-col justify-center items-center">
       <div className=" w-80 text-center ">
-        <img
-          src="/logo_app.png"
-          alt="Logo de la aplicación"
+        <Image
+          width={64}
+          height={64}
+          src={logo}
+          alt="Logo de MiFinanz"
           className="w-16 mx-auto"
         />
-        <p className="text-white text-2xl mb-4">MiFinanz</p>
-        <h2 className="text-1xl font-bold mb-4 uppercase text-white text-center ">
+        <p className="text-mBlack dark:text-mWhite text-2xl mb-4">MiFinanz</p>
+        <h2 className="text-1xl font-bold mb-4 uppercase text-mBlack dark:text-mWhitee text-center ">
           Bienvenido
         </h2>
         {errorMessage && (
@@ -71,7 +80,7 @@ const SignUp = () => {
             <input
               placeholder="Name*"
               type="text"
-              className={`w-full border rounded p-1 bg-[#44444C] text-white ${
+              className={`w-full border rounded border-mBlack dark:border-mWhite p-1 bg-mWhite dark:bg-[#44444C]  text-mBlack dark:text-mWhite ${
                 errors.name ? "border-red-500" : ""
               }`}
               {...register("name", {
@@ -86,7 +95,7 @@ const SignUp = () => {
             <input
               placeholder="Email*"
               type="text"
-              className={`w-full border rounded p-1 bg-[#44444C] text-white ${
+              className={`w-full border rounded border-mBlack dark:border-mWhite p-1 bg-mWhite dark:bg-[#44444C]  text-mBlack dark:text-mWhite ${
                 errors.email ? "border-red-500" : ""
               }`}
               {...register("email", {
@@ -105,7 +114,7 @@ const SignUp = () => {
             <input
               placeholder="Password*"
               type="password"
-              className={`w-full border rounded p-1 bg-[#44444C] text-white ${
+              className={`w-full border rounded border-mBlack dark:border-mWhite p-1 bg-mWhite dark:bg-[#44444C]  text-mBlack dark:text-mWhite ${
                 errors.password ? "border-red-500" : ""
               }`}
               {...register("password", {
@@ -116,7 +125,7 @@ const SignUp = () => {
                     "La contraseña debe incluir al menos una letra mayúscula y minuscula, un valor numérico y un carácter especial",
                 },
                 minLength: {
-                  value: 6,
+                  value: 8,
                   message: "La longitud mínima requerida es de 8 caracteres",
                 },
               })}
@@ -126,41 +135,49 @@ const SignUp = () => {
             </div>
           </div>
 
-          <button className="text-black font-bold bg-blue-600 p-1 w-full text-center hover:bg-blue-400">
+          <button className="text-mWhite dark:text-mBlack font-bold bg-blue-600 p-1 w-full text-center hover:bg-blue-400">
             Register
           </button>
 
           <div className="mt-3 text-sm flex justify-around">
-            <label className="text-white">¿Ya tienes cuenta?</label>
-            <span className="text-yellow-200">
+            <label className="text-mBlack dark:text-mWhite">
+              ¿Ya tienes cuenta?
+            </label>
+            <span className="text-blue-600 dark:text-mYellow">
               <Link href="/login">Inicia Sesión</Link>
             </span>
           </div>
           <div className="flex items-center">
-            <div className="flex-grow h-0.5 bg-white"></div>
-            <span className="px-2 text-white">o</span>
-            <div className="flex-grow h-0.5 bg-white"></div>
+            <div className="flex-grow h-0.5 bg-mBlack dark:bg-mWhite"></div>
+            <span className="px-2 text-mBlack dark:text-mWhite">o</span>
+            <div className="flex-grow h-0.5 bg-mBlack dark:bg-mWhite"></div>
           </div>
 
           <a href="#" className="   inline-block ">
-            <img
+            <Image
+              width={448}
+              height={200}
               src="/g_button.png"
               alt="Iniciar sesión con Google"
-              className="w-full h-auto hover:transform hover:scale-105"
+              className="hover:transform hover:scale-105"
             />
           </a>
           <a href="#" className="   inline-block ">
-            <img
+            <Image
+              width={448}
+              height={200}
               src="/fb_button.png"
               alt="Iniciar sesión con Facebook"
-              className="w-full h-auto hover:transform hover:scale-105"
+              className="hover:transform hover:scale-105"
             />
           </a>
           <a href="#" className="   inline-block ">
-            <img
+            <Image
+              width={448}
+              height={448}
               src="/tw_button.png"
               alt="Iniciar sesión con Twitter"
-              className="w-full h-auto hover:transform hover:scale-105"
+              className="hover:transform hover:scale-105"
             />
           </a>
         </form>
