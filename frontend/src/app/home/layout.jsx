@@ -9,6 +9,13 @@ const LayoutHome = () => {
   return (
     <div className="flex">
       <NavHome/>
+
+
+
+
+
+
+      
     </div>
   )
 }
