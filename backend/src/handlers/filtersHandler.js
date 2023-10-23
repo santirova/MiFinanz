@@ -1,4 +1,10 @@
-const { filterEarningsController, filterEarningsbydataController, orderEarningsbydataController, filterBillsController } = require("../controllers/filtersControllers");
+const { filterEarningsController, 
+    filterEarningsbydateController,
+    orderEarningsbydateController,
+    orderEarningsbyamountController ,
+    filterBillsController} = require("../controllers/filtersControllers");
+
+
 //Earnings
 const  filterEarningsHandler = async (req,res) => {
     const {catId,amount} = req.query
@@ -12,10 +18,11 @@ const  filterEarningsHandler = async (req,res) => {
     }
 }
 
-const filterEarningsbydataHandler = async (req,res) => {
+
+const filterEarningsbydateHandler = async (req,res) => {
   
     try {
-        const category = await filterEarningsbydataController(req,res)
+        const category = await filterEarningsbydateController(req,res)
         res.status(200).send(category)
     } catch (error) {
         console.log(error);
@@ -24,12 +31,24 @@ const filterEarningsbydataHandler = async (req,res) => {
     }
 }
 
-const orderEarningsbydataHandler = async (req,res) => {
+
+const orderEarningsbydateHandler = async (req,res) => {
     try {
-        const prueba="hola"
-        const category = await orderEarningsbydataController(prueba)
+        const category = await orderEarningsbydateController(req,res)
         res.status(200).send(category)
     } catch (error) {
+        console.log(error);
+        res.status(400).send({error:error.messages})
+
+    }
+}
+
+
+const orderEarningsbyamountHandler = async (req,res) => {
+    try {
+        const category = await orderEarningsbyamountController(req,res)
+        res.status(200).send(category)     
+    }catch (error) {
         console.log(error);
         res.status(400).send({error:error.messages})
 
@@ -37,7 +56,6 @@ const orderEarningsbydataHandler = async (req,res) => {
 }
 
 //Bills
-
 const  filterBillsHandler = async (req,res) => {
     const {UserId} = req.params
     const {catId,payment_method} = req.query
@@ -51,4 +69,10 @@ const  filterBillsHandler = async (req,res) => {
     }
 }
 
-module.exports={filterEarningsHandler, filterEarningsbydataHandler,orderEarningsbydataHandler,filterBillsHandler}
+module.exports={
+    filterEarningsHandler,
+     filterEarningsbydateHandler,
+     orderEarningsbydateHandler, 
+     orderEarningsbyamountHandler,
+     filterBillsHandler}
+
