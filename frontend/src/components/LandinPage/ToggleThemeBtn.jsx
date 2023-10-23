@@ -22,8 +22,8 @@ const ToggleThemeBtn = ({ handleOnClick }) => {
                 <div className='box bg-primary block h-8 w-14 rounded-full'></div>
                 <div
                     className={`dot absolute top-1 flex h-6 w-6
-                     items-center justify-center rounded-full transition 
-                      ${isChecked ? '!bg-mWhite left-1 ' : 'bg-mBlack right-1 '}`}
+                     items-center justify-center rounded-full transition dark:bg-mBlack bg-mWhite
+                      ${isChecked ? 'left-1' : 'right-1 '}`}
                 >
                 </div>
             </div>
