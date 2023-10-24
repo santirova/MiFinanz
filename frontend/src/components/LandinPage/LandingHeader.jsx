@@ -26,7 +26,7 @@ export default function LandingHeader() {
           Aplicación de gestión de finanzas <br /> personales que te empoderan.
         </p>
         <Link href={"/signup"}>
-          <button className="bg-mBlue text-mBlack font-medium rounded-full px-24 py-4">
+          <button className="bg-mYellow dark:bg-mBlue text-mBlack font-medium rounded-full px-24 py-4">
             CREAR UNA CUENTA
           </button>
         </Link>
