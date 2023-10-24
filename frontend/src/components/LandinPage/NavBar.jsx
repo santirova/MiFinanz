@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { toggleTheme } from "@/redux/features/themeSlice";
 import { setSection } from "@/redux/features/activeSectionSlice";
-import { links } from "../../../lib/data";
+import { navLinks } from "../../utils/data";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useEffect, useState, useCallback, useRef } from "react";
 import ToggleThemeBtn from "./ToggleThemeBtn";
@@ -32,7 +32,7 @@ const NavBar = () => {
 
   useEffect(() => {
     // Calcula las posiciones de las secciones
-    links.forEach((link) => {
+    navLinks.forEach((link) => {
       const sectionElement = document.getElementById(link.hash.substring(1));
       if (sectionElement) {
         sectionPositionsRef.current[link.hash] = {
@@ -41,7 +41,7 @@ const NavBar = () => {
         };
       }
     });
-  }, [links]);
+  }, [navLinks]);
 
   useEffect(() => {
     // Maneja el scroll
@@ -54,7 +54,7 @@ const NavBar = () => {
 
   useEffect(() => {
     // Actualiza la sección activa al hacer scroll
-    const currentSection = links.find((link) => {
+    const currentSection = navLinks.find((link) => {
       const sectionPosition = sectionPositionsRef.current[link.hash];
       return (
         sectionPosition &&
@@ -66,7 +66,7 @@ const NavBar = () => {
     if (currentSection && currentSection.hash !== activeSection) {
       dispatch(setSection(currentSection.hash));
     }
-  }, [scrollPosition, dispatch, activeSection, links]);
+  }, [scrollPosition, dispatch, activeSection, navLinks]);
 
   // Función para manejar el click en una sección y hacer scroll suave
   const handleSectionClick = (section) => {
@@ -97,7 +97,7 @@ const NavBar = () => {
 
       <div className="nav-action hidden md:block">
         <ul className="flex items-center gap-4 lg:mr-8">
-          {links.map((link) => (
+          {navLinks.map((link) => (
             <li
               key={link.id}
               className={

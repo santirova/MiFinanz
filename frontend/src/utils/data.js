@@ -1,4 +1,4 @@
-export const links = [
+export const navLinks = [
   {
     name: "INICIO",
     hash: "#inicio",
