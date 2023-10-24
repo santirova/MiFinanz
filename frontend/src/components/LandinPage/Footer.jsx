@@ -5,6 +5,7 @@ import {
 } from "react-icons/io5";
 import { GrFacebookOption } from "react-icons/gr";
 import { FaXTwitter } from "react-icons/fa6";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -37,14 +38,20 @@ const Footer = () => {
         id="rigth-elements"
         className="flex justify-center items-center gap-3"
       >
-        <div className="bg-mWhite  w-10 h-10 rounded-full text-mDarkGray justify-center items-center ">
-          <GrFacebookOption className="w-full text-5xl mt-[0.2px]" />
+        <div className="bg-mWhite  w-10 h-10 rounded-full text-mDarkGray justify-center items-center cursor-pointer">
+          <Link href={"https://www.nocountry.tech/"} target="_blank">
+            <GrFacebookOption className="w-full text-5xl mt-[0.2px]" />
+          </Link>
         </div>
-        <div className="bg-mWhite  w-10 h-10 rounded-full text-mDarkGray justify-center items-center ">
-          <IoLogoInstagram className="w-full text-3xl mt-1" />
+        <div className="bg-mWhite  w-10 h-10 rounded-full text-mDarkGray justify-center items-center cursor-pointer">
+          <Link href={"https://www.nocountry.tech/"} target="_blank">
+            <IoLogoInstagram className="w-full text-3xl mt-1" />
+          </Link>
         </div>
-        <div className="bg-mWhite  w-10 h-10 rounded-full text-mDarkGray justify-center items-center ">
-          <FaXTwitter className="w-full text-3xl mt-1" />
+        <div className="bg-mWhite  w-10 h-10 rounded-full text-mDarkGray justify-center items-center cursor-pointer">
+          <Link href={"https://www.nocountry.tech/"} target="_blank">
+            <FaXTwitter className="w-full text-3xl mt-1" />
+          </Link>
         </div>
       </div>
     </section>
