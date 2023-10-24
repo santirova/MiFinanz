@@ -71,7 +71,7 @@ const TeamInfo = () => {
   return (
     <section
       id="nosotros"
-      className="h-[calc(100vh_-_0px)] w-full grid grid-cols-2 gap-4 md:grid-cols-4"
+      className="h-[calc(100vh_-_0px)] w-full grid grid-cols-2 gap-4 md:grid-cols-4 md:content-evenly"
     >
       {initialState.map((item) => (
         <div

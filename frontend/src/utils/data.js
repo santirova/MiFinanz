@@ -53,3 +53,42 @@ export const blogEntries = [
     tags: ["#Lista", "#Tarjetas"],
   },
 ];
+
+export const priceCards = [
+  {
+    id: 1,
+    name: "FREE",
+    price: "0",
+    feautures: [
+      "Panel",
+      "Carga de Ingresos y gastos",
+      "Manejo de cuentas",
+      "1GB espacio en la nube",
+      "Soporte",
+    ],
+  },
+  {
+    id: 2,
+    name: "Standard",
+    price: "3",
+    feautures: [
+      "Paquete Free",
+      "Declaración de impuestos",
+      "Manejo de metas",
+      "4GB espacio en la nube",
+      "Soporte",
+    ],
+  },
+  {
+    id: 3,
+    name: "Full",
+    price: "9",
+    feautures: [
+      "Paquete Standard",
+      "Multiples usuarios",
+      "Conexión directa con tus bancos",
+      "Espacio en la nube ilimitado",
+      "Soporte",
+    ],
+  },
+];

@@ -1,63 +1,27 @@
 import React from "react";
 import { GoCheckCircleFill } from "react-icons/go";
+import { priceCards } from "@/utils/data";
+
 const PriceCard = () => {
-  const initialState = [
-    {
-      id: 1,
-      name: "FREE",
-      price: "0",
-      feautures: [
-        "Panel",
-        "Carga de Ingresos y gastos",
-        "Manejo de cuentas",
-        "1GB espacio en la nube",
-        "Soporte",
-      ],
-    },
-    {
-      id: 2,
-      name: "Standard",
-      price: "3",
-      feautures: [
-        "Paquete Free",
-        "Declaración de impuestos",
-        "Manejo de metas",
-        "4GB espacio en la nube",
-        "Soporte",
-      ],
-    },
-    {
-      id: 3,
-      name: "Full",
-      price: "9",
-      feautures: [
-        "Paquete Standard",
-        "Multiples usuarios",
-        "Conexión directa con tus bancos",
-        "Espacio en la nube ilimitado",
-        "Soporte",
-      ],
-    },
-  ];
   return (
     <section
       id="plus"
-      className="h-[calc(100vh_-_0px)] w-full flex flex-col justify-center items-center gap-14 flex-wrap text-mWhite md:flex-row"
+      className="grid grid-cols-1 h-[calc(100vh_-_0px)] w-full content-center justify-items-center flex-wrap text-mWhite sm:grid-cols-2 lg:grid-cols-3"
     >
-      {initialState.map((item) => (
+      {priceCards?.map((item) => (
         <div
           id="container-card"
           className="grid w-[320px] h-[500px] bg-mDarkGray hover:border hover:border-solid hover:border-mYellow rounded-xl text-center p-8 gap-4"
           key={item.id}
         >
-          <h2 className="font-bold">{item.name}</h2>
+          <h2 className="font-bold">{item?.name}</h2>
           <div>
-            <h3 className="text-mYellow text-4xl font-bold">{item.price}$</h3>
+            <h3 className="text-mYellow text-4xl font-bold">{item?.price}$</h3>
             <p className="text-mBlue text-sm font-bold">por mes</p>
           </div>
           <ul className="grid gap-3 text-left">
-            {item.feautures.map((feature) => (
-              <div className="flex gap-2" key={`${item.id}-${feature}`}>
+            {item?.feautures?.map((feature) => (
+              <div className="flex gap-2" key={`${item?.id}-${feature}`}>
                 <GoCheckCircleFill className="text-mYellow rounded-full text-3xl" />
                 <li>{feature}</li>
               </div>
