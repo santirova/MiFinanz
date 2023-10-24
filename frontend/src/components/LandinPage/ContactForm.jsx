@@ -9,7 +9,7 @@ const ContactForm = () => {
   return (
     <section
       id="soporte"
-      className="h-[calc(100vh_-_0px)] flex flex-col items-center justify-center w-full p-5 md:flex-wrap md:grid md:grid-cols-2"
+      className="min-h-screen flex flex-col items-center justify-center w-full p-5 md:flex-wrap md:grid md:grid-cols-2"
     >
       <h2 className="block text-4xl font-semibold text-mBlack md:hidden dark:text-mWhite">
         Contact

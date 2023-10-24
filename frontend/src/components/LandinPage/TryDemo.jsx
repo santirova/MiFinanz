@@ -14,10 +14,14 @@ background: linear-gradient(180deg, #44444C 0%, rgba(68, 68, 76, 0) 42.71%);
   return (
     <section
       id=""
-      className="h-[calc(100vh_-_0px)] w-full grid grid-cols-1 items-center md:grid-cols-2 md:content-evenly md:justify-items-center"
+      className="min-h-screen p-10 w-full grid grid-cols-1 items-center md:grid-cols-2 md:content-evenly md:justify-items-center"
     >
       <div className="w-full flex justify-center items-center">
-        <Image className="w-full md:w-[500px]" src={graphics} />
+        <Image
+          className="4/5 md:w-[500px]"
+          alt="Graphics picture"
+          src={graphics}
+        />
       </div>
       <div className="flex flex-col gap-5 max-w-md">
         <div className="details-wrapper">

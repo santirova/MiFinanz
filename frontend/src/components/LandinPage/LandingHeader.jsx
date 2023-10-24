@@ -8,7 +8,7 @@ export default function LandingHeader() {
   return (
     <section
       id="inicio"
-      className="h-[calc(100vh_-_0px)] p-10 flex flex-col w-full justify-evenly md:flex-row"
+      className="min-h-screen p-10 flex flex-col w-full justify-evenly md:flex-row"
     >
       <div
         id="leftside"

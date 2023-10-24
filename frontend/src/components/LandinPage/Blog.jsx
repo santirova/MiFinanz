@@ -8,7 +8,7 @@ export default function Blog() {
   return (
     <section
       id="blog"
-      className="h-[calc(100vh_-_0px)] w-full flex flex-col items-center justify-center md:flex-row"
+      className="min-h-screen w-full flex flex-col items-center justify-center md:flex-row"
     >
       <div className="w-1/2">
         <Image src={leftEntry?.image} alt="Blog picture" />
@@ -24,7 +24,7 @@ export default function Blog() {
           </p>
           {leftEntry?.tags.map((tag) => (
             <span
-              key={tag}
+              key={`${leftEntry.id}${tag}`}
               className="bg-yellow-700 text-mYellow px-2 text-sm rounded-xl"
             >
               {tag}
@@ -34,7 +34,7 @@ export default function Blog() {
       </div>
       <div className="w-1/2">
         {rightEntries.map((entry) => (
-          <div className="flex flex-col md:flex-row">
+          <div key={entry?.id} className="flex flex-col md:flex-row">
             <Image src={entry?.image} alt="Blog picture" />
             <div className="" key={entry?.id}>
               <h3 className="text-mRed dark:text-mYellow">
@@ -48,7 +48,7 @@ export default function Blog() {
               </p>
               {entry?.tags.map((tag) => (
                 <span
-                  key={tag}
+                  key={`${entry.id}${tag}`}
                   className="bg-yellow-700 text-mYellow px-2 text-sm rounded-xl"
                 >
                   {tag}

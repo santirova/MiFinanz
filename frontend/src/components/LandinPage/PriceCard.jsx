@@ -7,7 +7,7 @@ const PriceCard = () => {
   return (
     <section
       id="plus"
-      className="grid grid-cols-1 h-[calc(100vh_-_0px)] w-full content-center justify-items-center flex-wrap text-white sm:grid-cols-2 lg:grid-cols-3"
+      className="min-h-screen grid grid-cols-1 w-full content-center justify-items-center flex-wrap text-white sm:grid-cols-2 lg:grid-cols-3"
     >
       {priceCards?.map((item) => (
         <div
@@ -23,10 +23,10 @@ const PriceCard = () => {
             </p>
           </div>
           <ul className="grid gap-3 text-left">
-            {item?.feautures?.map((feature) => (
-              <div className="flex gap-2" key={`${item?.id}-${feature}`}>
+            {item?.feautures?.map((feature, index) => (
+              <div className="flex gap-2" key={`feat${item.id}${index}`}>
                 <GoCheckCircleFill className="text-mYellow rounded-full text-3xl" />
-                <li>{feature}</li>
+                <li key={`li${item.id}${index}`}>{feature}</li>
               </div>
             ))}
           </ul>

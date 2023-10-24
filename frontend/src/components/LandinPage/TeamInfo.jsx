@@ -71,7 +71,7 @@ const TeamInfo = () => {
   return (
     <section
       id="nosotros"
-      className="h-[calc(100vh_-_0px)] w-full grid grid-cols-2 gap-4 md:grid-cols-4 md:content-evenly"
+      className="min-h-screen p-10 w-full grid grid-cols-2 gap-4 md:grid-cols-4 md:content-evenly"
     >
       {initialState.map((item) => (
         <div
@@ -80,12 +80,12 @@ const TeamInfo = () => {
         >
           <Image
             src={item.image}
-            alt={item.name}
+            alt="Team member picture"
             width={100}
             height={100}
             className="rounded-full"
           />
-          <h3 className="font-bold text-xl">{item.name}</h3>
+          <h3 className="font-bold text-xl text-center">{item.name}</h3>
           <div className="flex items-center gap-2">
             <p>{item.position}</p>
             <AiOutlineLinkedin className="text-3xl" />

@@ -4,22 +4,27 @@ import blogGoal from "@/assets/landing/blogGoal.png";
 
 export const navLinks = [
   {
+    id: 1,
     name: "INICIO",
     hash: "#inicio",
   },
   {
+    id: 2,
     name: "BLOG",
     hash: "#blog",
   },
   {
+    id: 3,
     name: "PLUS",
     hash: "#plus",
   },
   {
+    id: 4,
     name: "NOSOTROS",
     hash: "#nosotros",
   },
   {
+    id: 5,
     name: "SOPORTE",
     hash: "#soporte",
   },
