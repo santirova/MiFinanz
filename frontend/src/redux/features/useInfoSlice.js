@@ -46,13 +46,19 @@ export const userLogOut = () => (dispatch) => {
 
 export const signup = (data) => (dispatch) => {
   return new Promise((resolve, reject) => {
-    axiosMiFinanz.post("/user/register", data).then((res) => {
-      //  console.log("Respuesta del servidor:", res.data);
-      //localStorage.setItem("userInfo", JSON.stringify(res.data));
-      dispatch(setUserInfoGlobal(res.data));
-      resolve();
-    });
-  }).catch((err) => console.log(err));
+    axiosMiFinanz
+      .post("/user/register", data)
+      .then((res) => {
+        //  console.log("Respuesta del servidor:", res.data);
+        //localStorage.setItem("userInfo", JSON.stringify(res.data));
+        dispatch(setUserInfoGlobal(res.data));
+        resolve();
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+  });
 };
 
 export default userInfoSlice.reducer;

@@ -9,9 +9,13 @@ import { signup } from "@/redux/features/useInfoSlice";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import logo from "@/assets/shared/logo.png";
+import { Alert } from "@material-tailwind/react";
+import IconSuccess from "@/assets/shared/IconAlertSuccess.jsx";
+import IconError from "@/assets/shared/IconAlertError";
 
 const SignUp = () => {
-  const [errorMessage, setErrorMessage] = useState("");
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
 
   const dispatch = useDispatch();
   const { push } = useRouter();
@@ -39,16 +43,17 @@ const SignUp = () => {
         email: "",
         password: "",
       });
-      setErrorMessage(
-        "Se ha enviado un link confirmación a la dirección de correo eléctronico proporcionada  "
-      );
+      setShowSuccessAlert(true);
       setTimeout(() => {
-        setErrorMessage("");
         push("/login");
+        setShowSuccessAlert(false);
       }, 5000);
     } catch (error) {
-      setErrorMessage("Error al registrarse");
-      console.log(error);
+      setShowErrorAlert(true);
+      // console.log( error);
+      setTimeout(() => {
+        setShowErrorAlert(false);
+      }, 5000);
     }
   };
 
@@ -72,9 +77,24 @@ const SignUp = () => {
         <h2 className="text-1xl font-bold mb-4 uppercase text-mBlack dark:text-mWhitee text-center ">
           Bienvenido
         </h2>
-        {errorMessage && (
-          <div className="text-red-500 text-center mt-2">{errorMessage}</div>
+        {showSuccessAlert && (
+          <Alert
+            icon={<IconSuccess />}
+            className="rounded-none border-l-4  mb-2 border-[#2ec946] bg-[#2ec946]/10 font-medium text-[#2ec946]"
+          >
+            Registro Exitoso, se ha enviado un mensaje a la dirección de correo
+            eléctronico proporcionada
+          </Alert>
         )}
+        {showErrorAlert && (
+          <Alert
+            icon={<IconError />}
+            className="rounded-none border-l-4 mb-2 border-red-500 bg-red-100 font-medium text-red-600"
+          >
+            Error al registrarse
+          </Alert>
+        )}
+
         <form onSubmit={handleSubmit(submit)}>
           <div className="mb-4">
             <input
