@@ -8,17 +8,17 @@ export default function LandingHeader() {
   return (
     <section
       id="inicio"
-      className="h-[calc(100vh_-_0px)] bg-white flex flex-col w-full justify-evenly md:flex-row"
+      className="h-[calc(100vh_-_0px)] p-10 flex flex-col w-full justify-evenly md:flex-row"
     >
       <div
         id="leftside"
         className="flex flex-col w-full gap-8 justify-center items-center mt-16 md:items-start md:w-1/2"
       >
         <div className="flex flex-col items-center justify-center ">
-          <h3 className="text-[28px] uppercase font-bold leading-3">
+          <h3 className="text-[28px] text-mDarkGray dark:text-mWhite uppercase font-bold leading-3">
             Toma el control de tus
           </h3>
-          <h2 className="text-[50px] font-bold text-mYellow uppercase">
+          <h2 className="text-[50px] font-bold text-mRed dark:text-mYellow uppercase">
             Movimientos
           </h2>
         </div>
@@ -31,19 +31,19 @@ export default function LandingHeader() {
           </button>
         </Link>
         <div className="flex gap-6 items-center justify-center">
-          <div className="hidden p-2 gap-3 text-mWhite w-48 h-15 text-sm rounded-lg items-center border-solid border-2  border-white cursor-pointer md:flex">
-            <FaGooglePlay className="text-mWhite text-4xl" />
+          <div className="hidden p-2 gap-3 text-mDarkGray dark:text-mWhite w-48 h-15 text-sm rounded-lg items-center border-solid border-2  border-mDarkGray dark:border-mWhite cursor-pointer md:flex">
+            <FaGooglePlay className="text-mDarkGray dark:text-mWhite text-4xl" />
             <div className="">
-              <p className="text-xs font-semibold text-mWhite">
+              <p className="text-xs font-semibold text-mDarkGray dark:text-mWhite">
                 Download on the
               </p>
               <p className="text-base ">Google Play</p>
             </div>
           </div>
-          <div className="hidden p-2 gap-3 text-mWhite w-48 h-15 text-sm rounded-lg items-center border-solid border-2  border-white cursor-pointer md:flex">
-            <FaWindows className="text-mWhite text-4xl" />
+          <div className="hidden p-2 gap-3 text-mDarkGray dark:text-mWhite w-48 h-15 text-sm rounded-lg items-center border-solid border-2  border-mDarkGray dark:border-mWhite cursor-pointer md:flex">
+            <FaWindows className="text-mDarkGray dark:text-mWhite text-4xl" />
             <div className="">
-              <p className="text-xs font-semibold text-mWhite">
+              <p className="text-xs font-semibold text-mDarkGray dark:text-mWhite">
                 Download on the
               </p>
               <p className="text-base ">Windows Store</p>
@@ -59,7 +59,7 @@ export default function LandingHeader() {
         <Image
           src={imagePhone}
           alt="Image Phone"
-          className="absolute w-64 h-auto md:right-4 md:top-10 md:w-[600px]"
+          className="absolute w-64 right-4 top-6 sm:right-10 sm:top-10 sm:w-[300px] md:right-4 md:top-10 md:w-[500px] "
         />
       </figure>
     </section>
