@@ -1,10 +1,10 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { toggleTheme } from "@/redux/features/themeSlice";
+import { setTheme } from "@/redux/features/themeSlice";
 import { setSection } from "@/redux/features/activeSectionSlice";
 import { links } from "../../../lib/data";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect } from "react";
 import ToggleThemeBtn from "./ToggleThemeBtn";
 import Image from "next/image";
 import logo from "@/assets/shared/logo.png";
@@ -18,75 +18,53 @@ const NavBar = () => {
     (state) => state.activeSection.activeSection
   );
   const [scrollPosition, setScrollPosition] = useState(0);
-  const sectionPositionsRef = useRef({});
-
-  useEffect(() => {}, [theme]);
-
-  const handleChangeTheme = () => {
-    dispatch(toggleTheme());
-  };
-
-  const handleScroll = () => {
-    setScrollPosition(window.scrollY);
-  };
 
   useEffect(() => {
-    // Calcula las posiciones de las secciones
-    links.forEach((link) => {
-      const sectionElement = document.getElementById(link.hash.substring(1));
-      if (sectionElement) {
-        sectionPositionsRef.current[link.hash] = {
-          top: sectionElement.offsetTop,
-          bottom: sectionElement.offsetTop + sectionElement.offsetHeight,
-        };
-      }
-    });
-  }, [links]);
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
 
   useEffect(() => {
-    // Maneja el scroll
+    const handleScroll = () => {
+      setScrollPosition(window.scrollY);
+    };
+
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   useEffect(() => {
-    // Actualiza la sección activa al hacer scroll
     const currentSection = links.find((link) => {
-      const sectionPosition = sectionPositionsRef.current[link.hash];
-      return (
-        sectionPosition &&
-        scrollPosition >= sectionPosition.top &&
-        scrollPosition < sectionPosition.bottom
-      );
+      const sectionElement = document.getElementById(link.hash.substring(1));
+      if (sectionElement) {
+        const offsetTop = sectionElement.offsetTop;
+        const offsetBottom = offsetTop + sectionElement.offsetHeight;
+        return scrollPosition >= offsetTop && scrollPosition < offsetBottom;
+      }
+      return false;
     });
 
     if (currentSection && currentSection.hash !== activeSection) {
       dispatch(setSection(currentSection.hash));
     }
-  }, [scrollPosition, dispatch, activeSection, links]);
+  }, [scrollPosition, dispatch, activeSection]);
 
-  // Función para manejar el click en una sección y hacer scroll suave
+  const handleChangeTheme = () => {
+    dispatch(setTheme(theme === "dark" ? "light" : "dark"));
+  };
+
   const handleSectionClick = (section) => {
-    const sectionPosition = sectionPositionsRef.current[section];
-
-    if (sectionPosition) {
-      const offsetTop = sectionPosition.top;
-
-      window.scrollTo({
-        top: offsetTop,
-        behavior: "smooth",
-      });
-
-      // Actualiza la sección activa al hacer clic
-      dispatch(setSection(section));
-    }
+    dispatch(setSection(section));
+    // También puedes animar el desplazamiento hacia la sección correspondiente aquí...
   };
 
   return (
-    <nav className="fixed flex w-full p-5 justify-between z-10 bg-mWhite border-b-2 border-b-mLightGray dark:border-b-mWhite dark:bg-mBlack ">
+    <nav className="fixed flex w-full bg-mWhite border-b-2 border-b-mlightGray dark:border-b-mWhite dark:bg-mBlack p-5 justify-between z-50">
       <div
         className="flex items-center gap-1 cursor-pointer"
         onClick={() => push("/")}
@@ -97,12 +75,12 @@ const NavBar = () => {
 
       <div className="nav-action hidden md:block">
         <ul className="flex items-center gap-4 lg:mr-8">
-          {links.map((link) => (
+          {links.map((link, index) => (
             <li
-              key={link.id}
+              key={index}
               className={
                 activeSection === link.hash
-                  ? "ease-in-out font-extrabold text-mRed dark:text-mYellow"
+                  ? "font-extrabold text-mRed dark:text-mYellow"
                   : ""
               }
             >

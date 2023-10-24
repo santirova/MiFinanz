@@ -42,7 +42,7 @@ const PriceCard = () => {
   return (
     <section
       id="plus"
-      className="w-full flex flex-col justify-center items-center gap-14 p-5 flex-wrap text-mWhite md:flex-row"
+      className="h-[calc(100vh_-_0px)] w-full flex flex-col justify-center items-center gap-14 flex-wrap text-mWhite md:flex-row"
     >
       {initialState.map((item) => (
         <div
