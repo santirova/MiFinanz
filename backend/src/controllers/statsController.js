@@ -64,7 +64,39 @@ const sumBillsByCategoryController = async (UserId,month) => {
     return response;
 }
 
+
+const sumBillsMonthControlle = async (UserId, month) => {
+    console.log(month);
+    const user = await User.findByPk(UserId)
+    if (!user) {
+        return {
+            error: 'El usuario no exite',
+        };
+    }
+    if (!month|| month > 12 || month < 1) {
+        return {error:'El mes enviado es incorrecto, deberia ser entre 1 y 12'}
+    }
+    const response = await Bill.findAll({
+        where: {
+            UserId,
+            date: sequelize.literal(`YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = ${month}`)
+        },
+        attributes: [
+          [sequelize.fn('MONTH', sequelize.col('date')), 'month'],
+          [sequelize.fn('SUM', sequelize.col('amount')), 'total_monto']
+        ],
+        group: ['month'],
+        raw: true
+      })
+    if (response.length==0) {
+        return `El Mes no tiene Gatos Asociados `
+    }
+    return response;
+}
+
+
 module.exports = {
     sumEarningsByCategoryController,
-    sumBillsByCategoryController
+    sumBillsByCategoryController,
+    sumBillsMonthControlle
 }
