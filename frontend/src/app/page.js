@@ -1,25 +1,36 @@
-import ContactForm from '@/components/LandinPage/ContactForm'
-import NavBar from '@/components/LandinPage/NavBar'
-import PriceCard from '@/components/LandinPage/PriceCard'
-import TeamInfo from '@/components/LandinPage/TeamInfo'
-import LandingHeader from '../components/LandinPage/LandingHeader'
-import LandingTwo from '@/components/LandinPage/LandingTwo'
-import LandingThree from '@/components/LandinPage/LandingThree'
-import Footer from '@/components/LandinPage/Footer'
+"use client";
+import ContactForm from "@/components/LandinPage/ContactForm";
+import NavBar from "@/components/LandinPage/NavBar";
+import PriceCard from "@/components/LandinPage/PriceCard";
+import TeamInfo from "@/components/LandinPage/TeamInfo";
+import LandingHeader from "../components/LandinPage/LandingHeader";
+import TryDemo from "@/components/LandinPage/TryDemo";
+import Blog from "@/components/LandinPage/Blog";
+import Footer from "@/components/LandinPage/Footer";
+import { useEffect } from "react";
+import { useAppSelector } from "@/redux/hooks";
 
 export default function Home() {
+  const theme = useAppSelector((state) => state.theme.darkMode);
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
   return (
-    <main className="flex min-h-screen flex-col items-center bg-mWhite text-mBlack dark:bg-mBlack dark:text-mWhite">
-      < >
+    <main className="w-full flex min-h-screen flex-col items-center bg-mWhite text-mBlack dark:bg-mBlack dark:text-mWhite">
+      <>
         <NavBar />
-        <div className='flex flex-col items-center justify-center gap-24'>
+        <div className="w-full flex flex-col items-center justify-center">
           <LandingHeader />
         </div>
-        <div className='w-full bg-gradient-to-b from-[#44444C] from-5% via-[#313135] via-25% to-mBlack flex flex-col items-center justify-center gap-24'>
-          <LandingTwo />
+        <div className="w-full flex flex-col items-center justify-center dark:bg-gradient-to-b dark:from-[#44444C] dark:from-5% dark:via-[#313135] dark:via-25% dark:to-mBlack ">
+          <TryDemo />
         </div>
-        <div className='flex flex-col items-center justify-center gap-24'>
-          <LandingThree />
+        <div className="w-full flex flex-col items-center justify-center">
+          <Blog />
           <PriceCard />
           <TeamInfo />
           <ContactForm />
@@ -27,5 +38,5 @@ export default function Home() {
         <Footer />
       </>
     </main>
-  )
+  );
 }
