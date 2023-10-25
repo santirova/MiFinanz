@@ -1,5 +1,5 @@
 const { 
-    getEarningByUserIdController, 
+    getEarningByUserIdController,
     postEarningByUserIdController, 
     putEarningByUserIdController,
     deleteEarningByUserIdController } = require("../controllers/earnignControllers")
@@ -28,7 +28,6 @@ const postEarnigsByUserIdHandler = async (req,res) => {
     }
 }
 
-//revisar 
 const putEarnigsByUserIdHandler= async (req,res) => {
     try {        
         const {id}= req.params;

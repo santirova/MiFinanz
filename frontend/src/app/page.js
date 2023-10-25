@@ -1,4 +1,4 @@
-import ContactForm from '@/components/LandinPage/ContactForm'
+ import ContactForm from '@/components/LandinPage/ContactForm'
 import NavBar from '@/components/LandinPage/NavBar'
 import PriceCard from '@/components/LandinPage/PriceCard'
 import TeamInfo from '@/components/LandinPage/TeamInfo'

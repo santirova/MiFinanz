@@ -10,6 +10,7 @@ const getUserByIdHandler = async (req,res) =>{
     }
 };
 
+
 const postUserHandler = async (req, res) => {
     const { name, password, email } = req.body;
     try {
@@ -35,6 +36,8 @@ const loginHandler = async (req,res)=>{
         res.status(400).send({error:error.message})
     }
 }
+
+
 const forgotPasswordHandler = async (req,res)=>{
     try {
         const {email} = req.body
@@ -46,6 +49,8 @@ const forgotPasswordHandler = async (req,res)=>{
         res.status(400).send({error:error.message})  
     }
 }
+
+
 const resetPasswordHandler = async (req,res)=>{
     try {
         const {newPassword,token} = req.body
@@ -55,4 +60,5 @@ const resetPasswordHandler = async (req,res)=>{
         res.status(400).send({error:error.message})  
     }
 }
+
 module.exports = {getUserByIdHandler,postUserHandler,loginHandler,forgotPasswordHandler,resetPasswordHandler}

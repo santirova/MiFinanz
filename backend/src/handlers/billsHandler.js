@@ -3,10 +3,8 @@ const {billUserGet, createBill} = require('../controllers/billsContorller');
 
 const getBillByUserIdHandler = async (req,res) =>{
     try {
-      console.log("hola");
         const userId = req.params.userId;
         const Bills = await billUserGet(userId)
-        console.log(Bills);
         res.status(200).send({message: "hola",Bills})
     } catch (error) {
         res.status(400).send({error:error.message})
@@ -16,10 +14,10 @@ const getBillByUserIdHandler = async (req,res) =>{
 const createBillHandler = async (req, res) => {
     try {
 
-      const userId = req.params.userId; // 
-      const { amount, name, data, payment_method, categoryId, cardId, frequency } = req.body;
+      const userId = req.params.userId; 
+      const { amount, name, date, payment_method, categoryId, cardId, frequency } = req.body;
   
-      const bill = await createBill(userId, amount, data, name, payment_method, categoryId, cardId, frequency);
+      const bill = await createBill(userId, amount, date, name, payment_method, categoryId, cardId, frequency);
   
       res.status(201).json({ message: 'Gasto registrado con éxito', bill });
     } catch (error) {
@@ -47,7 +45,7 @@ const createBillHandler = async (req, res) => {
   const updateBillHandler = async (req, res) => {
     try {
       const billId = req.params.billId; 
-      const { amount, name, data, payment_method, categoryId, cardId, frequency } = req.body;
+      const { amount, name, date, payment_method, categoryId, cardId, frequency } = req.body;
   
       const bill = await Bill.findByPk(billId);
       if (!bill) {
@@ -61,8 +59,8 @@ const createBillHandler = async (req, res) => {
       if (name) {
         bill.name = name;
       }
-      if (data) {
-        bill.data = data;
+      if (date) {
+        bill.date = date;
       }
       if (payment_method !== undefined) {
         bill.paymentMethod = payment_method;
