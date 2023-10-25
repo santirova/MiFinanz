@@ -7,7 +7,7 @@ filtersRouter.get('/earnings',filterEarningsHandler)
 filtersRouter.get('/order-date', orderEarningsbydateHandler)
 filtersRouter.get('/', filterEarningsbydateHandler)
 filtersRouter.get('/order-amount', orderEarningsbyamountHandler)
-filtersRouter.get('category-')
+//filtersRouter.get('category-')
 //filtros bills
 filtersRouter.get('/bills/:UserId',filterBillsHandler)
 module.exports= {filtersRouter}
