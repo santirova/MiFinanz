@@ -1,14 +1,15 @@
 "use client";
+import { useEffect, useState, useCallback, useRef } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toggleTheme } from "@/redux/features/themeSlice";
 import { setSection } from "@/redux/features/activeSectionSlice";
-import { navLinks } from "../../utils/data";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { useEffect, useState, useCallback, useRef } from "react";
-import ToggleThemeBtn from "./ToggleThemeBtn";
 import Image from "next/image";
+
+import { navLinks } from "../../utils/data";
+import ToggleThemeBtn from "./ToggleThemeBtn";
 import logo from "@/assets/shared/logo.png";
-import Link from "next/link";
 
 const NavBar = () => {
   const { push } = useRouter();
@@ -19,6 +20,14 @@ const NavBar = () => {
   );
   const [scrollPosition, setScrollPosition] = useState(0);
   const sectionPositionsRef = useRef({});
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
 
   useEffect(() => {}, [theme]);
 
