@@ -7,7 +7,7 @@ const port = process.env.PORT || 4000;
 
 try {
     sequelize.authenticate()
-    sequelize.sync({force:false})
+    sequelize.sync({force:true})
     console.log('Conected to db');
 } catch (error) {
     throw new Error(error)
