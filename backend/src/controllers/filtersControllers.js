@@ -2,10 +2,11 @@ const {Earning,CategoryEarning,Bill,CategoryBill} = require('../db')
 const { Sequelize } = require('sequelize');
 
 //Earnings
-const filterEarningsController=async(catId,amount)=>{
-    // if (!catId) {
-    //   return "Incluye la categoria"
-    // }
+//Filtrar por Categorias
+  const filterEarningsController=async(catId,amount)=>{
+     if (!catId) {
+      return "Incluye la categoria"
+    }
     const where = {}
 
     if (amount) {
@@ -30,7 +31,9 @@ const filterEarningsController=async(catId,amount)=>{
     return earnings
   }
 
-  const filterEarningsbydataController=async(req,res)=>{
+
+  //Filtrar fechas por rango y ordenar 
+  const filterEarningsbydateController=async(req,res)=>{
     const {fechaInicio} =req.query;
     const {fechaFin} = req.query;
 
@@ -47,12 +50,29 @@ const filterEarningsController=async(catId,amount)=>{
    return registrosFiltrados
   }
 
-  const orderEarningsbydataController = async()=>{
+
+//Odenamiento por Fecha
+  const orderEarningsbydateController = async(req, res)=>{
+    //ojo la direccion solo puede ser ASC / DESC por que si no explota
+  const {direction}=req.query
     const registrosOrdenados = await Earning.findAll({
-      order: [['date', 'ASC']],
+      order: [['date', direction]],
     });
     return registrosOrdenados
   }
+
+
+//Odenamiento por Monto
+  const orderEarningsbyamountController = async(req, res)=>{
+  //ojo la direccion solo puede ser ASC / DESC por que si no explota
+  const {direction}=req.query
+  const registrosOrdenados = await Earning.findAll({
+    order: [['amount', direction]],
+  });
+  return registrosOrdenados
+  }
+
+
 //Bills
 const filterBillsController=async(catId,payment_method,UserId)=>{
     const where = {
@@ -66,6 +86,7 @@ const filterBillsController=async(catId,payment_method,UserId)=>{
     if(catId){
         where.CategoryBillId = catId
     }
+    
     const bills = await Bill.findAll({
         where,
         include:[{
@@ -80,4 +101,11 @@ const filterBillsController=async(catId,payment_method,UserId)=>{
 
     return bills
   }
-  module.exports = {filterEarningsController, filterEarningsbydataController, orderEarningsbydataController,filterBillsController}
+
+  module.exports = {
+    filterEarningsController,
+    filterEarningsbydateController, 
+    orderEarningsbydateController, 
+    orderEarningsbyamountController,
+    filterBillsController
+  }

@@ -17,7 +17,7 @@ const billUserGet = async (userId) => {
 };
 
 
-const createBill = async (userId, amount, data, name, payment_method, categoryId, cardId, frequency) => {
+const createBill = async (userId, amount, date, name, payment_method, categoryId, cardId, frequency) => {
   try {
     const user = await User.findByPk(userId);
     if (!user) {
@@ -26,7 +26,7 @@ const createBill = async (userId, amount, data, name, payment_method, categoryId
     // Crea una instancia de Bill sin asociar con CategoryBill ni User.
     const bill = await Bill.create({
       amount,
-      data,
+      date,
       name,
       payment_method,
       frequency,

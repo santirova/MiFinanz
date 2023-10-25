@@ -1,4 +1,4 @@
-const { categoryBillPostController, catGetController,postMultiCatBillController } = require('../controllers/categoryBillsController');
+const { categoryBillPostController, catGetController, postMultiCatBillController } = require('../controllers/categoryBillsController');
 
 catBillPostHandler = async (req, res) => {
     const { name } = req.body;
@@ -20,10 +20,10 @@ catGetHandler = async (req, res) => {
 };
 const postMultiCatBillHandler = async (req,res) =>{
     try {
-        const response = await postMultiCatBillController()
+        const response = await postMultiCatBillController();
         res.status(200).send(response)
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-}
-module.exports = { catBillPostHandler, catGetHandler,postMultiCatBillHandler };
+};
+module.exports = { catBillPostHandler, catGetHandler, postMultiCatBillHandler };
