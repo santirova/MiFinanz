@@ -1,4 +1,3 @@
-import NavBar from "@/components/LandinPage/NavBar";
 import NavHome from "@/components/home/navbar/NavHome";
 
 export const metadata = {
@@ -9,7 +8,6 @@ export const metadata = {
 const LayoutHome = ({ children }) => {
   return (
     <div className="flex h-screen w-screen">
-      <NavBar />
       <NavHome />
       {children}
     </div>
