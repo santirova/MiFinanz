@@ -30,7 +30,7 @@ const AddTransaction = () => {
         <button
           type="button"
           className={`text-mBlack px-2 rounded-xl ${
-            activeButton === "Efectivo" && "bg-mWhite"
+            activeButton === "Efectivo" && "bg-mLightGray"
           }`}
           onClick={() => handleButtonSelect("Efectivo")}
         >
@@ -39,7 +39,7 @@ const AddTransaction = () => {
         <button
           type="button"
           className={`text-mBlack px-2 rounded-xl ${
-            activeButton === "Cuenta C." && "bg-mWhite"
+            activeButton === "Cuenta C." && "bg-mLightGray"
           }`}
           onClick={() => handleButtonSelect("Cuenta C.")}
         >
@@ -48,7 +48,7 @@ const AddTransaction = () => {
         <button
           type="button"
           className={`text-mBlack px-2 rounded-xl ${
-            activeButton === "VISA" && "bg-mWhite"
+            activeButton === "VISA" && "bg-mLightGray"
           }`}
           onClick={() => handleButtonSelect("VISA")}
         >
@@ -111,7 +111,7 @@ const AddTransaction = () => {
         </Select>
       </div>
       <div className="flex flex-col sm:flex-row sm:gap-3">
-        <Button>Cancelar</Button>;
+        <Button>Cancelar</Button>
         <Button color={isDarkMode === "dark" ? "yellow" : "blue"}>
           Registrar {selectedButton === "GASTOS" ? "Gasto" : "Ingreso"}
         </Button>
