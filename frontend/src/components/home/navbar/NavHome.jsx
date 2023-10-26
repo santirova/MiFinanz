@@ -1,10 +1,18 @@
 "use client";
 import { VscGraph } from "react-icons/vsc";
 import { GoEye } from "react-icons/go";
-import { useState } from "react";
+import { use, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { setSection } from "@/redux/features/activeSectionSlice";
 
-export default function NavHome() {
+const NavHome = () => {
   const [open, setOpen] = useState(true);
+  const dispatch = useAppDispatch();
+
+  const handleSetSection = (section) => {
+    dispatch(setSection(section));
+  };
+
   return (
     <section
       className={`${
@@ -18,16 +26,36 @@ export default function NavHome() {
         <div className="p-10 flex flex-col gap-8">
           <div className="flex gap-2 text-xl cursor-pointer">
             <VscGraph />
-            <p> Panel</p>
+            <p
+              onClick={() => handleSetSection("dashboard")}
+              className="hover:text-mLightGray"
+            >
+              Dashboard
+            </p>
           </div>
           <div className="cursor-pointer">
-            <p>Cuentas</p>
+            <p
+              onClick={() => handleSetSection("cards")}
+              className="hover:text-mLightGray"
+            >
+              Tarjetas
+            </p>
           </div>
           <div className="cursor-pointer">
-            <p>Gastos</p>
+            <p
+              onClick={() => handleSetSection("bills")}
+              className="hover:text-mLightGray"
+            >
+              Gastos
+            </p>
           </div>
           <div className="cursor-pointer">
-            <p>Ingresos</p>
+            <p
+              onClick={() => handleSetSection("earnings")}
+              className="hover:text-mLightGray"
+            >
+              Ingresos
+            </p>
           </div>
         </div>
         <div
@@ -54,4 +82,5 @@ export default function NavHome() {
       </div>
     </section>
   );
-}
+};
+export default NavHome;

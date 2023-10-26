@@ -1,10 +1,7 @@
 "use client";
 
-import {
-  MagnifyingGlassIcon,
-  ChevronUpDownIcon,
-} from "@heroicons/react/24/outline";
-import { PencilIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { FaRegEdit } from "react-icons/fa";
+import { AiOutlineClose } from "react-icons/ai";
 import {
   Card,
   Input,
@@ -22,6 +19,7 @@ import {
   Option,
 } from "@material-tailwind/react";
 import { useState } from "react";
+import { useAppSelector } from "@/redux/hooks";
 
 const TABS = [
   {
@@ -129,7 +127,9 @@ const Table = () => {
   const [filter, setFilter] = useState("todos");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("Todas");
-
+  const titleSection = useAppSelector(
+    (state) => state.activeSection.activeSection
+  );
   const handlePreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -194,7 +194,7 @@ const Table = () => {
         <div className="mb-8 flex items-center justify-around gap-8">
           <div className="flex  gap-5">
             <Typography variant="h5" color="blue-gray">
-              Ingresos
+              {titleSection === "bills" ? "Gastos" : "Ingresos"}
             </Typography>
             <Typography color="gray" className="mt-1 font-normal">
               Último registro: <span className="text-blue-500">fecha</span>
@@ -362,12 +362,12 @@ const Table = () => {
                     <td className={classes}>
                       <Tooltip content="Editar">
                         <IconButton variant="text">
-                          <PencilIcon className="h-4 w-4" />
+                          <FaRegEdit className="h-4 w-4" />
                         </IconButton>
                       </Tooltip>
                       <Tooltip content="Eliminar">
                         <IconButton variant="text">
-                          <XCircleIcon className="h-4 w-4" />
+                          <AiOutlineClose className="h-4 w-4" />
                         </IconButton>
                       </Tooltip>
                     </td>

@@ -1,13 +1,47 @@
+"use client";
 import AddTransaction from "@/components/views/AddTransaction";
 import CreditCard from "@/components/views/CreditCard";
+import Table from "@/components/views/Table";
+import { useAppSelector } from "@/redux/hooks";
 
 const AppHome = () => {
-  return (
-    <div className="dark:bg-mBlack w-full ">
-      <AddTransaction />
-      {/* <CreditCard /> */}
-    </div>
+  const activeSection = useAppSelector(
+    (state) => state.activeSection.activeSection
   );
+  switch (activeSection) {
+    case "dashboard":
+      return <div className="dark:bg-mBlack w-full "></div>;
+    case "cards":
+      return (
+        <div className="dark:bg-mBlack w-full ">
+          <CreditCard />
+        </div>
+      );
+    case "bills":
+      return (
+        <div className="dark:bg-mBlack w-full ">
+          <Table />
+        </div>
+      );
+    case "earnings":
+      return (
+        <div className="dark:bg-mBlack w-full ">
+          <Table />
+        </div>
+      );
+    case "addTransaction":
+      return (
+        <div className="dark:bg-mBlack w-full ">
+          <AddTransaction />
+        </div>
+      );
+    default:
+      return (
+        <div className="dark:bg-mBlack w-full ">
+          <h1>Default</h1>
+        </div>
+      );
+  }
 };
 
 export default AppHome;

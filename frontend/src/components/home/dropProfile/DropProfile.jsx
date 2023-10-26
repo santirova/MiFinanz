@@ -34,7 +34,7 @@ const DropProfile = (props) => {
     <>
       <div
         ref={componenteRef}
-        className="flex relative min-w-40 h-10 px-1 bg-mLightGray dark:bg-mDarkGray rounded-full cursor-pointer items-center select-none"
+        className="flex relative min-w-40  h-10 px-1 bg-mLightGray dark:bg-mDarkGray rounded-full cursor-pointer items-center select-none"
       >
         <div className="flex items-center" onClick={handleOpenList}>
           <div className="profile-image">

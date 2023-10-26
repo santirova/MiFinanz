@@ -31,7 +31,7 @@ const CreditCard = () => {
   };
   return (
     <>
-      <section className="grid grid-cols-4 w-full">
+      <section className="grid grid-cols-4 w-full dark:bg-mDarkGray">
         {/* add card */}
         <div className="flex flex-col items-center justify-center w-48 h-48 p-4 m-4 bg-mLightGray rounded-lg shadow-md dark:bg-mDarkGray">
           <div className="flex flex-col items-center justify-center w-full h-full mt-4">
