@@ -6,7 +6,7 @@ import { useAppSelector } from "@/redux/hooks";
 
 const AppHome = () => {
   const activeSection = useAppSelector(
-    (state) => state.activeSection.activeSection
+    (state) => state?.activeSection?.activeSection || "exception"
   );
   switch (activeSection) {
     case "dashboard":
@@ -35,10 +35,16 @@ const AppHome = () => {
           <AddTransaction />
         </div>
       );
+    case "exception":
+      return (
+        <div className="dark:bg-mBlack w-full ">
+          <h1>Bienvenido al Sistema</h1>
+        </div>
+      );
     default:
       return (
         <div className="dark:bg-mBlack w-full ">
-          <h1>Default</h1>
+          <h1>Bienvenido al Sistema</h1>
         </div>
       );
   }
