@@ -1,9 +1,13 @@
 "use client";
 import { VscGraph } from "react-icons/vsc";
 import { GoEye } from "react-icons/go";
-import { BsArrowLeft } from "react-icons/bs";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useState } from "react";
 import NavHomeClose from "./NavHomeClose";
+import {BiSolidFolder} from "react-icons/bi"
+import {BiWindowOpen} from "react-icons/bi"
+import {BiImport} from "react-icons/bi"
+import Image from "next/image";
 
 export default function NavHome() {
   const [open, setOpen] = useState(true);
@@ -14,7 +18,8 @@ export default function NavHome() {
         open ? "flex" : "hidden"
       } bg-black h-full fixed  flex-col transition-all duration-300 rounded-xl ml-2`}>
         <div className="text-white">
-          <div className="p-10">
+          <div className="flex p-10 gap-2 place-items-center text-xl">
+            <Image src={"/logo_app.png"} width={30} height={30}/>
             <h2 className="">miFinanz</h2>
           </div>
           <div className="p-10 flex flex-col xl:gap-5 md:gap-5 2xl:gap-10">
@@ -23,15 +28,15 @@ export default function NavHome() {
               <p> Panel</p>
             </div>
             <div className="flex gap-2 text-xl place-items-center cursor-pointer">
-              <VscGraph />
+              <BiSolidFolder />
               <p>Cuentas</p>
             </div>
             <div className="flex gap-2 text-xl place-items-center cursor-pointer">
-              <VscGraph />
+              <BiWindowOpen />
               <p>Gastos</p>
             </div>
             <div className="flex gap-2 text-xl place-items-center cursor-pointer">
-              <VscGraph />
+              <BiImport />
               <p>Ingresos</p>
             </div>
           </div>
@@ -50,13 +55,10 @@ export default function NavHome() {
           </div>
           <div className="flex flex-col items-end relative">
             <i
-              className="text-2xl cursor-pointer rounded-xl h-7 w-7 bg-gray-600 "
+              className="text-3xl cursor-pointer  h-7 w-7"
               onClick={() => setOpen(false)}
             >
-              <BsArrowLeft />
-            </i>
-            <i className="cursor-pointer" onClick={() => setOpen(true)}>
-              -Open-
+              <BsFillArrowLeftCircleFill />
             </i>
           </div>
         </div>
