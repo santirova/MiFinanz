@@ -218,7 +218,7 @@ const Table = () => {
           <div className="w-full md:w-72">
             <Input
               label="Buscar"
-              icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+              // icon={<MagnifyingGlassIcon className="h-5 w-5" />}
               value={searchTerm}
               onChange={handleSearch}
             />
