@@ -4,9 +4,8 @@ import CreditCard from "@/components/views/CreditCard";
 const AppHome = () => {
   return (
     <div className="dark:bg-mBlack w-full ">
-      {/*       <AddTransaction />
-       */}{" "}
-      <CreditCard />
+      <AddTransaction />
+      {/* <CreditCard /> */}
     </div>
   );
 };
