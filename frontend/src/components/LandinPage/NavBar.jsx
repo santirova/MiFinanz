@@ -39,18 +39,18 @@ const NavBar = () => {
     setScrollPosition(window.scrollY);
   };
 
-  useEffect(() => {
-    // Calcula las posiciones de las secciones
-    navLinks.forEach((link) => {
-      const sectionElement = document.getElementById(link.hash.substring(1));
-      if (sectionElement) {
-        sectionPositionsRef.current[link.hash] = {
-          top: sectionElement.offsetTop,
-          bottom: sectionElement.offsetTop + sectionElement.offsetHeight,
-        };
-      }
-    });
-  }, [navLinks]);
+  // useEffect(() => {
+  //   // Calcula las posiciones de las secciones
+  //   navLinks.forEach((link) => {
+  //     const sectionElement = document.getElementById(link.hash.substring(1));
+  //     if (sectionElement) {
+  //       sectionPositionsRef.current[link.hash] = {
+  //         top: sectionElement.offsetTop,
+  //         bottom: sectionElement.offsetTop + sectionElement.offsetHeight,
+  //       };
+  //     }
+  //   });
+  // }, [navLinks]);
 
   useEffect(() => {
     // Maneja el scroll
