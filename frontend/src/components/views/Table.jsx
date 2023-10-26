@@ -158,6 +158,31 @@ const Table = () => {
   const categories = [...new Set(TABLE_ROWS.map((row) => row.categoria))];
   //console.log(categories);
 
+  // Filtrar los datos en función de la búsqueda, el filtro y la categoría seleccionada
+  const filteredTableData = TABLE_ROWS.filter((row) => {
+    const values = Object.values(row).map((value) =>
+      value.toString().toLowerCase()
+    );
+    if (filter === "pagados") {
+      return (
+        row.saldado &&
+        values.some((value) => value.includes(searchTerm.toLowerCase())) &&
+        (selectedCategory === "Todas" || row.categoria === selectedCategory)
+      );
+    } else if (filter === "pendientes") {
+      return (
+        !row.saldado &&
+        values.some((value) => value.includes(searchTerm.toLowerCase())) &&
+        (selectedCategory === "Todas" || row.categoria === selectedCategory)
+      );
+    } else {
+      return (
+        values.some((value) => value.includes(searchTerm.toLowerCase())) &&
+        (selectedCategory === "Todas" || row.categoria === selectedCategory)
+      );
+    }
+  });
+
   // Calcular el rango de elementos a mostrar en la página actual
   const startIndex = (currentPage - 1) * itemsPage;
   const endIndex = startIndex + itemsPage;
