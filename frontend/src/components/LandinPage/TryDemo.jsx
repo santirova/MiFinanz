@@ -1,7 +1,7 @@
-import Image from "next/image"
-import graphics from "@/assets/landing/graphics.png"
+import Image from "next/image";
+import graphics from "@/assets/landing/graphics.png";
 export default function LandingTwo() {
-    /* 
+  /* 
 
 position: absolute;
 width: 1280px;
@@ -11,46 +11,79 @@ top: 837px;
 
 background: linear-gradient(180deg, #44444C 0%, rgba(68, 68, 76, 0) 42.71%);
  */
-    return (
-        <section id="" className="h-[calc(100vh_-_120px)] w-full flex flex-col p-20 items-center justify-evenly md:flex-row">
-            <div className="md:w-1/2">
-                <Image className="w-full md:w-[500px]" src={graphics} />
-            </div>
-            <div className="flex flex-col gap-5 max-w-md md:w-1/2">
-                <div className="details-wrapper">
-                    <details className="">
-                        <summary className="font-semibold text-xl">Visualiza tu ECONOMIA</summary>
-                        <p className="p-4">Observa tus ingresos y gastos de manera clara y visual a través de gráficos interactivos y animaciones cautivadoras. Toma decisiones informadas y controla tus finanzas con facilidad.</p>
-                    </details>
-                    <hr />
-                </div>
-                <div className="details-wrapper">
-                    <details>
-                        <summary className="font-semibold text-xl">Ingresa tus MOVIMIENTOS</summary>
-                        <p className="p-4">Registra fácilmente tus ingresos y gastos para mantener un control preciso de tus finanzas. Nuestra interfaz intuitiva te permite ingresar y categorizar tus transacciones de forma rápida y sencilla.</p>
-                    </details>
-                    <hr />
-                </div>
-                <div className="details-wrapper">
-                    <details>
-                        <summary className="font-semibold text-xl">Administra tus CUENTAS</summary>
-                        <p className="p-4">Con nuestra función de administración de cuentas, puedes agregar, organizar y monitorear todas tus cuentas financieras en un solo lugar.</p>
-                    </details>
-                    <hr />
-                </div>
-                <div className="details-wrapper">
-                    <details>
-                        <summary className="font-semibold text-xl">Personaliza tus ALERTAS de cobro</summary>
-                        <p className="p-4">Configura notificaciones personalizadas para recibir recordatorios de pagos pendientes, fechas límite de facturas y vencimientos de préstamos.</p>
-                    </details>
-                    <hr />
-                </div>
+  return (
+    <section
+      id=""
+      className="min-h-screen p-10 w-full grid grid-cols-1 items-center md:grid-cols-2 md:content-evenly md:justify-items-center"
+    >
+      <div className="w-full flex justify-center items-center">
+        <Image
+          className="4/5 md:w-[500px]"
+          alt="Graphics picture"
+          src={graphics}
+        />
+      </div>
+      <div className="flex flex-col gap-5 max-w-md">
+        <div className="details-wrapper">
+          <details className="">
+            <summary className="font-semibold text-xl">
+              Visualiza tu ECONOMIA
+            </summary>
+            <p className="p-4">
+              Observa tus ingresos y gastos de manera clara y visual a través de
+              gráficos interactivos y animaciones cautivadoras. Toma decisiones
+              informadas y controla tus finanzas con facilidad.
+            </p>
+          </details>
+          <hr />
+        </div>
+        <div className="details-wrapper">
+          <details>
+            <summary className="font-semibold text-xl">
+              Ingresa tus MOVIMIENTOS
+            </summary>
+            <p className="p-4">
+              Registra fácilmente tus ingresos y gastos para mantener un control
+              preciso de tus finanzas. Nuestra interfaz intuitiva te permite
+              ingresar y categorizar tus transacciones de forma rápida y
+              sencilla.
+            </p>
+          </details>
+          <hr />
+        </div>
+        <div className="details-wrapper">
+          <details>
+            <summary className="font-semibold text-xl">
+              Administra tus CUENTAS
+            </summary>
+            <p className="p-4">
+              Con nuestra función de administración de cuentas, puedes agregar,
+              organizar y monitorear todas tus cuentas financieras en un solo
+              lugar.
+            </p>
+          </details>
+          <hr />
+        </div>
+        <div className="details-wrapper">
+          <details>
+            <summary className="font-semibold text-xl">
+              Personaliza tus ALERTAS de cobro
+            </summary>
+            <p className="p-4">
+              Configura notificaciones personalizadas para recibir recordatorios
+              de pagos pendientes, fechas límite de facturas y vencimientos de
+              préstamos.
+            </p>
+          </details>
+          <hr />
+        </div>
 
-                <button className="bg-mYellow text-mBlack rounded-full p-4 w-full md:w-96 font-semibold text-2xl">Prueba una Demo</button>
-            </div>
-        </section>
-
-    )
+        <button className="bg-mYellow text-mBlack rounded-full p-4 w-full md:w-96 font-semibold text-2xl">
+          Prueba una Demo
+        </button>
+      </div>
+    </section>
+  );
 }
 
 /* 
