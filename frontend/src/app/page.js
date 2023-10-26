@@ -7,18 +7,8 @@ import LandingHeader from "../components/LandinPage/LandingHeader";
 import TryDemo from "@/components/LandinPage/TryDemo";
 import Blog from "@/components/LandinPage/Blog";
 import Footer from "@/components/LandinPage/Footer";
-import { useEffect } from "react";
-import { useAppSelector } from "@/redux/hooks";
 
 export default function Home() {
-  const theme = useAppSelector((state) => state.theme.darkMode);
-  useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [theme]);
   return (
     <main className="w-full flex min-h-screen flex-col items-center bg-mWhite text-mBlack dark:bg-mBlack dark:text-mWhite">
       <>

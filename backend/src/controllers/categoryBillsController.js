@@ -1,5 +1,5 @@
 const { CategoryBill } = require('../db');
-const {billCategories} = require('../helpers/categories.js')
+const {billCategories} = require('../helpers/categories.js');
 categoryBillPostController = async(name) => {
 try {
     const category = await CategoryBill.create({
@@ -31,6 +31,6 @@ postMultiCatBillController = async () =>{
     } catch (error) {
         console.log(error.message)
     }
-}
+};
 
 module.exports = { categoryBillPostController, catGetController,postMultiCatBillController };
