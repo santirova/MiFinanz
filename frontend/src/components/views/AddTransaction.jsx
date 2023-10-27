@@ -145,8 +145,8 @@ const AddTransaction = () => {
           </button>
         </div>
       </div>
-      {selectedButton === "GASTOS" && renderForm()}
-      {selectedButton === "INGRESOS" && renderForm()}
+      {selectedButton === "GASTOS" && renderForm}
+      {selectedButton === "INGRESOS" && renderForm}
     </div>
   );
 };
