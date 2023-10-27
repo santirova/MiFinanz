@@ -25,7 +25,6 @@ const AddTransaction = () => {
   };
 
   const handleRenderForm = () => {
-    console.log("Render Form");
     return renderForm();
   };
 
@@ -123,7 +122,6 @@ const AddTransaction = () => {
       </div>
     </section>
   );
-  console.log("Render AddTransaction");
 
   return (
     <div className="w-full h-full flex justify-center items-center flex-col">
