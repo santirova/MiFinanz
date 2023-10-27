@@ -12,7 +12,7 @@ import NavHome from "./NavHome";
 
 export default function NavHomeClose({ setOpen }) {
   return (
-    <section className=" flex flex-col h-[52rem] mt-4 bg-black w-20 text-white rounded-xl ml-2 animate__animated animate__bounceInLeft py-5 justify-between">
+    <section className=" flex flex-col h-[52rem] mt-4 bg-black w-20 text-white rounded-xl ml-2 py-5 justify-between">
       <div className="flex justify-center items-center">
         <Image src={"/logo_app.png"} width={35} height={35} alt="logo.png" />
       </div>

@@ -18,7 +18,7 @@ export default function NavHome() {
         <NavHomeClose setOpen={setOpen} />
       ) : (
         <div
-          className=" flex mt-5 bg-black relative flex-col transition-all duration-100 rounded-xl ml-2 animate__animated animate__bounceInLeft p-5"
+          className=" flex mt-5 bg-black relative flex-col transition-all duration-100 rounded-xl ml-2  p-5"
         >
           <div className="text-white">
             <div className="flex p-10 gap-2 place-items-center text-xl">
