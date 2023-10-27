@@ -24,6 +24,11 @@ const AddTransaction = () => {
     setActiveButton(button);
   };
 
+  const handleRenderForm = () => {
+    console.log("Render Form");
+    return renderForm();
+  };
+
   const renderForm = () => (
     <section className="flex items-center justify-center flex-col">
       <div className="m-5 p-2 flex justify-between gap-5 bg-mlightGray text-mWhite border rounded-xl dark:bg-mDarkGray">
@@ -118,6 +123,7 @@ const AddTransaction = () => {
       </div>
     </section>
   );
+  console.log("Render AddTransaction");
 
   return (
     <div className="w-full h-full flex justify-center items-center flex-col">
@@ -145,8 +151,8 @@ const AddTransaction = () => {
           </button>
         </div>
       </div>
-      {selectedButton === "GASTOS" && renderForm}
-      {selectedButton === "INGRESOS" && renderForm}
+      {selectedButton === "GASTOS" && handleRenderForm()}
+      {selectedButton === "INGRESOS" && handleRenderForm()}
     </div>
   );
 };
