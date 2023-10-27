@@ -1,9 +1,13 @@
 "use client";
+import { use, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { setSection } from "@/redux/features/activeSectionSlice";
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
+
+import NavHomeClose from "./NavHomeClose";
+
 import { VscGraph } from "react-icons/vsc";
 import { GoEye } from "react-icons/go";
-import { BsFillArrowLeftCircleFill } from "react-icons/bs";
-import { useState } from "react";
-import NavHomeClose from "./NavHomeClose";
 import { BiSolidFolder } from "react-icons/bi";
 import { BiWindowOpen } from "react-icons/bi";
 import { BiImport } from "react-icons/bi";
@@ -11,10 +15,15 @@ import Image from "next/image";
 
 export default function NavHome() {
   const [open, setOpen] = useState(true);
+  const dispatch = useAppDispatch();
+
+  const handleSetSection = (section) => {
+    dispatch(setSection(section));
+  };
   return (
     <section className="flex flex-col">
       {!open ? (
-        <NavHomeClose setOpen={setOpen} />
+        <NavHomeClose handleSetSection={handleSetSection} setOpen={setOpen} />
       ) : (
         <div className=" flex mt-5 bg-black relative flex-col transition-all duration-100 rounded-xl ml-2  p-5">
           <div className="text-white">
@@ -30,19 +39,19 @@ export default function NavHome() {
             <div className="p-10 flex flex-col xl:gap-5 md:gap-5 2xl:gap-10">
               <div className="flex gap-2 text-xl place-items-center cursor-pointer">
                 <VscGraph />
-                <p> Panel</p>
+                <p onClick={() => handleSetSection("dashboard")}> Dashboard</p>
               </div>
               <div className="flex gap-2 text-xl place-items-center cursor-pointer">
                 <BiSolidFolder />
-                <p>Cuentas</p>
+                <p onClick={() => handleSetSection("cards")}>Tarjetas</p>
               </div>
               <div className="flex gap-2 text-xl place-items-center cursor-pointer">
                 <BiWindowOpen />
-                <p>Gastos</p>
+                <p onClick={() => handleSetSection("bills")}>Gastos</p>
               </div>
               <div className="flex gap-2 text-xl place-items-center cursor-pointer">
                 <BiImport />
-                <p>Ingresos</p>
+                <p onClick={() => handleSetSection("earnings")}>Ingresos</p>
               </div>
             </div>
             <div

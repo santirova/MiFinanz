@@ -10,7 +10,7 @@ import { BsQuestionCircleFill } from "react-icons/bs";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import NavHome from "./NavHome";
 
-export default function NavHomeClose({ setOpen }) {
+export default function NavHomeClose({ handleSetSection, setOpen }) {
   return (
     <section className=" flex flex-col h-[52rem] mt-4 bg-black w-20 text-white rounded-xl ml-2 py-5 justify-between">
       <div className="flex justify-center items-center">
@@ -19,21 +19,21 @@ export default function NavHomeClose({ setOpen }) {
 
       <div className="flex flex-col justify-center items-center gap-7 p-10 text-2xl">
         <div className="cursor-pointer">
-          <VscGraph />
+          <VscGraph onClick={() => handleSetSection("dashboard")} />
         </div>
         <div className="cursor-pointer">
-          <BiSolidFolder />
+          <BiSolidFolder onClick={() => handleSetSection("cards")} />
         </div>
         <div className="cursor-pointer">
-          <BiWindowOpen />
+          <BiWindowOpen onClick={() => handleSetSection("bills")} />
         </div>
         <div className="cursor-pointer">
-          <BiImport />
+          <BiImport onClick={() => handleSetSection("earnings")} />
         </div>
       </div>
       <div className="flex flex-col justify-center items-center gap-7 pt-10 text-2xl">
         <div className="cursor-pointer">
-          <BsQuestionCircleFill />
+          <BsQuestionCircleFill onClick={() => handleSetSection("earnings")} />
         </div>
         <div className="cursor-pointer">
           <BiWrench />
