@@ -1,4 +1,4 @@
-const { sumEarningsByCategoryController,sumBillsByCategoryController, sumBillsMonthControlle } = require("../controllers/statsController")
+const { sumEarningsByCategoryController,sumBillsByCategoryController, sumBillsMonthControlle, obtenerDatosParaGrafico } = require("../controllers/statsController")
 
 
 const sumEarningsByCategoryHandler = async (req,res) => {
@@ -34,4 +34,14 @@ const sumBillsMonthHandler = async (req,res) => {
     }
 }
 
-module.exports = {sumEarningsByCategoryHandler,sumBillsByCategoryHandler, sumBillsMonthHandler}
+const xDaybillsHandler = async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const datosParaGrafico = await obtenerDatosParaGrafico(userId);
+        res.json(datosParaGrafico);
+      } catch (error) {
+        res.status(400).json({ error: error.message });
+      }
+};
+
+module.exports = {sumEarningsByCategoryHandler,sumBillsByCategoryHandler, sumBillsMonthHandler, xDaybillsHandler };
