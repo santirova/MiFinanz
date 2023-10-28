@@ -1,6 +1,7 @@
 "use client";
 import AddTransaction from "@/components/views/AddTransaction";
 import CreditCard from "@/components/views/CreditCard";
+import Dashboard from "@/components/views/Dashboard";
 import Table from "@/components/views/Table";
 import { useAppSelector } from "@/redux/hooks";
 
@@ -10,7 +11,9 @@ const AppHome = () => {
   );
   switch (activeSection) {
     case "dashboard":
-      return <div className="dark:bg-mBlack w-full "></div>;
+      return <div className="dark:bg-mBlack w-full ">
+        <Dashboard/>
+      </div>;
     case "cards":
       return (
         <div className="dark:bg-mBlack w-full ">
