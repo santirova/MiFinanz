@@ -1,4 +1,4 @@
-const { sumEarningsByCategoryController,sumBillsByCategoryController, sumBillsMonthControlle, obtenerDatosParaGrafico } = require("../controllers/statsController")
+const { sumEarningsByCategoryController,sumBillsByCategoryController, sumBillsMonthControlle, earningVsBillController, obtenerDatosParaGrafico } = require("../controllers/statsController");
 
 
 const sumEarningsByCategoryHandler = async (req,res) => {
@@ -16,8 +16,8 @@ const sumBillsByCategoryHandler = async (req,res) => {
     try {
         const {userId} = req.params
         const {month} = req.query
-        const sumBills = await sumBillsByCategoryController(userId,month)
-        res.status(200).json(sumBills)
+        const response = await sumBillsByCategoryController(userId,month)
+        res.status(200).json(response)
     } catch (error) {
         res.status(400).json({error:error.message})
     }
@@ -27,7 +27,7 @@ const sumBillsMonthHandler = async (req,res) => {
     try {
         const {userId} = req.params
         const {month} = req.query
-        const sumBills = await sumBillsMonthControlle(userId,month)
+        const sumBills = await sumBillsMonthControlle(userId, month)
         res.status(200).json(sumBills)
     } catch (error) {
         res.status(400).json({error:error.message})
@@ -44,4 +44,18 @@ const xDaybillsHandler = async (req, res) => {
       }
 };
 
-module.exports = {sumEarningsByCategoryHandler,sumBillsByCategoryHandler, sumBillsMonthHandler, xDaybillsHandler };
+const earningVsBillHandler  = async (req,res) => {
+    try {
+        const {userId} = req.params
+        const {month} = req.query
+        const sumBills = await earningVsBillController(userId, month)
+        res.status(200).json(sumBills)
+    } catch (error) {
+        res.status(400).json({error:error.message})
+    }
+}
+
+
+
+
+module.exports = {sumEarningsByCategoryHandler,sumBillsByCategoryHandler, sumBillsMonthHandler, earningVsBillHandler, xDaybillsHandler }
