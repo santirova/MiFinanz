@@ -40,10 +40,8 @@ const CreditCard = () => {
 
   useEffect(() => {
     console.log("Solicitando tarjetas");
-    if (cards.length === 0) {
-      dispatch(getAllCardsAction(userId));
-    }
-  }, [handleAddCard, handleDeleteCard]);
+    dispatch(getAllCardsAction(userId));
+  }, [userId, cards.length]);
 
   return (
     <>
