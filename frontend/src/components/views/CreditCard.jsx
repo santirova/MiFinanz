@@ -43,7 +43,7 @@ const CreditCard = () => {
     if (cards.length === 0) {
       dispatch(getAllCardsAction(userId));
     }
-  }, [handleAddCard, handleDeleteCard]);
+  }, [cards.length, userId]);
 
   return (
     <>
