@@ -4,6 +4,7 @@ import activeSectionReducer from "./features/activeSectionSlice";
 import userInfo from "./features/useInfoSlice";
 import creditCardSlice from "./features/creditCardSlice";
 import bill from "./features/bill.Slice";
+import dashboard from "./features/dashboardSlice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     cards: creditCardSlice,
     userInfo,
     bill,
+    dashboard,
   },
 });

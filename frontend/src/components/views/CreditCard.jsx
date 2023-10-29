@@ -1,34 +1,50 @@
 "use client";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { addCard } from "@/redux/features/creditCardSlice";
+import {
+  getAllCardsAction,
+  addCardAction,
+  deleteCardAction,
+} from "@/redux/features/creditCardSlice";
 
 const CreditCard = () => {
+  const dispatch = useAppDispatch();
+
+  const cards = useAppSelector((state) => state.cards);
+  const userId = useAppSelector((state) => state.userInfo.user.id);
+  // Editable inputs
   const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
+  const [bankName, setBankName] = useState("");
+  const [branch, setBranch] = useState("");
   const [addView, setAddView] = useState(false);
 
-  // Crud for add delete and edit cards
-  const dispatch = useAppDispatch();
-  // get cards from redux
-  const cards = useAppSelector((state) => state.cards);
-
-  const handleAddCard = (name, number) => {
-    // add card
-    const card = {
-      name,
-      number,
-    };
-    dispatch(addCard(card));
+  const handleAddCard = async (name, bankName, branch) => {
     // reset inputs
+    await dispatch(addCardAction(userId, name, bankName, branch));
+    console.log("Agregando tarjeta");
     setName("");
-    setNumber("");
+    setBankName("");
+    setBranch("");
     // close add view
     handleAddView();
   };
+
+  const handleDeleteCard = async (id) => {
+    await dispatch(deleteCardAction(id));
+    console.log("Eliminando tarjeta");
+  };
+
   const handleAddView = () => {
     setAddView(!addView);
   };
+
+  useEffect(() => {
+    console.log("Solicitando tarjetas");
+    if (cards.length === 0) {
+      dispatch(getAllCardsAction(userId));
+    }
+  }, [handleAddCard, handleDeleteCard]);
+
   return (
     <>
       <section className="grid grid-cols-4 w-full dark:bg-mDarkGray">
@@ -52,13 +68,19 @@ const CreditCard = () => {
                 />
                 <input
                   type="text"
-                  placeholder="Numero"
+                  placeholder="Banco"
                   className="w-full h-12 p-2 m-2 text-white bg-mDarkGray rounded-md"
-                  onChange={(e) => setNumber(e.target.value)}
+                  onChange={(e) => setBankName(e.target.value)}
+                />
+                <input
+                  type="text"
+                  placeholder="Franquicia"
+                  className="w-full h-12 p-2 m-2 text-white bg-mDarkGray rounded-md"
+                  onChange={(e) => setBranch(e.target.value)}
                 />
                 <button
                   className="w-full h-12 p-2 m-2 text-white bg-mDarkGray rounded-md"
-                  onClick={() => handleAddCard(name, number)}
+                  onClick={() => handleAddCard(name, bankName, branch)}
                 >
                   Agregar
                 </button>
@@ -71,21 +93,29 @@ const CreditCard = () => {
         {/* Cards */}
         {cards?.map((card) => (
           <div
-            key={card.name}
+            key={card?.id}
             className="flex flex-col items-center justify-center w-48 h-48 p-4 m-4 bg-mLightGray rounded-lg shadow-md dark:bg-mDarkGray"
           >
-            <h1 className="text-xl font-bold text-white text-center">
+            <h2 className="text-xl font-bold text-white text-center">
               {card.name}
-            </h1>
+            </h2>
+            <h2 className="text-xl font-bold text-white text-center">
+              {card.name}
+            </h2>
             <div className="flex flex-col items-center justify-center w-full h-full mt-4">
-              <h1 className="text-2xl font-bold text-center text-mWhite">
-                {card.number}
-              </h1>
+              <h2 className="text-2xl font-bold text-center text-mWhite">
+                {card.bankName}
+              </h2>
               <div className="flex items-center justify-center w-full mt-4">
-                <h1 className="text-sm text-mWhite">12/24</h1>
-                <h1 className="ml-4 text-sm text-mWhite">123</h1>
+                <h3 className="text-sm text-mWhite">{card.branch}</h3>
               </div>
             </div>
+            <button
+              onClick={() => handleDeleteCard(card.id)}
+              className="w-full h-12 p-2 m-2 text-white bg-mDarkGray rounded-md"
+            >
+              Eliminar
+            </button>
           </div>
         ))}
       </section>
