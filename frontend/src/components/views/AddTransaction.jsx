@@ -14,6 +14,7 @@ import { Alert } from "@material-tailwind/react";
 import { addBill } from "@/redux/features/bill.Slice";
 import { useDispatch } from "react-redux";
 import IconSuccess from "@/assets/shared/IconAlertSuccess";
+import IconError from "@/assets/shared/IconAlertError";
 
 const AddTransaction = () => {
   const [selectedButton, setSelectedButton] = useState("GASTOS");
