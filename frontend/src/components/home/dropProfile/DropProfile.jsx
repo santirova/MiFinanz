@@ -1,11 +1,23 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { userLogOut } from "@/redux/features/useInfoSlice";
+import { setSection } from "@/redux/features/activeSectionSlice";
 
 const DropProfile = (props) => {
-  const { firstName, picture } = props;
+  const { picture } = props;
   const [open, setOpen] = useState(false);
   const componenteRef = useRef(null);
+
+  const dispatch = useAppDispatch();
+
+  const handleSetSection = (section) => {
+    dispatch(setSection(section));
+  };
+
+  const userInfo = useAppSelector((store) => store.userInfo);
+  const userName = userInfo?.user?.name ?? "User";
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -23,7 +35,7 @@ const DropProfile = (props) => {
   }, [open]);
 
   const signOut = () => {
-    alert("Sign out");
+    dispatch(userLogOut());
   };
 
   const handleOpenList = () => {
@@ -41,7 +53,7 @@ const DropProfile = (props) => {
             <Image src={picture} width={50} height={50} alt="Profile picture" />
           </div>
           <div className="profile-info">
-            <h1>{firstName}</h1>
+            <h1>{userName}</h1>
           </div>
           <div className="icon">
             <svg
@@ -58,7 +70,12 @@ const DropProfile = (props) => {
         {open && (
           <div className="absolute right-0 top-10 bg-mWhite dark:bg-mDarkGray ">
             <ul className="flex flex-col gap-1 py-3 shadow-lg">
-              <li className="px-3 hover:bg-white">Profile</li>
+              <li
+                className="px-3 hover:bg-white"
+                onClick={() => handleSetSection("profile")}
+              >
+                Profile
+              </li>
               <li className="px-3 hover:bg-white">Settings</li>
               <li className="px-3 hover:bg-white">Contact us</li>
               <li onClick={signOut} className="px-3 hover:bg-white">
