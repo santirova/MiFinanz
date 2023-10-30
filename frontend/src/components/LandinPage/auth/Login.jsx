@@ -42,14 +42,14 @@ const Login = () => {
     }
   };
   const { token } = useSelector((store) => store.userInfo);
-  // useEffect(() => {
-  //   // const storedToken = localStorage.getItem("token");
+  useEffect(() => {
+    // const storedToken = localStorage.getItem("token");
 
-  //   if (token) {
-  //     // Redirigir al usuario a /home
-  //     window.location.href = "/home";
-  //   }
-  // }, []);
+    if (token) {
+      // Redirigir al usuario a /home
+      window.location.href = "/home";
+    }
+  }, []);
 
   return (
     <div className="  h-screen  bg-mWhite dark:bg-mBlack flex flex-col justify-center items-center">

@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const axiosMiFinanz = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "https://c14-17-ft-node-react-production.up.railway.app",
 });
