@@ -29,7 +29,7 @@ const TopBar = () => {
   return (
     <div className="grid grid-cols-3 p-1 w-full">
       <div className="w-44">
-        <DropProfile firstName="Víctor" picture={"/defaultAvatar.png"} />
+        <DropProfile picture={"/defaultAvatar.png"} />
       </div>
       <div className="text-transparent"> Temp </div>
       <div className="flex justify-end gap-3">
