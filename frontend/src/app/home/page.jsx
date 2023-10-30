@@ -11,9 +11,11 @@ const AppHome = () => {
   );
   switch (activeSection) {
     case "dashboard":
-      return <div className="dark:bg-mBlack w-full ">
-        <Dashboard/>
-      </div>;
+      return (
+        <div className="dark:bg-mBlack w-full ">
+          <Dashboard />
+        </div>
+      );
     case "cards":
       return (
         <div className="dark:bg-mBlack w-full ">
