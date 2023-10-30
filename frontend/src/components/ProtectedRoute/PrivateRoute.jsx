@@ -5,7 +5,10 @@ import { axiosMiFinanz } from "@/utils/configAxios";
 
 const PrivateRoute = ({ children }) => {
   const { push } = useRouter();
-  const { token } = JSON.parse(localStorage.getItem("userInfo")) || {};
+  const { token } =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("userInfo")) || {}
+      : {};
   const [content, setContent] = useState(null);
 
   useEffect(() => {
