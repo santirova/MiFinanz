@@ -39,9 +39,9 @@ const xDaybillsHandler = async (req, res) => {
     try {
         const datosParaGrafico = await obtenerDatosParaGrafico(userId);
         res.json(datosParaGrafico);
-      } catch (error) {
+    } catch (error) {
         res.status(400).json({ error: error.message });
-      }
+    }
 };
 
 const earningVsBillHandler  = async (req,res) => {

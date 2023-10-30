@@ -1,4 +1,5 @@
-const {User,CategoryEarning,Earning,Bill,CategoryBill,sequelize} = require('../db')
+const {User,CategoryEarning,Earning,Bill,CategoryBill,Card,sequelize} = require('../db')
+const { Op } = require('sequelize');
 
 
 const sumEarningsByCategoryController = async (UserId,month) => {
@@ -99,29 +100,62 @@ const sumBillsMonthControlle = async (UserId, month) => {
 
 const obtenerDatosParaGrafico = async (userId) => {
     try {
+        const today = new Date();
+        const lastFifteenDays = [];
+        for (let i = 14; i >= 0; i--) {
+            const date = new Date(today);
+            date.setDate(today.getDate() - i);
+            lastFifteenDays.push(date.toISOString().slice(0, 10));
+        }
+
         const response = await Bill.findAll({
             where: {
                 UserId: userId,
+                date: {
+                    [Op.between]: [lastFifteenDays[0], lastFifteenDays[14]],
+                },
             },
             attributes: [
                 [sequelize.col('date'), 'fecha'],
                 [sequelize.fn('SUM', sequelize.col('amount')), 'total_gasto'],
-                'payment_method', // Incluye el método de pago en el resultado
+                [sequelize.col('Card.name'), 'nombre_tarjeta'],
+                'payment_method',
             ],
-            group: ['date', 'payment_method'], // Agrupa por fecha y método de pago
-            order: ['date'],
+            include: [
+                {
+                    model: Card,
+                    attributes: [],
+                },
+            ],
+            group: ['fecha', 'nombre_tarjeta', 'payment_method'], // Agrupa por fecha, nombre de la tarjeta y método de pago
+            order: ['fecha'],
         });
-        
-        if (!response.length) {
-            return `No se encontraron gastos para el usuario indicado`;
-        }
-        
-        return response;
-      } catch (error) {
+
+        const paymentMethods = Array.from(new Set(response.map((record) => (record.payment_method ? record.dataValues.nombre_tarjeta ?? 'Efectivo' : 'Efectivo'))));
+
+        const seriesData = paymentMethods.map((paymentMethod) => {
+            const data = lastFifteenDays.map((date) => {
+                const record = response.find((r) => r.dataValues.fecha === date && (r.payment_method ? r.dataValues.nombre_tarjeta : 'Efectivo') === paymentMethod);
+                return record ? parseInt(record.dataValues.total_gasto) : 0;
+            });
+
+            return {
+                name: paymentMethod,
+                type: 'line',
+                stack: 'Total',
+                data,
+            };
+        });
+
+        return {
+            data: lastFifteenDays,
+            series: seriesData,
+        };
+    } catch (error) {
         console.error('Error en la consulta:', error);
         throw error;
-      }
-    };
+    }
+};
 
 const earningVsBillController = async (UserId, month ) => {
     
