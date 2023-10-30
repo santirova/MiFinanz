@@ -34,7 +34,7 @@ const AppHome = () => {
       );
     case "addTransaction":
       return (
-        <div className="dark:bg-mBlack w-full ">
+        <div className=" w-full ">
           <AddTransaction />
         </div>
       );
