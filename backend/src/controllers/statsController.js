@@ -97,6 +97,32 @@ const sumBillsMonthControlle = async (UserId, month) => {
     return response;
 }
 
+const obtenerDatosParaGrafico = async (userId) => {
+    try {
+        const response = await Bill.findAll({
+            where: {
+                UserId: userId,
+            },
+            attributes: [
+                [sequelize.col('date'), 'fecha'],
+                [sequelize.fn('SUM', sequelize.col('amount')), 'total_gasto'],
+                'payment_method', // Incluye el método de pago en el resultado
+            ],
+            group: ['date', 'payment_method'], // Agrupa por fecha y método de pago
+            order: ['date'],
+        });
+        
+        if (!response.length) {
+            return `No se encontraron gastos para el usuario indicado`;
+        }
+        
+        return response;
+      } catch (error) {
+        console.error('Error en la consulta:', error);
+        throw error;
+      }
+    };
+
 const earningVsBillController = async (UserId, month ) => {
     
     const user = await User.findByPk(UserId)
@@ -167,5 +193,6 @@ module.exports = {
     sumEarningsByCategoryController,
     sumBillsByCategoryController,
     sumBillsMonthControlle,
+    obtenerDatosParaGrafico,
     earningVsBillController
 }
