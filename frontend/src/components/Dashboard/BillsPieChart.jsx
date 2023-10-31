@@ -6,17 +6,15 @@ import * as echarts from "echarts";
 const BillsPieChart = () => {
 
   const { billsPieChart } = useAppSelector((state) => state.dashboard);
-  const userId = "1c3d1e88-a663-480a-be6c-0d8f246e12d0";
-
-  const month = 10;
+  const {user} = useAppSelector((state)=> state.userInfo)
+  const fechaActual = new Date();
+  const month = fechaActual.getMonth() + 1;
   const dispatch = useAppDispatch();
-
-
 
   useEffect(() => {
     // Carga los datos una vez que se monta el componente
     if (!billsPieChart) {
-      dispatch(setBillsPieChartsAction(userId, month));
+      dispatch(setBillsPieChartsAction(user?.id, month));
     }
   }, [])
 
@@ -29,6 +27,7 @@ const BillsPieChart = () => {
       // Verifica que billsPieChart tenga datos antes de usarlo en el gráfico
       if (billsPieChart) {
         const option = {
+          backgroundColor:'mBlack',
           legend: {
             top: "bottom",
           },
@@ -56,7 +55,7 @@ const BillsPieChart = () => {
         chart.setOption(option);
       }
     }
-  }, [billsPieChart]); // Escucha cambios en billsPieChart
+  }, [dispatch,billsPieChart]); 
 
   return (
     <div>
@@ -64,7 +63,6 @@ const BillsPieChart = () => {
 
      {billsPieChart && (
         <div
-          className="bg-white"
           id="chart-container"
           style={{ width: "100%", height: "500px" }}
         ></div>
