@@ -2,17 +2,17 @@ import { createSlice } from "@reduxjs/toolkit";
 import { axiosMiFinanz } from "@/utils/configAxios";
 
 const initialState = {
-  bill: [],
+  earning: [],
   category: [],
   error: false,
 };
 
-const billSlice = createSlice({
-  name: "bill",
+const earningSlice = createSlice({
+  name: "earning",
   initialState,
   reducers: {
-    setBillGlobal: (state, action) => {
-      return { ...state, bill: action.payload };
+    setEarningGlobal: (state, action) => {
+      return { ...state, earning: action.payload };
     },
     setCategoryGlobal: (state, action) => {
       return { ...state, category: action.payload };
@@ -23,33 +23,33 @@ const billSlice = createSlice({
   },
 });
 
-export const { setBillGlobal, setCategoryGlobal, setChangeErrorStatus } =
-  billSlice.actions;
+export const { setEarningGlobal, setCategoryGlobal, setChangeErrorStatus } =
+  earningSlice.actions;
 
 //obtener todos los bill, con el método get del usuario logueado, para ello recibe el id
-export const getAllBill = (id) => (dispatch) => {
+export const getAllEarning = (id) => (dispatch) => {
   axiosMiFinanz
-    .get(`/bill/user/${id}/bills`)
-    .then((res) => dispatch(setBillGlobal(res.data.results)))
+    .get(`/earning/${id}`)
+    .then((res) => dispatch(setEarningGlobal(res.data.results)))
     .catch((err) => console.log(err));
 };
 
 // agregar un nuevo bill con el método post, recibe el id y la data
-export const addBill = (id, data) => (dispatch) => {
+export const addEarning = (id, data) => (dispatch) => {
   // console.log(id, data);
   axiosMiFinanz
-    .post(`/bill/user/${id}`, data)
-    .then((res) => dispatch(getAllBill())) // después de crear el bill mandamos actualizamos los bill del usuario
+    .post(`/earning/${id}`, data)
+    .then((res) => dispatch(getAllEarning())) // después de crear el earning mandamos actualizamos los earning del usuario
 
     .catch((err) => console.log(err));
 };
 
-//extraer las categorías de Bill
-export const getAllCategoryBill = () => (dispatch) => {
+//extraer las categorías de earning
+export const getAllCategoryEarning = () => (dispatch) => {
   axiosMiFinanz
-    .get("/categoryBill")
+    .get("/categoryEarning")
     .then((res) => dispatch(setCategoryGlobal(res.data)))
     .catch((err) => console.log(err));
 };
 
-export default billSlice.reducer;
+export default earningSlice.reducer;
