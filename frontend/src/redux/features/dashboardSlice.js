@@ -5,14 +5,18 @@ export const dashboardSlice = createSlice({
   name: "dashboard",
   initialState: {
     billsPieChart: null,
+    stackedLineChart:null,
   },
   reducers: {
     setBillsPieCharts: (state, action) => {
       state.billsPieChart = action.payload;
     },
+    setStackedLineChart: (state, action) => {
+      state.stackedLineChart = action.payload;
+    },
   },
 });
-const { setBillsPieCharts } = dashboardSlice.actions;
+const { setBillsPieCharts,setStackedLineChart } = dashboardSlice.actions;
 
 export const setBillsPieChartsAction = (userid, month) => (dispatch) => {
   return new Promise((resolve, reject) => {
@@ -29,6 +33,21 @@ export const setBillsPieChartsAction = (userid, month) => (dispatch) => {
         dispatch(setBillsPieCharts(cleanData));
       })
       .catch((err) => {
+        reject(new Error(err));
+      });
+  });
+};
+
+export const setStackedLineChartAction = (userid) => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    // Devuelve una promesa para poder capturar el error en el componente
+    axiosMiFinanz
+      .get(`/stats/billsDayxCard/${userid}`)
+      .then((res) => {
+        dispatch(setStackedLineChart(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
         reject(new Error(err));
       });
   });

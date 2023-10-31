@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const { sumEarningsByCategoryHandler,sumBillsByCategoryHandler,sumBillsMonthHandler , earningVsBillHandler, xDaybillsHandler  } = require('../handlers/statsHandlers');
+const { sumEarningsByCategoryHandler,sumBillsByCategoryHandler,sumBillsMonthHandler , earningVsBillHandler, xDaybillsHandler } = require('../handlers/statsHandlers');
 
 const statsRouter = Router();
 

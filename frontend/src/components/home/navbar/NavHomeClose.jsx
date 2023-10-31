@@ -9,12 +9,13 @@ import { BiWrench } from "react-icons/bi";
 import { BsQuestionCircleFill } from "react-icons/bs";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 import NavHome from "./NavHome";
+import logo from "@/assets/shared/logo.png";
 
 export default function NavHomeClose({ handleSetSection, setOpen }) {
   return (
     <section className=" flex flex-col h-[52rem] mt-4 bg-black w-20 text-white rounded-xl ml-2 py-5 justify-between">
       <div className="flex justify-center items-center">
-        <Image src={"/logo_app.png"} width={35} height={35} alt="logo.png" />
+        <Image src={logo} width={35} height={35} alt="logo.png" />
       </div>
 
       <div className="flex flex-col justify-center items-center gap-7 p-10 text-2xl">

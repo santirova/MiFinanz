@@ -5,6 +5,7 @@ import userInfo from "./features/useInfoSlice";
 import creditCardSlice from "./features/creditCardSlice";
 import bill from "./features/bill.Slice";
 import dashboard from "./features/dashboardSlice";
+import earning from "./features/earningSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     userInfo,
     bill,
     dashboard,
+    earning,
   },
 });

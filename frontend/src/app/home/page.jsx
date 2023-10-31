@@ -1,4 +1,5 @@
 "use client";
+import Profile from "@/components/home/dropProfile/Profile";
 import AddTransaction from "@/components/views/AddTransaction";
 import CreditCard from "@/components/views/CreditCard";
 import Dashboard from "@/components/views/Dashboard";
@@ -11,24 +12,26 @@ const AppHome = () => {
   );
   switch (activeSection) {
     case "dashboard":
-      return <div className="dark:bg-mBlack w-full ">
-        <Dashboard/>
-      </div>;
+      return (
+        <div className="w-full ">
+          <Dashboard />
+        </div>
+      );
     case "cards":
       return (
-        <div className="dark:bg-mBlack w-full ">
+        <div className="w-full ">
           <CreditCard />
         </div>
       );
     case "bills":
       return (
-        <div className="dark:bg-mBlack w-full ">
+        <div className="w-full">
           <Table />
         </div>
       );
     case "earnings":
       return (
-        <div className="dark:bg-mBlack w-full ">
+        <div className="w-full ">
           <Table />
         </div>
       );
@@ -38,15 +41,21 @@ const AppHome = () => {
           <AddTransaction />
         </div>
       );
+    case "profile":
+      return (
+        <div className="w-full ">
+          <Profile />
+        </div>
+      );
     case "exception":
       return (
-        <div className="dark:bg-mBlack w-full ">
+        <div className="w-full ">
           <h1>Bienvenido al Sistema</h1>
         </div>
       );
     default:
       return (
-        <div className="dark:bg-mBlack w-full ">
+        <div className="w-full ">
           <h1>Bienvenido al Sistema</h1>
         </div>
       );
