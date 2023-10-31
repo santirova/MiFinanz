@@ -13,25 +13,25 @@ const AppHome = () => {
   switch (activeSection) {
     case "dashboard":
       return (
-        <div className="dark:bg-mBlack w-full ">
+        <div className="w-full ">
           <Dashboard />
         </div>
       );
     case "cards":
       return (
-        <div className="dark:bg-mBlack w-full ">
+        <div className="w-full ">
           <CreditCard />
         </div>
       );
     case "bills":
       return (
-        <div className="dark:bg-mBlack w-full ">
+        <div className="w-full">
           <Table />
         </div>
       );
     case "earnings":
       return (
-        <div className="dark:bg-mBlack w-full ">
+        <div className="w-full ">
           <Table />
         </div>
       );
@@ -43,19 +43,19 @@ const AppHome = () => {
       );
     case "profile":
       return (
-        <div className=" w-full ">
+        <div className="w-full ">
           <Profile />
         </div>
       );
     case "exception":
       return (
-        <div className="dark:bg-mBlack w-full ">
+        <div className="w-full ">
           <h1>Bienvenido al Sistema</h1>
         </div>
       );
     default:
       return (
-        <div className="dark:bg-mBlack w-full ">
+        <div className="w-full ">
           <h1>Bienvenido al Sistema</h1>
         </div>
       );
