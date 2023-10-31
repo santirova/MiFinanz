@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { axiosMiFinanz } from "@/utils/configAxios";
+import ProtectedLoader from "./ProtectedLoader";
 
 const PrivateRoute = ({ children }) => {
   const { push } = useRouter();
@@ -47,7 +48,7 @@ const PrivateRoute = ({ children }) => {
     validateToken();
   }, [token]);
 
-  return content ? content : <h1>Loading</h1>;
+  return content ? content : <ProtectedLoader />;
 };
 
 export default PrivateRoute;
