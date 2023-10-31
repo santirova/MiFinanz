@@ -30,7 +30,8 @@ const Card = ({ cardData, setCardEdited }) => {
     console.log("Eliminando tarjeta");
   };
 
-  const handleEditCard = async (id, name, bankName, branch) => {
+  const handleEditCard = async (e, id, name, bankName, branch) => {
+    e.preventDefault();
     await dispatch(editCardAction(id, name, bankName, branch));
     console.log("Editando tarjeta");
     // close add view
@@ -39,9 +40,14 @@ const Card = ({ cardData, setCardEdited }) => {
   };
 
   const handleOnChange = (e) => {
+    const inputValue = e.target.value;
+
+    // Verifica y corta el valor si excede los 20 caracteres
+    const truncatedValue = inputValue.slice(0, 20);
+
     setCard({
       ...card,
-      [e.target.name]: e.target.value,
+      [e.target.name]: truncatedValue,
     });
   };
 
@@ -80,53 +86,60 @@ const Card = ({ cardData, setCardEdited }) => {
               </h2>
             </>
           ) : (
-            <div className="flex flex-col items-center justify-center w-full h-full mt-4">
+            <form
+              onSubmit={(e) =>
+                handleEditCard(
+                  e,
+                  cardData.id,
+                  card.name,
+                  card.bankName,
+                  card.branch
+                )
+              }
+              className="flex flex-col items-center justify-center w-full h-full"
+            >
               <input
                 type="text"
                 placeholder="Nombre"
                 value={card.name}
                 name="name"
-                className="w-full h-12 p-2 m-2 text-white bg-mDarkGray rounded-md"
+                className="w-full h-8 p-2 m-2 text-white bg-mDarkGray rounded-md"
                 onChange={(e) => handleOnChange(e)}
+                required
               />
               <input
                 type="text"
                 placeholder="Banco"
                 value={card.bankName}
                 name="bankName"
-                className="w-full h-12 p-2 m-2 text-white bg-mDarkGray rounded-md"
+                className="w-full h-8 p-2 m-2  text-white bg-mDarkGray rounded-md"
                 onChange={(e) => handleOnChange(e)}
+                required
               />
               <input
                 type="text"
                 placeholder="Franquicia"
                 value={card.branch}
                 name="branch"
-                className="w-full h-12 p-2 m-2 text-white bg-mDarkGray rounded-md"
+                className="w-full h-8 p-2  m-2 text-white bg-mDarkGray rounded-md"
                 onChange={(e) => handleOnChange(e)}
+                required
               />
               <div className="container-btns flex">
                 <button
-                  className="w-full h-12 p-2 m-2 text-white bg-mDarkGray rounded-md"
+                  className="w-full h-10 p-2 m-2 text-white bg-mDarkGray rounded-md hover:bg-gray-700"
                   onClick={() => handleEditMode()}
                 >
                   Cancelar
                 </button>
                 <button
-                  className="w-full h-12 p-2 m-2 text-white bg-mDarkGray rounded-md"
-                  onClick={() =>
-                    handleEditCard(
-                      cardData.id,
-                      card.name,
-                      card.bankName,
-                      card.branch
-                    )
-                  }
+                  className="w-full h-10 p-2 m-2 min-w-[90px] text-white bg-mDarkGray rounded-md hover:bg-gray-700"
+                  type="submit"
                 >
                   Editar
                 </button>
               </div>
-            </div>
+            </form>
           )}
         </div>
       </div>
