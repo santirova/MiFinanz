@@ -4,17 +4,19 @@ import { useEffect, useState } from "react";
 import * as echarts from 'echarts';
 
 const BillsPieChart = () => {
-  const { billsPieChart } = useAppSelector((state) => state.dashboard);
+  const { billsPieChart} = useAppSelector((state) => state.dashboard);
   const userId = '1c3d1e88-a663-480a-be6c-0d8f246e12d0';
   const month = 10;
   const dispatch = useAppDispatch();
+
+
 
   useEffect(() => {
     // Carga los datos una vez que se monta el componente
     if (!billsPieChart) {
       dispatch(setBillsPieChartsAction(userId, month));
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     const chartContainer = document.getElementById('chart-container');
@@ -57,7 +59,7 @@ const BillsPieChart = () => {
   return (
     <div>
       <p>bills pie chart</p>
-      {billsPieChart && <div className="bg-white" id="chart-container" style={{ width: '100%', height: '500px' }}></div>}
+      {billsPieChart && <div className="bg-white" id="chart-container" style={{ width: '100%', height: '400px' }}></div>}
     </div>
   );
 };
