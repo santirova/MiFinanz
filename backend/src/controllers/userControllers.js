@@ -86,9 +86,6 @@ const resetPasswordController = async (newPassword,token) => {
     return { message: 'Contraseña restablecida con éxito.' }
 
 }
-<<<<<<< HEAD
-module.exports ={getUserByIdController,postUserController,loginController,forgotPasswordController,resetPasswordController}
-=======
 
 const validateTokenController = async (token) =>{
     console.log('en controller');
@@ -103,4 +100,3 @@ const validateTokenController = async (token) =>{
       
 }
 module.exports ={getUserByIdController,postUserController,loginController,forgotPasswordController,resetPasswordController,validateTokenController}
->>>>>>> temp-branch

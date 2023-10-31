@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-const {getUserByIdController,postUserController, loginController,forgotPasswordController,resetPasswordController} = require('../controllers/userControllers');
-=======
 const {getUserByIdController,postUserController, loginController,forgotPasswordController,resetPasswordController,validateTokenController} = require('../controllers/userControllers');
->>>>>>> temp-branch
 const { sendWelcomeEmail, sendPasswordResetEmail } = require('../helpers/nodemailer');
 
 const getUserByIdHandler = async (req,res) =>{
@@ -65,9 +61,6 @@ const resetPasswordHandler = async (req,res)=>{
     }
 }
 
-<<<<<<< HEAD
-module.exports = {getUserByIdHandler,postUserHandler,loginHandler,forgotPasswordHandler,resetPasswordHandler}
-=======
 const validateTokenHandler = async (req,res)=>{
     try {
         const token = req.header('x-auth-token');
@@ -81,4 +74,3 @@ const validateTokenHandler = async (req,res)=>{
 }
 
 module.exports = {getUserByIdHandler,postUserHandler,loginHandler,forgotPasswordHandler,resetPasswordHandler,validateTokenHandler}
->>>>>>> temp-branch
