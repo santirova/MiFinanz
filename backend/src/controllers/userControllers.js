@@ -86,4 +86,21 @@ const resetPasswordController = async (newPassword,token) => {
     return { message: 'Contraseña restablecida con éxito.' }
 
 }
+<<<<<<< HEAD
 module.exports ={getUserByIdController,postUserController,loginController,forgotPasswordController,resetPasswordController}
+=======
+
+const validateTokenController = async (token) =>{
+    console.log('en controller');
+    console.log(token);
+    if (!token) {
+        console.log('no hay token');
+        return { message :'no hay token'}
+      }
+    
+    const decoded =  jwt.verify(token, secretKey);
+    return { message: 'Token válido', user: decoded };
+      
+}
+module.exports ={getUserByIdController,postUserController,loginController,forgotPasswordController,resetPasswordController,validateTokenController}
+>>>>>>> temp-branch
