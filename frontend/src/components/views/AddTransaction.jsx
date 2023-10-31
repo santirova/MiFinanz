@@ -1,134 +1,126 @@
 "use client";
-import { Button, Input } from "@material-tailwind/react";
-import { Select, Option } from "@material-tailwind/react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import TagSVG from "@/assets/shared/Tags.jsx";
-import DescriptionSVG from "@/assets/shared/Description.jsx";
-import DateSVG from "@/assets/shared/Date.jsx";
-import CashSVG from "@/assets/shared/Cash.jsx";
-import RepeatSVG from "@/assets/shared/Repeat.jsx";
+import { useAppSelector } from "@/redux/hooks";
+import { Alert } from "@material-tailwind/react";
+import { addBill } from "@/redux/features/bill.Slice";
+import { addEarning } from "@/redux/features/earningSlice";
+import { useDispatch } from "react-redux";
+import IconSuccess from "@/assets/shared/IconAlertSuccess";
+import IconError from "@/assets/shared/IconAlertError";
+import GastosForm from "./GastosForm";
+import IngresosForm from "./IngresosForm";
 
 const AddTransaction = () => {
   const [selectedButton, setSelectedButton] = useState("GASTOS");
-  const [activeButton, setActiveButton] = useState(null);
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const isDarkMode = useSelector((state) => state.theme.darkMode);
+  const [showErrorAlert, setShowErrorAlert] = useState(false);
+
+  const handleRenderForm = () => {
+    if (selectedButton === "GASTOS") {
+      return (
+        <GastosForm
+          isDarkMode={isDarkMode}
+          handleSubmitForm={handleSubmitForm}
+        />
+      );
+    } else {
+      return (
+        <IngresosForm
+          isDarkMode={isDarkMode}
+          handleSubmitForm={handleSubmitForm}
+        />
+      );
+    }
+  };
+
+  const dispatch = useDispatch();
 
   const handleButtonClick = (button) => {
     //Para seleccionar Gastos o ingreso
     setSelectedButton(button);
   };
 
-  const handleButtonSelect = (button) => {
-    //Para seleccionar Efectivo, Cuenta C o VISA
-    setActiveButton(button);
-  };
+  const { user: { id } = {} } = useAppSelector((store) => store.userInfo) || {};
 
-  const handleRenderForm = () => {
-    return renderForm();
-  };
+  const handleSubmitForm = async (data, payment_method) => {
+    // Lógica que maneja los datos según el tipo seleccionado (GASTOS o INGRESOS)
+    if (selectedButton === "GASTOS") {
+      // Maneja datos para GASTOS
+      const dataInput = {
+        amount: parseFloat(data.amount),
+        name: data.name,
+        date: data.date,
+        payment_method: typeof data.payment_method === "string" ? true : false,
+        categoryId: parseFloat(data.categoryId),
+        cardId: typeof data.payment_method === "string" ? data.cardId : null,
+        frequency: parseInt(data.frequency),
+      };
 
-  const renderForm = () => (
-    <section className="flex items-center justify-center flex-col">
-      <div className="m-5 p-2 flex justify-between gap-5 bg-mlightGray text-mWhite border rounded-xl dark:bg-mDarkGray">
-        <button
-          type="button"
-          className={`text-mBlack px-2 rounded-xl ${
-            activeButton === "Efectivo" && "bg-mLightGray"
-          }`}
-          onClick={() => handleButtonSelect("Efectivo")}
-        >
-          Efectivo
-        </button>
-        <button
-          type="button"
-          className={`text-mBlack px-2 rounded-xl ${
-            activeButton === "Cuenta C." && "bg-mLightGray"
-          }`}
-          onClick={() => handleButtonSelect("Cuenta C.")}
-        >
-          Cuenta C.
-        </button>
-        <button
-          type="button"
-          className={`text-mBlack px-2 rounded-xl ${
-            activeButton === "VISA" && "bg-mLightGray"
-          }`}
-          onClick={() => handleButtonSelect("VISA")}
-        >
-          VISA
-        </button>
-      </div>
-      <div className="w-72 flex items-center mb-4">
-        <div className="mr-2">
-          <TagSVG fillColor={isDarkMode === "dark" ? "#EEEEEE" : "black"} />
-        </div>
-        <Input
-          label="Categoría"
-          color={isDarkMode === "dark" ? "white" : "black"}
-        />
-      </div>
-      <div className="w-72 flex items-center mb-4">
-        <div className="mr-2">
-          <DescriptionSVG
-            fillColor={isDarkMode === "dark" ? "#EEEEEE" : "black"}
-          />
-        </div>
-        <Input
-          label="Descripción"
-          color={isDarkMode === "dark" ? "white" : "black"}
-        />
-      </div>
-      <div className="w-72 flex items-center mb-4">
-        <div className="mr-2">
-          <DateSVG fillColor={isDarkMode === "dark" ? "#EEEEEE" : "black"} />
-        </div>
-        <Input
-          label="Fecha"
-          type="date"
-          color={isDarkMode === "dark" ? "white" : "black"}
-        />
-      </div>
-      <div className="w-72 flex items-center mb-4">
-        <div className="mr-2">
-          <CashSVG fillColor={isDarkMode === "dark" ? "#EEEEEE" : "black"} />
-        </div>
-        <div className="flex  gap-4">
-          <label className="text-mBlack dark:text-mWhite">Total</label>
-          <label className="text-mBlue dark:text-mYellow">0$</label>
-        </div>
-      </div>
-      <div className="w-72 flex items-center mb-4">
-        <div className="mr-2">
-          <RepeatSVG fillColor={isDarkMode === "dark" ? "#EEEEEE" : "black"} />
-        </div>
-        <Select
-          variant="outlined"
-          label="Repetir"
-          color={isDarkMode === "dark" ? "blue-gray" : "gray"}
-        >
-          <Option>fijo</Option>
-          <Option>único</Option>
-          <Option>2 veces</Option>
-          <Option>3 veces</Option>
-          <Option>4 veces</Option>
-        </Select>
-      </div>
-      <div className="flex flex-col sm:flex-row sm:gap-3">
-        <Button>Cancelar</Button>
-        <Button color={isDarkMode === "dark" ? "yellow" : "blue"}>
-          Registrar {selectedButton === "GASTOS" ? "Gasto" : "Ingreso"}
-        </Button>
-      </div>
-    </section>
-  );
+      try {
+        await dispatch(addBill(id, dataInput));
+
+        setShowSuccessAlert(true);
+        //console.log("datos:", id, dataInput);
+        setTimeout(() => {
+          setShowSuccessAlert(false);
+        }, 5000);
+      } catch (error) {
+        setShowErrorAlert(true);
+        console.log(error);
+        setTimeout(() => {
+          setShowErrorAlert(false);
+        }, 5000);
+      }
+    } else {
+      // Maneja datos para INGRESOS
+
+      const dataInput = {
+        amount: parseFloat(data.amount),
+        name: data.name,
+        date: data.date,
+        CategoryEarningId: parseFloat(data.CategoryEarningId),
+      };
+      try {
+        await dispatch(addEarning(id, dataInput));
+        setShowSuccessAlert(true);
+        //console.log("datos:", id, dataInput);
+        setTimeout(() => {
+          setShowSuccessAlert(false);
+        }, 5000);
+      } catch (error) {
+        setShowErrorAlert(true);
+        console.log(error);
+        setTimeout(() => {
+          setShowErrorAlert(false);
+        }, 5000);
+      }
+    }
+  };
 
   return (
-    <div className="w-full h-full flex justify-center items-center flex-col">
-      <div className="w-56 text-center mt-40 sm:mt-16">
+    <section className="w-full h-full flex justify-center items-center flex-col">
+      {showSuccessAlert && (
+        <Alert
+          icon={<IconSuccess />}
+          className="rounded-none border-l-4 border-[#2ec946] bg-[#2ec946]/10 font-medium text-[#2ec946]"
+        >
+          !Gasto registrado correctamente!
+        </Alert>
+      )}
+      {showErrorAlert && (
+        <Alert
+          icon={<IconError />}
+          className="rounded-none border-l-4  border-red-500 bg-red-100 font-medium text-red-600"
+        >
+          Error vuelve a intentarlo
+        </Alert>
+      )}
+      <div className="w-56 text-center mt-10 sm:mt-10">
         <div className="flex gap-2">
           <button
-            className={`w-full border rounded p-1 border-mBlack dark:border-mWhite text-mBlack dark:text-mWhite ${
+            className={`w-full border rounded p-1 border-mBlack dark:border-mmWhite text-mBlack dark:text-mWhite ${
               selectedButton === "GASTOS"
                 ? "bg-blue-500"
                 : "bg-mWhite dark:bg-[#44444C]"
@@ -149,9 +141,9 @@ const AddTransaction = () => {
           </button>
         </div>
       </div>
-      {selectedButton === "GASTOS" && handleRenderForm()}
-      {selectedButton === "INGRESOS" && handleRenderForm()}
-    </div>
+
+      {handleRenderForm()}
+    </section>
   );
 };
 
