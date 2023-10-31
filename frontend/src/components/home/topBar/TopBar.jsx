@@ -27,7 +27,7 @@ const TopBar = () => {
     dispatch(toggleTheme());
   };
   return (
-    <div className="grid grid-cols-3 p-1 w-full">
+    <div className="grid grid-cols-3 p-3 w-full">
       <div className="w-44">
         <DropProfile picture={"/defaultAvatar.png"} />
       </div>
