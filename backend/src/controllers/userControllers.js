@@ -96,7 +96,8 @@ const validateTokenController = async (token) =>{
       }
     
     const decoded =  jwt.verify(token, secretKey);
-    return { message: 'Token válido', user: decoded };
+    return { message: 'Token válido', user: decoded }
+}
       
 module.exports ={getUserByIdController,postUserController,loginController,forgotPasswordController,resetPasswordController,validateTokenController}
 
