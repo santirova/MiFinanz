@@ -6,7 +6,7 @@ const TeamInfo = () => {
     {
       id: 0,
       name: "Josefina Eciolaza",
-      position: "PM",
+      position: "PM - BACKEND",
       image: profiles.josefina,
       linkedin: "",
       otherSocialMedia: "",

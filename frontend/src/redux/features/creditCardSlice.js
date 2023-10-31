@@ -69,6 +69,7 @@ export const addCardAction =
         .then((res) => {
           if (res.status === 200) {
             const cleanData = {
+              id: res.data.card.id,
               name: res.data.card.name,
               bankName: res.data.card.bank_name,
               branch: res.data.card.branch,
