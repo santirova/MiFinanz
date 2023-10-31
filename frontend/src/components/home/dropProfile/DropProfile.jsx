@@ -4,20 +4,25 @@ import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { userLogOut } from "@/redux/features/useInfoSlice";
 import { setSection } from "@/redux/features/activeSectionSlice";
+import { GoTriangleDown } from "react-icons/go";
+import { toggleTheme } from "@/redux/features/themeSlice";
 
 const DropProfile = (props) => {
   const { picture } = props;
   const [open, setOpen] = useState(false);
   const componenteRef = useRef(null);
-
-  const dispatch = useAppDispatch();
-
-  const handleSetSection = (section) => {
-    dispatch(setSection(section));
-  };
-
+  const theme = useAppSelector((state) => state.theme.darkMode);
   const userInfo = useAppSelector((store) => store.userInfo);
   const userName = userInfo?.user?.name ?? "User";
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -34,6 +39,14 @@ const DropProfile = (props) => {
     };
   }, [open]);
 
+  const handleChangeTheme = () => {
+    dispatch(toggleTheme());
+  };
+
+  const handleSetSection = (section) => {
+    dispatch(setSection(section));
+  };
+
   const signOut = () => {
     dispatch(userLogOut());
   };
@@ -46,40 +59,47 @@ const DropProfile = (props) => {
     <>
       <div
         ref={componenteRef}
-        className="flex relative min-w-40  h-10 px-1 bg-mLightGray dark:bg-mDarkGray rounded-full cursor-pointer items-center select-none"
+        className={`flex relative min-w-40  h-10 px-1 bg-mLightGray dark:bg-mBlack cursor-pointer items-center justify-center select-none ${
+          open ? "rounded-t-3xl" : "rounded-full"
+        }`}
       >
-        <div className="flex items-center" onClick={handleOpenList}>
-          <div className="profile-image">
-            <Image src={picture} width={50} height={50} alt="Profile picture" />
-          </div>
+        <div className="profile-image flex absolute left-[-16px]">
+          <Image src={picture} width={55} height={55} alt="Profile picture" />
+        </div>
+
+        <div className="flex items-center ml-5 gap-2" onClick={handleOpenList}>
           <div className="profile-info">
-            <h1>{userName}</h1>
+            <h2 className="text-white font-medium">{userName}</h2>
           </div>
+
           <div className="icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="25"
-              viewBox="0 0 24 25"
-              fill="none"
-            >
-              <path d="M7 10.3867L12 15.3867L17 10.3867H7Z" fill="black" />
-            </svg>
+            <GoTriangleDown
+              className={`text-white ${open ? "rotate-180" : ""}`}
+            />
           </div>
         </div>
+
         {open && (
-          <div className="absolute right-0 top-10 bg-mWhite dark:bg-mDarkGray ">
-            <ul className="flex flex-col gap-1 py-3 shadow-lg">
+          <div className="absolute w-full z-30 left-0 top-10 bg-mWhite dark:bg-mWhite rounded-b-lg ">
+            <ul className="flex flex-col gap-1 py-1 shadow-lg ">
               <li
-                className="px-3 hover:bg-white"
+                className="px-3 py-1 text-mBlack hover:bg-white"
                 onClick={() => handleSetSection("profile")}
               >
-                Profile
+                Perfil
               </li>
-              <li className="px-3 hover:bg-white">Settings</li>
-              <li className="px-3 hover:bg-white">Contact us</li>
-              <li onClick={signOut} className="px-3 hover:bg-white">
-                Log out
+              <li className="px-3 py-1 text-mBlack hover:bg-white">Ajustes</li>
+              <li
+                onClick={handleChangeTheme}
+                className="px-3 py-1 text-mBlack hover:bg-white"
+              >
+                Cambiar tema
+              </li>
+              <li
+                onClick={signOut}
+                className="px-3 py-1 text-mBlack hover:bg-white"
+              >
+                Cerrar Sesión
               </li>
             </ul>
           </div>
