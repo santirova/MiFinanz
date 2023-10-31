@@ -18,6 +18,7 @@ const GastosForm = ({ isDarkMode, handleSubmitForm }) => {
   const categories = useAppSelector((state) => state.bill.category);
   const cards = useAppSelector((state) => state.cards);
   const userId = useAppSelector((state) => state.userInfo.user.id);
+
   const dispatch = useAppDispatch();
   const handleButtonSelect = (button) => {
     //Para seleccionar Efectivo o tarjeta

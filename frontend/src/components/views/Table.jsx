@@ -4,132 +4,60 @@ import { FaRegEdit } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
 import {
   Card,
-  Input,
   Typography,
-  Button,
   CardBody,
   Chip,
-  CardFooter,
-  Tabs,
-  TabsHeader,
-  Tab,
   IconButton,
   Tooltip,
-  Select,
-  Option,
 } from "@material-tailwind/react";
-import { useState } from "react";
-import { useAppSelector } from "@/redux/hooks";
+import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { getAllBill } from "@/redux/features/bill.Slice";
+import { filterTableData } from "@/utils/filter";
+import CardFooterTable from "./CardFooterTable";
+import TableHeader from "./TableHeader";
+import { DialogDefault } from "./ModalEliminar";
 
-const TABS = [
-  {
-    label: "Todos",
-    value: "todos",
-  },
-  {
-    label: "Pagados",
-    value: "pagados",
-  },
-  {
-    label: "Pendientes",
-    value: "pendientes",
-  },
-];
-
-const TABLE_HEAD = [
-  "Cuenta",
-  "Categoría",
-  "Descripción",
-  "Fecha",
-  "Total",
-  "Repetir",
-  "Estado",
-  "",
-];
-
-const TABLE_ROWS = [
-  {
-    id: 1,
-    cuenta: "Efectivo",
-    categoria: "Alquiler",
-    descripcion: "Departamento",
-    date: "23/04/18",
-    total: 153000,
-    repetir: "fijo",
-    saldado: true,
-  },
-  {
-    id: 2,
-    cuenta: "Efectivo",
-    categoria: "Alimentos",
-    descripcion: "Super mercado",
-    date: "23/04/18",
-    total: 3000,
-    repetir: "unico",
-    saldado: false,
-  },
-  {
-    id: 3,
-    cuenta: "VISA",
-    categoria: "Varios",
-    descripcion: "Campera en ADIDAS",
-    date: "19/09/17",
-    total: 53000,
-    repetir: "3 veces",
-    saldado: false,
-  },
-  {
-    id: 4,
-    cuenta: "Efectivo",
-    categoria: "Alquiler",
-    descripcion: "Departamento",
-    date: "24/12/08",
-    total: 153000,
-    repetir: "fijo",
-    saldado: true,
-  },
-  {
-    id: 5,
-    cuenta: "VISA",
-    categoria: "Suscripciones",
-    descripcion: "Pago de Netflix",
-    date: "04/10/21",
-    total: 25000,
-    repetir: "fijo",
-    saldado: false,
-  },
-  {
-    id: 6,
-    cuenta: "VISA",
-    categoria: "Suscripciones",
-    descripcion: "Pago de Spotify",
-    date: "04/10/21",
-    total: 5,
-    repetir: "fijo",
-    saldado: true,
-  },
-  {
-    id: 7,
-    cuenta: "Efectivo",
-    categoria: "Alimentos",
-    descripcion: "Compra de almuerzo",
-    date: "04/10/21",
-    total: 250,
-    repetir: "único",
-    saldado: true,
-  },
-];
-
-const itemsPage = 5;
+import { TABS, TABLE_HEAD, itemsPage } from "@/utils/constantsTables";
+import { ModalEdit } from "./ModalEdit";
 
 const Table = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("todos");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("Todas");
+  const [deleteRecordId, setDeleteRecordId] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
+  const [dataEdit, setdataEdit] = useState({});
+
+  const [deleteName, setDeleteName] = useState(null);
+
   const titleSection = useAppSelector(
     (state) => state.activeSection.activeSection
   );
+  const dispatch = useAppDispatch();
+
+  const { user: { id } = {} } = useAppSelector((store) => store.userInfo) || {};
+  const data = useAppSelector((state) => state.bill.bill);
+  const bills = data && data.Bills ? data.Bills : [];
+  //  console.log(bills);
+  const categories = bills
+    ? [...new Set(bills.map((row) => row.CategoryBill.name))]
+    : [];
+  // console.log(categories);
+
+  const handleOpenModal = (id, name) => {
+    setOpen(true); // Abre el diálogo
+    setDeleteRecordId(id); // Guarda el ID del elemento a eliminar
+    setDeleteName(name); // Guarda el nombre del elemento a eliminar
+  };
+
+  const handleEditClick = (editedBill) => {
+    setOpenEdit(true);
+    setdataEdit(editedBill);
+  };
+
   const handlePreviousPage = () => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -155,92 +83,38 @@ const Table = () => {
     setSelectedCategory(selectedCategory);
   };
 
-  const categories = [...new Set(TABLE_ROWS.map((row) => row.categoria))];
-  //console.log(categories);
-
-  // Filtrar los datos en función de la búsqueda, el filtro y la categoría seleccionada
-  const filteredTableData = TABLE_ROWS.filter((row) => {
-    const values = Object.values(row).map((value) =>
-      value.toString().toLowerCase()
-    );
-    if (filter === "pagados") {
-      return (
-        row.saldado &&
-        values.some((value) => value.includes(searchTerm.toLowerCase())) &&
-        (selectedCategory === "Todas" || row.categoria === selectedCategory)
-      );
-    } else if (filter === "pendientes") {
-      return (
-        !row.saldado &&
-        values.some((value) => value.includes(searchTerm.toLowerCase())) &&
-        (selectedCategory === "Todas" || row.categoria === selectedCategory)
-      );
-    } else {
-      return (
-        values.some((value) => value.includes(searchTerm.toLowerCase())) &&
-        (selectedCategory === "Todas" || row.categoria === selectedCategory)
-      );
-    }
-  });
+  const filteredTableData = filterTableData(
+    bills,
+    filter,
+    searchTerm,
+    selectedCategory
+  );
 
   // Calcular el rango de elementos a mostrar en la página actual
   const startIndex = (currentPage - 1) * itemsPage;
   const endIndex = startIndex + itemsPage;
   const visibleItems = filteredTableData.slice(startIndex, endIndex);
 
-  return (
-    <Card className="h-full w-full">
-      <div className="rounded-none mt-10">
-        <div className="mb-8 flex items-center justify-around gap-8">
-          <div className="flex  gap-5">
-            <Typography variant="h5" color="blue-gray">
-              {titleSection === "bills" ? "Gastos" : "Ingresos"}
-            </Typography>
-            <Typography color="gray" className="mt-1 font-normal">
-              Último registro: <span className="text-blue-500">fecha</span>
-            </Typography>
-          </div>
-        </div>
-        <div className="flex flex-col items-center justify-around gap-4 md:flex-row">
-          <Tabs value={filter} className="w-full md:w-max">
-            <TabsHeader>
-              {TABS.map(({ label, value }) => (
-                <Tab
-                  key={value}
-                  value={value}
-                  onClick={() => handleFilterChange(value)}
-                >
-                  &nbsp;&nbsp;{label}&nbsp;&nbsp;
-                </Tab>
-              ))}
-            </TabsHeader>
-          </Tabs>
-          <div className="w-full md:w-72">
-            <Input
-              label="Buscar"
-              // icon={<MagnifyingGlassIcon className="h-5 w-5" />}
-              value={searchTerm}
-              onChange={handleSearch}
-            />
-          </div>
-          <div className="fflex w-72 flex-col gap-6">
-            <Select
-              label="Categorías"
-              size="md"
-              value={selectedCategory}
-              onChange={(e) => handleCategoryFilter(e)}
-            >
-              <Option value="Todas">Todas</Option>
-              {categories.map((category) => (
-                <Option key={category} value={category}>
-                  {category}
-                </Option>
-              ))}
-            </Select>
-          </div>
-        </div>
-      </div>
+  useEffect(() => {
+    if (id) {
+      //console.log("Loading data...");
+      dispatch(getAllBill(id));
+    }
+  }, [dispatch, id]);
 
+  return (
+    <Card className="h-full w-full dark:bg-mLightGray">
+      <TableHeader
+        titleSection={titleSection}
+        filter={filter}
+        handleFilterChange={handleFilterChange}
+        searchTerm={searchTerm}
+        handleSearch={handleSearch}
+        selectedCategory={selectedCategory}
+        handleCategoryFilter={handleCategoryFilter}
+        TABS={TABS}
+        categories={categories}
+      />
       <CardBody className="overflow-scroll px-0">
         <table className="mt-4 w-full min-w-max table-auto text-left">
           <thead>
@@ -248,7 +122,7 @@ const Table = () => {
               {TABLE_HEAD.map((head, index) => (
                 <th
                   key={head}
-                  className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover-bg-blue-gray-50"
+                  className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50  p-4 transition-colors hover-bg-blue-gray-50"
                 >
                   <Typography
                     variant="small"
@@ -265,133 +139,148 @@ const Table = () => {
             </tr>
           </thead>
           <tbody>
-            {visibleItems.map(
-              (
-                {
-                  id,
-                  cuenta,
-                  categoria,
-                  descripcion,
-                  date,
-                  total,
-                  repetir,
-                  saldado,
-                },
-                index
-              ) => {
-                const isLast = index === visibleItems.length - 1;
-                const classes = isLast
-                  ? "p-4"
-                  : "p-4 border-b border-blue-gray-50";
+            <DialogDefault
+              open={open}
+              handler={() => setOpen(false)} // Esto cierra el diálogo cuando se hace clic en "Cancelar" o "Confirmar"
+              deleteRecordId={deleteRecordId}
+              deleteName={deleteName}
+              element={"Gasto"}
+              userId={id}
+            />
+            <ModalEdit
+              openEdit={openEdit}
+              handler={() => setOpenEdit(false)}
+              userId={id}
+              dataEdit={dataEdit}
+              element={"Gasto"}
+            />
 
-                return (
-                  <tr key={id}>
-                    <td className={classes}>
-                      <div className="flex items-center gap-3">
+            {visibleItems &&
+              visibleItems.map(
+                (
+                  {
+                    id,
+                    CategoryBill,
+                    name,
+                    date,
+                    amount,
+                    frequency,
+                    payment_method,
+                    CardId,
+                  },
+                  index
+                ) => {
+                  const isLast = index === visibleItems.length - 1;
+                  const classes = isLast
+                    ? "p-4"
+                    : "p-4 border-b border-blue-gray-50";
+
+                  return (
+                    <tr key={id}>
+                      <td className={classes}>
+                        <div className="flex items-center gap-3">
+                          <div className="flex flex-col">
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal"
+                            >
+                              {name}
+                            </Typography>
+                          </div>
+                        </div>
+                      </td>
+                      <td className={classes}>
                         <div className="flex flex-col">
                           <Typography
                             variant="small"
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {cuenta}
+                            {CategoryBill.name}
                           </Typography>
                         </div>
-                      </div>
-                    </td>
-                    <td className={classes}>
-                      <div className="flex flex-col">
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {categoria}
-                        </Typography>
-                      </div>
-                    </td>
-                    <td className={classes}>
-                      <div className="flex flex-col">
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {descripcion}
-                        </Typography>
-                      </div>
-                    </td>
+                      </td>
 
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {date}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {total}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <Typography
-                        variant="small"
-                        color="blue-gray"
-                        className="font-normal"
-                      >
-                        {repetir}
-                      </Typography>
-                    </td>
-                    <td className={classes}>
-                      <div className="w-max">
-                        <Chip
-                          variant="ghost"
-                          size="sm"
-                          value={saldado ? "Pagado" : "Pendiente"}
-                          color={saldado ? "green" : "blue-gray"}
-                        />
-                      </div>
-                    </td>
-                    <td className={classes}>
-                      <Tooltip content="Editar">
-                        <IconButton variant="text">
-                          <FaRegEdit className="h-4 w-4" />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip content="Eliminar">
-                        <IconButton variant="text">
-                          <AiOutlineClose className="h-4 w-4" />
-                        </IconButton>
-                      </Tooltip>
-                    </td>
-                  </tr>
-                );
-              }
-            )}
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {date}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {amount}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <Typography
+                          variant="small"
+                          color="blue-gray"
+                          className="font-normal"
+                        >
+                          {frequency}
+                        </Typography>
+                      </td>
+                      <td className={classes}>
+                        <div className="w-max">
+                          <Chip
+                            variant="ghost"
+                            size="sm"
+                            value={payment_method ? "Tarjeta" : "Efectivo"}
+                            color={payment_method ? "green" : "blue-gray"}
+                          />
+                        </div>
+                      </td>
+                      <td className={classes}>
+                        <Tooltip content="Editar">
+                          <IconButton
+                            variant="text"
+                            onClick={() =>
+                              handleEditClick({
+                                id,
+                                CategoryBill,
+                                name,
+                                date,
+                                amount,
+                                frequency,
+                                payment_method,
+                                CardId,
+                              })
+                            }
+                          >
+                            <FaRegEdit className="h-4 w-4" />
+                          </IconButton>
+                        </Tooltip>
+                        <Tooltip content="Eliminar">
+                          <IconButton
+                            variant="text"
+                            onClick={() => handleOpenModal(id, name)}
+                          >
+                            <AiOutlineClose className="h-4 w-4" />
+                          </IconButton>
+                        </Tooltip>
+                      </td>
+                    </tr>
+                  );
+                }
+              )}
           </tbody>
         </table>
       </CardBody>
-      <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
-        <Typography variant="small" color="blue-gray" className="font-normal">
-          Página {currentPage} de{" "}
-          {Math.ceil(filteredTableData.length / itemsPage)}
-        </Typography>
-        <div className="flex gap-2">
-          <Button variant="outlined" size="sm" onClick={handlePreviousPage}>
-            Anterior
-          </Button>
-          <Button variant="outlined" size="sm" onClick={handleNextPage}>
-            Siguiente
-          </Button>
-        </div>
-      </CardFooter>
+      <CardFooterTable
+        currentPage={currentPage}
+        totalPages={Math.ceil(filteredTableData.length / itemsPage)}
+        handlePreviousPage={handlePreviousPage}
+        handleNextPage={handleNextPage}
+      />
     </Card>
   );
 };
