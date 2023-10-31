@@ -1,7 +1,10 @@
 "use client";
 import { setSection } from "@/redux/features/activeSectionSlice";
 import DropProfile from "../dropProfile/DropProfile";
+import { useAppDispatch } from "@/redux/hooks";
+
 const TopBar = () => {
+  const dispatch = useAppDispatch();
   const handleClick = (section) => {
     dispatch(setSection(section));
   };
