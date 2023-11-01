@@ -72,5 +72,5 @@ const validateTokenHandler = async (req,res)=>{
         res.status(400).send({error:error.message})  
     }
 }
-
 module.exports = {getUserByIdHandler,postUserHandler,loginHandler,forgotPasswordHandler,resetPasswordHandler,validateTokenHandler}
+
