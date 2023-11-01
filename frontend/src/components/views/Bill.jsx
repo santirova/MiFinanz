@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+"use client";
+import { useEffect, useRef, useState } from "react";
 import { getAllBill, getAllCategoryBill } from "@/redux/features/billSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Table2 from "../home/billsAndEarnings/Table2";
@@ -10,6 +11,7 @@ const Bill = () => {
   const userId = useAppSelector((state) => state.userInfo?.user.id) || null;
   const billsCategories = useAppSelector((state) => state.bill?.category) || [];
   const billsData = useAppSelector((state) => state.bill?.bill)?.Bills || [];
+  const [crudChanges, setCrudChanges] = useState(false);
 
   const hasDispatchedCategoryBill = useRef(false);
 
@@ -22,11 +24,20 @@ const Bill = () => {
 
   useEffect(() => {
     dispatch(getAllBill(userId));
-  }, [billsData.length, userId]);
+  }, [billsData.length, userId, crudChanges]);
+
+  const handleCrudChanges = () => {
+    setCrudChanges(!crudChanges);
+  };
 
   return (
     <section>
-      <Table2 mode={tableMode} data={billsData} categories={billsCategories} />
+      <Table2
+        mode={tableMode}
+        data={billsData}
+        categories={billsCategories}
+        handleCrudChanges={handleCrudChanges}
+      />
     </section>
   );
 };

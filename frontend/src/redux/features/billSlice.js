@@ -65,8 +65,9 @@ export const deleteBill = (id, userId) => (dispatch) => {
 };
 
 export const updateBill = (id, data, userId) => (dispatch) => {
+  console.log("id recibido", id);
   axiosMiFinanz
-    .put(`/bill/${id}`)
+    .put(`/bill/${id}`, data)
     .then((res) => {
       if (res.status === 200) {
         // actualización exitosa, obtener de nuevo la lista de gastos

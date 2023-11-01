@@ -21,21 +21,19 @@ import {
   Tooltip,
 } from "@material-tailwind/react";
 
-const Table2 = ({ mode, data, categories }) => {
+const Table2 = ({ mode, data, categories, handleCrudChanges }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState("todos");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState("Todas");
 
-  const [dataEdit, setdataEdit] = useState({});
+  const [dataToEdit, setDataToEdit] = useState({});
 
   const [openEditModal, setOpenEditModal] = useState(false);
 
   const [openDialog, setOpenDialog] = useState(false);
   const [deleteRecordId, setDeleteRecordId] = useState(null);
   const [deleteName, setDeleteName] = useState(null);
-
-  const titleSection = mode === "bill" ? "Gastos" : "Ingresos";
 
   const userId = useAppSelector((state) => state.userInfo?.user.id) || null;
 
@@ -47,9 +45,9 @@ const Table2 = ({ mode, data, categories }) => {
     setDeleteName(name); // Guarda el nombre del elemento a eliminar
   };
 
-  const handleEditClick = (editedBill) => {
+  const handleEditClick = (billToEdit) => {
     setOpenEditModal(true);
-    setdataEdit(editedBill);
+    setDataToEdit(billToEdit);
   };
 
   const handlePreviousPage = () => {
@@ -94,7 +92,6 @@ const Table2 = ({ mode, data, categories }) => {
     <Card className="h-full w-full dark:bg-mLightGray">
       <TableHeader
         mode={mode}
-        titleSection={titleSection}
         filter={filter}
         handleFilterChange={handleFilterChange}
         searchTerm={searchTerm}
@@ -133,15 +130,17 @@ const Table2 = ({ mode, data, categories }) => {
               handler={() => setOpenDialog(false)} // Esto cierra el diálogo cuando se hace clic en "Cancelar" o "Confirmar"
               deleteRecordId={deleteRecordId}
               deleteName={deleteName}
-              element={"Gasto"}
+              element={mode === "bill" ? "Gasto" : "Ingreso"}
               userId={userId}
             />
             <ModalEdit
               openEdit={openEditModal}
-              handler={() => setOpenEditModal(false)}
+              handleOpenModal={() => setOpenEditModal(false)}
               userId={userId}
-              dataEdit={dataEdit}
-              element={"Gasto"}
+              dataToEdit={dataToEdit}
+              mode={mode}
+              categories={categories}
+              handleCrudChanges={handleCrudChanges}
             />
 
             {visibleItems &&

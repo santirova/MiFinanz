@@ -11,7 +11,6 @@ import {
 
 const TableHeader = ({
   mode,
-  titleSection,
   filter,
   handleFilterChange,
   searchTerm,
@@ -21,11 +20,13 @@ const TableHeader = ({
   TABS,
   categories,
 }) => {
+  const titleSection = mode === "bill" ? "Gastos" : "Ingresos";
+
   return (
     <div className="rounded-none mt-3">
       <div className="mb-3 flex items-center justify-center gap-8">
         <Typography variant="h5" color="blue-gray">
-          {titleSection === "bills" ? "Gastos" : "Ingresos"}
+          {titleSection}
         </Typography>
       </div>
       <div className="flex flex-col items-center justify-around gap-4 md:flex-row">
