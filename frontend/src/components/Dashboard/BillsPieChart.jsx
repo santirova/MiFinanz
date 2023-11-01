@@ -4,42 +4,41 @@ import { useEffect, useState } from "react";
 import * as echarts from "echarts";
 
 const BillsPieChart = () => {
+
   const { billsPieChart } = useAppSelector((state) => state.dashboard);
-  const userId = "1c3d1e88-a663-480a-be6c-0d8f246e12d0";
-  const month = 10;
+  const {user} = useAppSelector((state)=> state.userInfo)
+  const fechaActual = new Date();
+  const month = fechaActual.getMonth() + 1;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     // Carga los datos una vez que se monta el componente
     if (!billsPieChart) {
-      dispatch(setBillsPieChartsAction(userId, month));
+      dispatch(setBillsPieChartsAction(user?.id, month));
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     const chartContainer = document.getElementById("chart-container");
 
     if (chartContainer) {
-      const chart = echarts.init(chartContainer, "dark");
+      const chart = echarts.init(chartContainer,"dark");
 
       // Verifica que billsPieChart tenga datos antes de usarlo en el gráfico
       if (billsPieChart) {
         const option = {
-          legend: {
-            top: "bottom",
+          tooltip:{
+            show:true
           },
-          toolbox: {
-            show: true,
-            feature: {
-              mark: { show: true },
-              dataView: { show: true, readOnly: true },
-            },
+          backgroundColor:"mBlack",
+           legend: {
+             top: "bottom",
           },
           series: [
             {
               name: "Nightingale Chart",
               type: "pie",
-              radius: [50, 150],
+              radius: [50, 110],
               center: ["50%", "50%"],
               roseType: "area",
               itemStyle: {
@@ -52,18 +51,17 @@ const BillsPieChart = () => {
         chart.setOption(option);
       }
     }
-  }, [billsPieChart]); // Escucha cambios en billsPieChart
+  }, [dispatch,billsPieChart]); 
 
   return (
     <div>
-      <p>bills pie chart</p>
-      {billsPieChart && (
+     {billsPieChart && (
         <div
-          className="bg-white"
           id="chart-container"
           style={{ width: "100%", height: "500px" }}
         ></div>
       )}
+
     </div>
   );
 };

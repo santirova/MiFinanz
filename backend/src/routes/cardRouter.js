@@ -1,5 +1,6 @@
 const {Router} = require('express');
 const { getCardsByUserIdHandler,postCardHandler, putCardHandler, deleteCardHandler } = require('../handlers/cardHandlers');
+const { User, Card } = require('../db')
 
 const cardRouter = Router();
 

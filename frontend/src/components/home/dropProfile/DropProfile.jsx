@@ -58,6 +58,7 @@ const DropProfile = (props) => {
   return (
     <>
       <div
+        id="dropProfileDesktop"
         ref={componenteRef}
         className={`flex relative min-w-40  h-10 px-1 bg-mLightGray dark:bg-mBlack cursor-pointer items-center justify-center select-none ${
           open ? "rounded-t-3xl" : "rounded-full"
@@ -104,6 +105,21 @@ const DropProfile = (props) => {
             </ul>
           </div>
         )}
+      </div>
+      <div
+        id="dropProfileMobile"
+        className="fixed flex md:hidden w-full h-14 top-0 items-center justify-evenly bg-mBlack"
+      >
+        <div className="profile-image flex">
+          <Image src={picture} width={55} height={55} alt="Profile picture" />
+        </div>
+        <div className="profile-info">
+          <h2 className="text-white font-medium">Bienvenido</h2>
+          <h2 className="text-white font-medium">{userName}</h2>
+        </div>
+        <div>
+          <h2 className="text-white">Icon</h2>
+        </div>
       </div>
     </>
   );

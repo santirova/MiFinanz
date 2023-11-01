@@ -8,12 +8,11 @@ import { setStackedLineChartAction } from "@/redux/features/dashboardSlice";
 
 const BillsStackedLineChart = () => {
     const { stackedLineChart } = useAppSelector((state) => state.dashboard);
-    const userId = 'a4c20b8a-ad31-4d26-9160-436c7c618b5e'
+    const {user} = useAppSelector((state)=> state.userInfo)
     const dispatch = useAppDispatch();
     useEffect(() => {
-        // Carga los datos una vez que se monta el componente
         if (!stackedLineChart) {
-          dispatch(setStackedLineChartAction(userId));
+          dispatch(setStackedLineChartAction(user?.id));
         }
       }, []);
     useEffect(()=>{
@@ -22,6 +21,7 @@ const BillsStackedLineChart = () => {
         if (chartContainer) {
             const chart = echarts.init(chartContainer, "dark")
         const option = {
+          backgroundColor:'mBlack',
             title: {
               text: 'Stacked Line'
             },
@@ -36,11 +36,6 @@ const BillsStackedLineChart = () => {
               right: '4%',
               bottom: '3%',
               containLabel: true
-            },
-            toolbox: {
-              feature: {
-                saveAsImage: {}
-              }
             },
             xAxis: {
               type: 'category',
