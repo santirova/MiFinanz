@@ -6,8 +6,9 @@ import * as echarts from 'echarts';
 const EarningVsBill = () => {
   const {earningVsBill } = useAppSelector((state) => state.dashboard);
   const {user} = useAppSelector((state)=> state.userInfo);
-  const fechaActual = new Date();
-  const month = fechaActual.getMonth() + 1;
+  // const fechaActual = new Date();
+  // const month = fechaActual.getMonth() + 1;
+  const month = 10
   const dispatch = useAppDispatch();
 
 
@@ -25,8 +26,16 @@ const EarningVsBill = () => {
       if (earningVsBill) {
         var option;
         option = {
+          title: {
+            text: 'Gastos vs Ingresos mensuales',
+            textStyle:{
+              fontFamily:'sans-serif',
+              fonstStyle:'normal',
+              fontWeight: 'normal',
+            },
+          },
           grid: {
-            width:'auto'
+            left: '15%', 
           },
           backgroundColor:'mBlack',
           tooltip:{
@@ -64,7 +73,7 @@ const EarningVsBill = () => {
 
   return(
     <div className="items-center">
-    {earningVsBill && <div id="chart2-container" style={{ width: '100%', height: '500px' }}></div>}
+    {earningVsBill && <div id="chart2-container" style={{ width: '100%', height: '400px' }}></div>}
   </div>
   )
 };

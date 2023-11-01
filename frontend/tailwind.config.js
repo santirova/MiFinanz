@@ -24,6 +24,9 @@ module.exports = withMT({
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      height: {
+        '400px': '400px', // Establece la altura en 500px
+      },
     },
   },
   plugins: [],

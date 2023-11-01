@@ -23,12 +23,18 @@ const BillsStackedLineChart = () => {
         const option = {
           backgroundColor:'mBlack',
             title: {
-              text: 'Stacked Line'
+              text: 'Gastos por metodos de pago ultimos 15 dias',
+              textStyle:{
+                fontFamily:'sans-serif',
+                fonstStyle:'normal',
+                fontWeight: 'normal',
+              },
             },
             tooltip: {
               trigger: 'axis'
             },
             legend: {
+              right:'auto',
               data: legendData
             },
             grid: {
