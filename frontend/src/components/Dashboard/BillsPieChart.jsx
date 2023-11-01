@@ -22,27 +22,23 @@ const BillsPieChart = () => {
     const chartContainer = document.getElementById("chart-container");
 
     if (chartContainer) {
-      const chart = echarts.init(chartContainer, "dark");
+      const chart = echarts.init(chartContainer,"dark");
 
       // Verifica que billsPieChart tenga datos antes de usarlo en el gráfico
       if (billsPieChart) {
         const option = {
-          backgroundColor:'mBlack',
-          legend: {
-            top: "bottom",
+          tooltip:{
+            show:true
           },
-          toolbox: {
-            show: true,
-            feature: {
-              mark: { show: true },
-              dataView: { show: true, readOnly: true },
-            },
+          backgroundColor:"mBlack",
+           legend: {
+             top: "bottom",
           },
           series: [
             {
               name: "Nightingale Chart",
               type: "pie",
-              radius: [50, 150],
+              radius: [50, 110],
               center: ["50%", "50%"],
               roseType: "area",
               itemStyle: {
@@ -59,8 +55,6 @@ const BillsPieChart = () => {
 
   return (
     <div>
-      <p>bills pie chart</p>
-
      {billsPieChart && (
         <div
           id="chart-container"
