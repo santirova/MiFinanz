@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useAppSelector } from "@/redux/hooks";
 import { Alert } from "@material-tailwind/react";
-import { addBill } from "@/redux/features/bill.Slice";
+import { addBill } from "@/redux/features/billSlice";
 import { addEarning } from "@/redux/features/earningSlice";
 import { useDispatch } from "react-redux";
 import IconSuccess from "@/assets/shared/IconAlertSuccess";

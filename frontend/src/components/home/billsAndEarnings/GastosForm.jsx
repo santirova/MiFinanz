@@ -10,7 +10,7 @@ import { useForm, Controller } from "react-hook-form";
 import { setSection } from "@/redux/features/activeSectionSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
-import { getAllCategoryBill } from "@/redux/features/bill.Slice";
+import { getAllCategoryBill } from "@/redux/features/billSlice";
 import { getAllCardsAction } from "@/redux/features/creditCardSlice";
 
 const GastosForm = ({ isDarkMode, handleSubmitForm }) => {

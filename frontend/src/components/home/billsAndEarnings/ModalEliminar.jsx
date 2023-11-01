@@ -6,7 +6,7 @@ import {
   DialogBody,
   DialogFooter,
 } from "@material-tailwind/react";
-import { deleteBill } from "@/redux/features/bill.Slice";
+import { deleteBill } from "@/redux/features/billSlice";
 import { useAppDispatch } from "@/redux/hooks";
 
 export function DialogDefault({

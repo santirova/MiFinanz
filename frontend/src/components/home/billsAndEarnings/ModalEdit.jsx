@@ -19,9 +19,9 @@ import { useForm, Controller } from "react-hook-form";
 import { setSection } from "@/redux/features/activeSectionSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useEffect, useState } from "react";
-import { getAllCategoryBill } from "@/redux/features/bill.Slice";
+import { getAllCategoryBill } from "@/redux/features/billSlice";
 import { getAllCardsAction } from "@/redux/features/creditCardSlice";
-import { updateBill } from "@/redux/features/bill.Slice";
+import { updateBill } from "@/redux/features/billSlice";
 
 export function ModalEdit({ openEdit, handler, userId, dataEdit, element }) {
   const handleOpen = () => handler(false);
@@ -37,7 +37,7 @@ export function ModalEdit({ openEdit, handler, userId, dataEdit, element }) {
       amount: "",
       name: "",
       date: "",
-      categoryId: "",
+      category: "",
       frequency: "",
       cardId: "",
     },
@@ -64,12 +64,13 @@ export function ModalEdit({ openEdit, handler, userId, dataEdit, element }) {
   }, [userId, cards.length]);
 
   useEffect(() => {
+    console.log("dataEdit", dataEdit);
     if (dataEdit) {
       // Si dataEdit tiene datos (modo edición), actualiza los valores de los campos
       setValue("amount", dataEdit.amount);
       setValue("name", dataEdit.name);
       setValue("date", dataEdit.date);
-      //setValue("categoryId", dataEdit.CategoryBillId);
+      setValue("categoryId", dataEdit.CategoryBillId);
       setValue(
         "frequency",
         dataEdit.frequency ? dataEdit.frequency.toString() : ""
@@ -291,11 +292,7 @@ export function ModalEdit({ openEdit, handler, userId, dataEdit, element }) {
                           color={isDarkMode === "dark" ? "light-blue" : "gray"}
                           {...field}
                           required={true}
-                          value={
-                            categories.find(
-                              (category) => category.id === field.value
-                            )?.name
-                          }
+                          value={dataEdit.CategoryBillId}
                           onChange={field.onChange}
                         >
                           {categories &&

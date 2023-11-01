@@ -1,4 +1,15 @@
 "use client";
+import { useEffect, useState } from "react";
+import { getAllBill } from "@/redux/features/billSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+
+import TableHeader from "./TableHeader";
+import CardFooterTable from "./CardFooterTable";
+import { DialogDefault } from "./ModalEliminar";
+import { ModalEdit } from "./ModalEdit";
+
+import { filterTableData } from "@/utils/filter";
+import { TABS, TABLE_HEAD, itemsPage } from "@/utils/constantsTables";
 
 import { FaRegEdit } from "react-icons/fa";
 import { AiOutlineClose } from "react-icons/ai";
@@ -10,16 +21,6 @@ import {
   IconButton,
   Tooltip,
 } from "@material-tailwind/react";
-import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { getAllBill } from "@/redux/features/bill.Slice";
-import { filterTableData } from "@/utils/filter";
-import CardFooterTable from "./CardFooterTable";
-import TableHeader from "./TableHeader";
-import { DialogDefault } from "./ModalEliminar";
-
-import { TABS, TABLE_HEAD, itemsPage } from "@/utils/constantsTables";
-import { ModalEdit } from "./ModalEdit";
 
 const Table = () => {
   const [searchTerm, setSearchTerm] = useState("");
