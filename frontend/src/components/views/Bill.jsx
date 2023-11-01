@@ -11,6 +11,7 @@ const Bill = () => {
   const userId = useAppSelector((state) => state.userInfo?.user.id) || null;
   const billsCategories = useAppSelector((state) => state.bill?.category) || [];
   const billsData = useAppSelector((state) => state.bill?.bill)?.Bills || [];
+  console.log(billsData);
   const [crudChanges, setCrudChanges] = useState(false);
 
   const hasDispatchedCategoryBill = useRef(false);

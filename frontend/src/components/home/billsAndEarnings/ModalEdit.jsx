@@ -92,9 +92,10 @@ export function ModalEdit({
       name: data.name,
       date: data.date,
       payment_method: typeof payment_method === "string" ? true : false,
-      categoryId: parseFloat(data.categoryId.id),
+      categoryId: parseInt(data.categoryId),
       frequency: parseInt(data.frequency),
     };
+    console.log("FORM", formData.categoryId);
 
     dispatch(updateBill(dataToEdit.id, formData, userId));
     handleOpenModal(false);
