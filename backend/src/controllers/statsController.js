@@ -142,7 +142,6 @@ const obtenerDatosParaGrafico = async (userId) => {
             return {
                 name: paymentMethod,
                 type: 'line',
-                stack: 'Total',
                 data,
             };
         });
