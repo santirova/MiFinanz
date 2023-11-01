@@ -25,7 +25,13 @@ const EarningVsBill = () => {
       if (earningVsBill) {
         var option;
         option = {
+          grid: {
+            width:'auto'
+          },
           backgroundColor:'mBlack',
+          tooltip:{
+            show:true
+          },
           xAxis: {
             type: 'category',
             data: ['Ingresos', 'Gastos' ]
@@ -57,9 +63,8 @@ const EarningVsBill = () => {
   }, [earningVsBill])
 
   return(
-    <div>
-    <p>Earning Vs Bill</p>
-    {earningVsBill && <div className="bg-white" id="chart2-container" style={{ width: '100%', height: '400px' }}></div>}
+    <div className="items-center">
+    {earningVsBill && <div id="chart2-container" style={{ width: '100%', height: '500px' }}></div>}
   </div>
   )
 };
