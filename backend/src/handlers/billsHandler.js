@@ -45,7 +45,7 @@ const createBillHandler = async (req, res) => {
   const updateBillHandler = async (req, res) => {
     try {
       const billId = req.params.billId; 
-      const { amount, name, date, payment_method, categoryId, cardId, frequency } = req.body;
+      const { amount, name, date, payment_method, CategoryBillId, cardId, frequency } = req.body;
   
       const bill = await Bill.findByPk(billId);
       if (!bill) {
@@ -63,10 +63,10 @@ const createBillHandler = async (req, res) => {
         bill.date = date;
       }
       if (payment_method !== undefined) {
-        bill.paymentMethod = payment_method;
+        bill.payment_method = payment_method;
       }
-      if (categoryId) {
-        bill.categoryId = categoryId;
+      if (CategoryBillId) {
+        bill.CategoryBillId = CategoryBillId;
       }
       if (cardId) {
         bill.cardId = cardId;
