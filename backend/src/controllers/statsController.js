@@ -4,7 +4,6 @@ const { Op } = require('sequelize');
 
 const sumEarningsByCategoryController = async (UserId,month) => {
     const user = await User.findByPk(UserId)
-    console.log(user);
     if (!user) {
         return {
             error: 'ID de usuario inválido',
@@ -67,16 +66,12 @@ const sumBillsByCategoryController = async (UserId,month) => {
 
 
 const sumBillsMonthControlle = async (UserId, month) => {
-    console.log(month);
-    
     const user = await User.findByPk(UserId)
-    
     if (!user) {
         return {
             error: 'El usuario no exite',
         };
     }
-
     if (!month|| month > 12 || month < 1) {
         return {error:'El mes enviado es incorrecto, deberia ser entre 1 y 12'}
     }
@@ -107,7 +102,6 @@ const obtenerDatosParaGrafico = async (userId) => {
             date.setDate(today.getDate() - i);
             lastFifteenDays.push(date.toISOString().slice(0, 10));
         }
-
         const response = await Bill.findAll({
             where: {
                 UserId: userId,
@@ -183,7 +177,6 @@ const earningVsBillController = async (UserId, month ) => {
         ],
         raw: true
       })
-      console.log('respuesta bdd sum earnng',sumEarnings);
       const sumearnings = parseInt(sumEarnings[0].sumEarnings) ;
       
 
@@ -211,7 +204,7 @@ const earningVsBillController = async (UserId, month ) => {
         sumearnings:isNaN(sumearnings) ? 0 : sumEarnings,
         sumbill: isNaN(sumbill) ? 0 : sumbill,
     } 
-    return   response;
+    return response;
 
  }
 
