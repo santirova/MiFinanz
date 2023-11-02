@@ -302,7 +302,7 @@ export function ModalEdit({
                           {...field}
                           required={true}
                           onChange={field.onChange}
-                          value={selectedCategory.id.toString()}
+                          value={selectedCategory?.id.toString()}
                         >
                           {categories &&
                             categories.map((category) => (
