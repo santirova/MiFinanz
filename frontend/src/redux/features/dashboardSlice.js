@@ -27,11 +27,11 @@ const { setBillsPieCharts , setEarningVsBill, setStackedLineChart } = dashboardS
 
 
 export const setBillsPieChartsAction = (userid, month) => (dispatch) => {
-  return new Promise((resolve, reject) => {
-    // Devuelve una promesa para poder capturar el error en el componente
-    axiosMiFinanz
-      .post(`/stats/billscategory/${userid}?month=${month}`)
-      .then((res) => {
+  return axiosMiFinanz
+    .post(`/stats/billscategory/${userid}?month=${month}`)
+    .then((res) => {
+      if (Array.isArray(res.data)) {
+        // Hay registros, procesa los datos
         const cleanData = res.data.map((e) => {
           return {
             name: e.category_name,
@@ -39,12 +39,14 @@ export const setBillsPieChartsAction = (userid, month) => (dispatch) => {
           };
         });
         dispatch(setBillsPieCharts(cleanData));
-      })
-      .catch((err) => {
-        reject(new Error(err));
-      });
-  });
+      } else {
+        // No hay registros, devolver un objeto vacío o un mensaje informativo
+        dispatch(setBillsPieCharts([]));
+      }
+    });
 };
+
+
 
 
 export const setEarningVsBillAction = (userid,month) => (dispatch) => {
@@ -54,18 +56,17 @@ export const setEarningVsBillAction = (userid,month) => (dispatch) => {
       .post(`/stats/earningVsBill/${userid}?month=${month}`)
       .then((res) => {
           console.log("Respuesta del servidor:", res.data);
-        const {sumearnings, sumbill, neto }= res.data
+        const {sumearnings, sumbill }= res.data
     
 
-      dispatch(setEarningVsBill({sumearnings, sumbill, neto }));
+      dispatch(setEarningVsBill({sumearnings, sumbill }));
 
         //resolve();
-      })
-        dispatch(setEarningVsBill())
       })
       .catch((err) => {
         reject(new Error(err)); 
       });
+  })
 }
 
 

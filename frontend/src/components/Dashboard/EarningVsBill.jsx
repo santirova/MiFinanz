@@ -1,69 +1,88 @@
-//import { setBillsPieChartsAction } from "@/redux/features/dashboardSlice";
-import { setEarningVsBillAction } from "@/redux/features/dashboardSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import { useEffect } from "react";
 import * as echarts from 'echarts';
 
 const EarningVsBill = () => {
+
   const {earningVsBill } = useAppSelector((state) => state.dashboard);
-  const userId = '1c3d1e88-a663-480a-be6c-0d8f246e12d0';
-  const month = 10;
-  const dispatch = useAppDispatch();
-
+  const {darkMode} = useAppSelector((state)=> state.theme)
 
   useEffect(() => {
-    // Carga los datos una vez que se monta el componente
-    if (!earningVsBill) {
-      dispatch(setEarningVsBillAction(userId, month));   
-      
-    }
-  }, [dispatch, earningVsBill]);
 
-  useEffect(() => {
-   
     const chartCont = document.getElementById('chart2-container');
     if (chartCont) {
-        const chart = echarts.init(chartCont, 'dark');
-        if (earningVsBill) {
-            var option;
-
-option = {
-  xAxis: {
-    type: 'category',
-    data: ['Ingresos', 'Gastos' ]
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-    
-      data: [
-      earningVsBill?.sumearnings ,
-  
-        {
-          value:earningVsBill?.sumbill,
-          itemStyle: {
-            color: '#a90000'
-          }
-        
-        },   
-      ],
-      type: 'bar'
+      const chart = echarts.init(chartCont);
+      if (earningVsBill) {
+        var option;
+        option = {
+          title: {
+            text: 'Gastos vs Ingresos mensuales',
+            padding: [10,10,10,10],
+            textStyle:{
+              fontFamily:'sans-serif',
+              fonstStyle:'normal',
+              fontWeight: 'normal',
+              color:  darkMode === 'dark' ? '#EEEEEE': '#0B0909' ,
+            },
+          },
+          grid: {
+            left: '15%', 
+          },
+          backgroundColor: darkMode === 'dark' ? '#0B0909' : '#EEEEEE',
+          tooltip:{
+            show:true
+          },
+          xAxis: {
+            type: 'category',
+            data: [
+              {
+                value:'Ingresos',
+                textStyle: {
+                  color:'#8C8C8C',
+                }
+              },
+              {
+                value:'Gastos',
+                textStyle: {
+                  color:'#8C8C8C',
+                }
+              } 
+            ],
+          },
+          yAxis: {
+            type: 'value',
+            axisLabel:{
+              textStyle:{
+                color:'#8C8C8C'
+              }
+            }
+          },
+          series: [
+            {
+              data: [
+              earningVsBill?.sumearnings ,
+          
+                {
+                  value:earningVsBill?.sumbill,
+                  itemStyle: {
+                    color: '#a90000'
+                  }
+                
+                },   
+              ],
+              type: 'bar'
+            }
+          ]
+        };
+        chart.setOption(option)
+      }
     }
-  ]
-};
-chart.setOption(option)
+  }, [earningVsBill,darkMode])
 
-        }
-   
-    }
-  }, [earningVsBill])
   return(
-    <div>
-    <p>Earning Vs Bill</p>
-    {earningVsBill && <div className="bg-white" id="chart2-container" style={{ width: '100%', height: '400px' }}></div>}
-  </div>
+    <div className="items-center border border-mLightGray">
+      {earningVsBill && <div id="chart2-container" style={{ width: '100%', height: '410px' }}></div>}
+    </div>
   )
 };
 

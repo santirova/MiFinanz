@@ -1,35 +1,52 @@
 'use client'
-// import { setBillsPieChartsAction } from "@/redux/features/dashboardSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+
+import { useAppSelector } from "@/redux/hooks";
 import { useEffect } from "react";
 import * as echarts from "echarts";
-import { setStackedLineChartAction } from "@/redux/features/dashboardSlice";
 
 
 const BillsStackedLineChart = () => {
     const { stackedLineChart } = useAppSelector((state) => state.dashboard);
-    const userId = 'a4c20b8a-ad31-4d26-9160-436c7c618b5e'
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-        // Carga los datos una vez que se monta el componente
-        if (!stackedLineChart) {
-          dispatch(setStackedLineChartAction(userId));
-        }
-      }, []);
+    const {darkMode} = useAppSelector((state)=> state.theme)
+
     useEffect(()=>{
         const chartContainer = document.getElementById("stacked-line");
         const legendData = stackedLineChart?.series.map(e=> e.name)
+        const xAxis = stackedLineChart?.data.map((e)=>{
+          return {
+            value: e,
+            textStyle:{
+              color:'#8C8C8C',
+            }
+          }
+        })
         if (chartContainer) {
-            const chart = echarts.init(chartContainer, "dark")
+          const chart = echarts.init(chartContainer, "dark")
         const option = {
+          backgroundColor: darkMode === 'dark' ? '#0B0909' : '#EEEEEE',
             title: {
-              text: 'Stacked Line'
+              text: 'Gastos por metodos de pago ultimos 15 dias',
+              padding: [10, 10],
+              textStyle:{
+                fontFamily:'sans-serif',
+                fonstStyle:'normal',
+                fontWeight: 'normal',
+                color:  darkMode === 'dark' ? '#EEEEEE': '#0B0909' ,
+              },
             },
             tooltip: {
               trigger: 'axis'
             },
             legend: {
-              data: legendData
+              left:'right',
+              data: legendData,
+              textStyle :{     
+                fontSize: 12,
+                color:'#8C8C8C', 
+                fontWeight: "normal",
+                padding: [5, 3],
+                borderRadius: 4,
+              }
             },
             grid: {
               left: '3%',
@@ -37,26 +54,27 @@ const BillsStackedLineChart = () => {
               bottom: '3%',
               containLabel: true
             },
-            toolbox: {
-              feature: {
-                saveAsImage: {}
-              }
-            },
             xAxis: {
               type: 'category',
               boundaryGap: false,
-              data: stackedLineChart?.data
+              data: xAxis,
             },
             yAxis: {
-              type: 'value'
+              type: 'value',
+              axisLabel:{
+                textStyle:{
+                  color:'#8C8C8C'
+                }
+              }
             },
             series: stackedLineChart?.series
           }
           chart.setOption(option);
         }
-    },[dispatch,stackedLineChart])
+    },[stackedLineChart,darkMode])
+
   return (
-    <div>
+    <div className="border border-mLightGray">
         <div
           id="stacked-line"
           style={{ width: "100%", height: "500px" }}
