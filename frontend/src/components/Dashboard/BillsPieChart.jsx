@@ -58,7 +58,6 @@ const BillsPieChart = () => {
           backgroundColor: darkMode === 'dark' ? '#0B0909' : '#EEEEEE',
           series: [
             {
-              name: "'Access From'",
               type: "pie",
               radius: [50, 100],
               center: ["50%", "60%"],
