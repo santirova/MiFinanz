@@ -1,22 +1,14 @@
 'use client'
-// import { setBillsPieChartsAction } from "@/redux/features/dashboardSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+
+import { useAppSelector } from "@/redux/hooks";
 import { useEffect } from "react";
 import * as echarts from "echarts";
-import { setStackedLineChartAction } from "@/redux/features/dashboardSlice";
 
 
 const BillsStackedLineChart = () => {
     const { stackedLineChart } = useAppSelector((state) => state.dashboard);
-    const {user} = useAppSelector((state)=> state.userInfo);
     const {darkMode} = useAppSelector((state)=> state.theme)
-    const dispatch = useAppDispatch();
 
-    // useEffect(() => {
-    //     if (!stackedLineChart) {
-    //       dispatch(setStackedLineChartAction(user?.id));
-    //     }
-    //   }, []);
     useEffect(()=>{
         const chartContainer = document.getElementById("stacked-line");
         const legendData = stackedLineChart?.series.map(e=> e.name)
@@ -29,7 +21,7 @@ const BillsStackedLineChart = () => {
           }
         })
         if (chartContainer) {
-            const chart = echarts.init(chartContainer, "dark")
+          const chart = echarts.init(chartContainer, "dark")
         const option = {
           backgroundColor: darkMode === 'dark' ? '#0B0909' : '#EEEEEE',
             title: {
@@ -79,10 +71,10 @@ const BillsStackedLineChart = () => {
           }
           chart.setOption(option);
         }
-    },[dispatch,stackedLineChart,darkMode])
+    },[stackedLineChart,darkMode])
 
   return (
-    <div>
+    <div className="border border-mLightGray">
         <div
           id="stacked-line"
           style={{ width: "100%", height: "500px" }}

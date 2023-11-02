@@ -1,26 +1,14 @@
-import { setEarningVsBillAction } from "@/redux/features/dashboardSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import { useEffect } from "react";
 import * as echarts from 'echarts';
 
 const EarningVsBill = () => {
+
   const {earningVsBill } = useAppSelector((state) => state.dashboard);
-  const {user} = useAppSelector((state)=> state.userInfo);
   const {darkMode} = useAppSelector((state)=> state.theme)
-  const fechaActual = new Date();
-  const month = fechaActual.getMonth() + 1;
-
-  const dispatch = useAppDispatch();
-
-
-  // useEffect(() => {
-  //   if (!earningVsBill) {
-  //     dispatch(setEarningVsBillAction(user.id, month));   
-  //   }
-  // }, [dispatch, earningVsBill]);
 
   useEffect(() => {
-   
+
     const chartCont = document.getElementById('chart2-container');
     if (chartCont) {
       const chart = echarts.init(chartCont);
@@ -46,18 +34,20 @@ const EarningVsBill = () => {
           },
           xAxis: {
             type: 'category',
-            data: [{
-              value:'Ingresos',
-              textStyle: {
-                color:'#8C8C8C',
-              }
-            },{
-              value:'Gastos',
-              textStyle: {
-                color:'#8C8C8C',
-            }
-            } ],
-          
+            data: [
+              {
+                value:'Ingresos',
+                textStyle: {
+                  color:'#8C8C8C',
+                }
+              },
+              {
+                value:'Gastos',
+                textStyle: {
+                  color:'#8C8C8C',
+                }
+              } 
+            ],
           },
           yAxis: {
             type: 'value',
@@ -69,7 +59,6 @@ const EarningVsBill = () => {
           },
           series: [
             {
-            
               data: [
               earningVsBill?.sumearnings ,
           
@@ -88,11 +77,11 @@ const EarningVsBill = () => {
         chart.setOption(option)
       }
     }
-  }, [dispatch,earningVsBill,darkMode])
+  }, [earningVsBill,darkMode])
 
   return(
-    <div className="items-center">
-      {earningVsBill && <div id="chart2-container" style={{ width: '100%', height: '400px' }}></div>}
+    <div className="items-center border border-mLightGray">
+      {earningVsBill && <div id="chart2-container" style={{ width: '100%', height: '410px' }}></div>}
     </div>
   )
 };

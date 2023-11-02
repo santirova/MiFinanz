@@ -1,23 +1,11 @@
-import { setBillsPieChartsAction } from "@/redux/features/dashboardSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { useEffect, useState } from "react";
+import {  useAppSelector } from "@/redux/hooks";
+import { useEffect } from "react";
 import * as echarts from "echarts";
 
 const BillsPieChart = () => {
 
   const { billsPieChart } = useAppSelector((state) => state.dashboard);
-  const {user} = useAppSelector((state)=> state.userInfo)
   const {darkMode} = useAppSelector((state)=> state.theme)
-  const dispatch = useAppDispatch();
-  const fechaActual = new Date();
-  const month = fechaActual.getMonth() + 1;
-
-  // useEffect(() => {
-  //   // Carga los datos una vez que se monta el componente
-  //   if (!billsPieChart) {
-  //     dispatch(setBillsPieChartsAction(user?.id, month));
-  //   }
-  // }, [])
 
   useEffect(() => {
     const chartContainer = document.getElementById("chart-container");
@@ -72,10 +60,8 @@ const BillsPieChart = () => {
             {
               name: "'Access From'",
               type: "pie",
-              radius: [35, 100],
+              radius: [50, 100],
               center: ["50%", "60%"],
-              //  roseType: "radius",
-              // avoidLabelOverlap: false,
               itemStyle: {
                 borderRadius: 2,
               },
@@ -86,14 +72,14 @@ const BillsPieChart = () => {
         chart.setOption(option);
       }
     }
-  }, [dispatch,billsPieChart,darkMode]); 
+  }, [billsPieChart,darkMode]); 
 
   return (
-    <div className="h-400px bg-blue-gray-700">
+    <div className="h-400px border item-center border-mLightGray">
       {Array.isArray(billsPieChart) && billsPieChart.length > 0 ? (
-        <div id="chart-container" style={{ width: "100%", height: "400px" }}></div>
+        <div id="chart-container" style={{ width: "100%", height: "408px" }}></div>
       ) : (
-        <div className="w-full h-400px bg-mWhite dark:bg-mBlack flex flex-col items-start justify-center border border-mLightGray">
+        <div className="w-full h-400px bg-mWhite dark:bg-mBlack flex flex-col items-start justify-center">
           <h1 className="text-base text-mBlack dark:text-mWhite p-2">Gastos por categoria mensuales</h1>
           <div className="h-full w-full flex items-center justify-center">
             <p className="text-mLightGray p-2">No hay registros para el mes actual</p>
