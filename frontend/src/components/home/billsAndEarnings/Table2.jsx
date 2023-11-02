@@ -7,7 +7,7 @@ import CardFooterTable from "./CardFooterTable";
 import { DialogDefault } from "./ModalEliminar";
 import { ModalEdit } from "./ModalEdit";
 
-import { filterTableData } from "@/utils/filter";
+import { filterBillTableData, filterEarningTableData } from "@/utils/filter";
 import { TABS, TABLE_HEAD, itemsPage } from "@/utils/constantsTables";
 
 import { FaRegEdit } from "react-icons/fa";
@@ -37,9 +37,15 @@ const Table2 = ({ mode, data, categories, handleCrudChanges }) => {
 
   const userId = useAppSelector((state) => state.userInfo?.user.id) || null;
 
-  // console.log(categories);
+  const tableHead =
+    mode === "bill"
+      ? TABLE_HEAD
+      : TABLE_HEAD.filter((head) => head !== "Repetir");
+
+  let filteredTableData = "";
 
   const handleOpenModal = (id, name) => {
+    console.log("PRUEBA", id, name);
     setOpenDialog(true); // Abre el diálogo
     setDeleteRecordId(id); // Guarda el ID del elemento a eliminar
     setDeleteName(name); // Guarda el nombre del elemento a eliminar
@@ -75,18 +81,28 @@ const Table2 = ({ mode, data, categories, handleCrudChanges }) => {
     setSelectedCategory(selectedCategory);
   };
 
-  const filteredTableData = filterTableData(
-    data,
-    filter,
-    searchTerm,
-    selectedCategory
-  );
+  if (mode === "bill") {
+    filteredTableData = filterBillTableData(
+      data,
+      filter,
+      searchTerm,
+      selectedCategory
+    );
+  } else {
+    filteredTableData = filterEarningTableData(
+      data,
+      searchTerm,
+      selectedCategory
+    );
+  }
 
   // Calcular el rango de elementos a mostrar en la página actual
   const startIndex = (currentPage - 1) * itemsPage;
   const endIndex = startIndex + itemsPage;
 
   const visibleItems = filteredTableData.slice(startIndex, endIndex);
+  console.log(data);
+  console.log(visibleItems);
 
   return (
     <Card className="h-full w-full dark:bg-mLightGray">
@@ -105,7 +121,7 @@ const Table2 = ({ mode, data, categories, handleCrudChanges }) => {
         <table className="mt-4 w-full min-w-max table-auto text-left">
           <thead>
             <tr>
-              {TABLE_HEAD.map((head, index) => (
+              {tableHead.map((head, index) => (
                 <th
                   key={head}
                   className="cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50  p-4 transition-colors hover-bg-blue-gray-50"
@@ -115,10 +131,7 @@ const Table2 = ({ mode, data, categories, handleCrudChanges }) => {
                     color="blue-gray"
                     className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
                   >
-                    {head}{" "}
-                    {/* {index !== TABLE_HEAD.length - 1 && (
-                      <ChevronUpDownIcon strokeWidth={2} className="h-4 w-4" />
-                    )} */}
+                    {head}
                   </Typography>
                 </th>
               ))}
@@ -130,8 +143,9 @@ const Table2 = ({ mode, data, categories, handleCrudChanges }) => {
               handler={() => setOpenDialog(false)} // Esto cierra el diálogo cuando se hace clic en "Cancelar" o "Confirmar"
               deleteRecordId={deleteRecordId}
               deleteName={deleteName}
-              element={mode === "bill" ? "Gasto" : "Ingreso"}
+              mode={mode}
               userId={userId}
+              handleCrudChanges={handleCrudChanges}
             />
             <ModalEdit
               openEdit={openEditModal}
@@ -148,7 +162,7 @@ const Table2 = ({ mode, data, categories, handleCrudChanges }) => {
                 (
                   {
                     id,
-                    CategoryBill,
+                    category,
                     name,
                     date,
                     amount,
@@ -185,7 +199,7 @@ const Table2 = ({ mode, data, categories, handleCrudChanges }) => {
                             color="blue-gray"
                             className="font-normal"
                           >
-                            {CategoryBill.name}
+                            {category?.name}
                           </Typography>
                         </div>
                       </td>
@@ -208,15 +222,18 @@ const Table2 = ({ mode, data, categories, handleCrudChanges }) => {
                           {amount}
                         </Typography>
                       </td>
-                      <td className={classes}>
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal"
-                        >
-                          {frequency}
-                        </Typography>
-                      </td>
+                      {mode === "bill" && (
+                        <td className={classes}>
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                          >
+                            {frequency}
+                          </Typography>
+                        </td>
+                      )}
+
                       <td className={classes}>
                         <div className="w-max">
                           <Chip
@@ -234,7 +251,7 @@ const Table2 = ({ mode, data, categories, handleCrudChanges }) => {
                             onClick={() =>
                               handleEditClick({
                                 id,
-                                CategoryBill,
+                                category,
                                 name,
                                 date,
                                 amount,

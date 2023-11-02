@@ -28,11 +28,34 @@ export const { setBillGlobal, setCategoryGlobal, setChangeErrorStatus } =
   billSlice.actions;
 
 //obtener todos los bill, con el método get del usuario logueado, para ello recibe el id
-export const getAllBill = (id) => (dispatch) => {
-  axiosMiFinanz
-    .get(`/bill/user/${id}/bills`)
-    .then((res) => dispatch(setBillGlobal(res.data)))
-    .catch((err) => console.log(err));
+export const getAllBill = (userId) => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    axiosMiFinanz
+      .get(`/bill/user/${userId}/bills`)
+      .then((res) => {
+        if (res.status === 200) {
+          const allBillData = res.data.Bills.map((bill) => {
+            return {
+              id: bill.id,
+              name: bill.name,
+              amount: bill.amount,
+              date: bill.date,
+              payment_method: bill.payment_method,
+              userId: bill.UserId,
+              categoryId: bill.CategoryBillId,
+              category: bill.CategoryBill,
+              frequency: bill.frequency,
+              cardId: bill.CardId,
+            };
+          });
+          dispatch(setBillGlobal(allBillData));
+          resolve(allBillData);
+        } else reject(new Error("Error en la solicitud"));
+      })
+      .catch((err) => {
+        reject(new Error(err));
+      });
+  });
 };
 
 // agregar un nuevo bill con el método post, recibe el id y la data
@@ -55,7 +78,7 @@ export const deleteBill = (id, userId) => (dispatch) => {
         // console.log("id envaido a getAllBill", userId);
         // console.log(`Gasto eliminado: ${id}`);
       } else {
-        console.log(
+        console.error(
           "Error al eliminar el gasto. Código de estado:",
           res.status
         );

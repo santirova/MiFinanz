@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
   getAllEarning,
@@ -15,6 +15,7 @@ const Earning = () => {
   const earningCategories =
     useAppSelector((state) => state.earning?.category) || [];
   const earningData = useAppSelector((state) => state.earning?.earning) || [];
+  const [crudChanges, setCrudChanges] = useState(false);
 
   const hasDispatchedCategoryEarning = useRef(false);
 
@@ -26,8 +27,14 @@ const Earning = () => {
   }, []);
 
   useEffect(() => {
+    console.log("PRUEBA RENDER", crudChanges);
+
     dispatch(getAllEarning(userId));
-  }, [earningData.length, userId]);
+  }, [earningData.length, userId, crudChanges]);
+
+  const handleCrudChanges = () => {
+    setCrudChanges(!crudChanges);
+  };
 
   return (
     <section>
@@ -35,6 +42,7 @@ const Earning = () => {
         mode={tableMode}
         data={earningData}
         categories={earningCategories}
+        handleCrudChanges={handleCrudChanges}
       />
     </section>
   );

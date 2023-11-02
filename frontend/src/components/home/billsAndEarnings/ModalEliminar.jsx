@@ -7,26 +7,39 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { deleteBill } from "@/redux/features/billSlice";
+import { deleteEarning } from "@/redux/features/earningSlice";
 import { useAppDispatch } from "@/redux/hooks";
+import { BsModem } from "react-icons/bs";
 
 export function DialogDefault({
   open,
   deleteRecordId,
   deleteName,
   handler,
-  element,
+  mode,
   userId,
+  handleCrudChanges,
 }) {
   const handleOpen = () => handler(false);
 
   const dispatch = useAppDispatch();
 
+  const handleDelete = async () => {
+    if (mode === "bill") {
+      await dispatch(deleteBill(deleteRecordId, userId));
+    } else {
+      await dispatch(deleteEarning(deleteRecordId, userId));
+    }
+    handler(false);
+    handleCrudChanges();
+  };
+
   return (
     <>
       <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Eliminar {element}</DialogHeader>
+        <DialogHeader>Eliminar {mode}</DialogHeader>
         <DialogBody>
-          ¿Estás seguro de que deseas eliminar el {element} :{" "}
+          ¿Estás seguro de que deseas eliminar el {mode} :{" "}
           <span className="text-blue-500">{deleteName} ?</span>
         </DialogBody>
         <DialogFooter>
@@ -42,9 +55,7 @@ export function DialogDefault({
             variant="gradient"
             color="green"
             onClick={() => {
-              dispatch(deleteBill(deleteRecordId, userId));
-              // console.log("Gasto eliminado:", deleteRecordId, deleteName);
-              handler(false);
+              handleDelete();
             }}
           >
             <span>Confirmar</span>

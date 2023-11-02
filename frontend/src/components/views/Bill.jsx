@@ -10,8 +10,7 @@ const Bill = () => {
 
   const userId = useAppSelector((state) => state.userInfo?.user.id) || null;
   const billsCategories = useAppSelector((state) => state.bill?.category) || [];
-  const billsData = useAppSelector((state) => state.bill?.bill)?.Bills || [];
-  console.log(billsData);
+  const billsData = useAppSelector((state) => state.bill?.bill) || [];
   const [crudChanges, setCrudChanges] = useState(false);
 
   const hasDispatchedCategoryBill = useRef(false);
@@ -24,6 +23,8 @@ const Bill = () => {
   }, []);
 
   useEffect(() => {
+    console.log("PRUEBA RENDER", crudChanges);
+
     dispatch(getAllBill(userId));
   }, [billsData.length, userId, crudChanges]);
 

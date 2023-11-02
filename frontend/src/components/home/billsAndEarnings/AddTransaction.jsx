@@ -80,7 +80,7 @@ const AddTransaction = () => {
         amount: parseFloat(data.amount),
         name: data.name,
         date: data.date,
-        CategoryEarningId: parseFloat(data.CategoryEarningId),
+        CategoryEarningId: parseFloat(data.category),
       };
       try {
         await dispatch(addEarning(id, dataInput));

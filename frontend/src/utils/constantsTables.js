@@ -19,7 +19,7 @@ export const TABLE_HEAD = [
   "Fecha",
   "Total",
   "Repetir",
-  "Estado",
+  "Método",
   "",
 ];
 

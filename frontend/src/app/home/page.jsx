@@ -57,7 +57,7 @@ const AppHome = () => {
     default:
       return (
         <div className="w-full ">
-          <h1>Bienvenido al Sistema</h1>
+          <Dashboard />
         </div>
       );
   }

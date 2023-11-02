@@ -28,10 +28,32 @@ export const { setEarningGlobal, setCategoryGlobal, setChangeErrorStatus } =
 
 //obtener todos los bill, con el método get del usuario logueado, para ello recibe el id
 export const getAllEarning = (id) => (dispatch) => {
-  axiosMiFinanz
-    .get(`/earning/${id}`)
-    .then((res) => dispatch(setEarningGlobal(res.data.results)))
-    .catch((err) => console.log(err));
+  return new Promise((resolve, reject) => {
+    axiosMiFinanz
+      .get(`/earning/${id}`)
+      .then((res) => {
+        if (res.status === 200) {
+          if (Array.isArray(res.data)) {
+            const allEarningsData = res.data.map((earning) => {
+              return {
+                id: earning.id,
+                name: earning.name,
+                amount: earning.amount,
+                date: earning.date,
+                categoryId: earning.CategoryEarningId,
+                category: earning.CategoryEarning,
+                userId: earning.UserId,
+              };
+            });
+            dispatch(setEarningGlobal(allEarningsData));
+            resolve(allEarningsData);
+          }
+        } else reject(new Error("Error en la solicitud"));
+      })
+      .catch((err) => {
+        reject(new Error(err));
+      });
+  });
 };
 
 // agregar un nuevo bill con el método post, recibe el id y la data
@@ -48,11 +70,13 @@ export const deleteEarning = (id, userId) => (dispatch) => {
   axiosMiFinanz
     .delete(`/earning/${id}`)
     .then((res) => {
-      if (res.status === 204) {
+      if (res.status === 200) {
+        console.log("data recibida", res.data);
+
         // Eliminación exitosa, obtener de nuevo la lista de ingresos
         dispatch(getAllEarning(userId));
       } else {
-        console.log(
+        console.error(
           "Error al eliminar el ingreso. Código de estado:",
           res.status
         );
