@@ -22,7 +22,7 @@ Herramientas utilizadas
 | Santiago Rovaletti  | Backend           | [Linkedin](www.linkedin.com/in/santiago-rovaletti/)|  
 | Mirgelys Serrano    | Backend           | [Linkedin](www.linkedin.com/in/mirgelys-serrano-b232a4106/)|
 | Nazareno Susunday   | UX/UI             | [Linkedin](linkedin.com/in/nazareno-susunday-990243a1)|
-| Victor Morales      | Frontend          | [Linkedin](www.linkedin.com/in/josefinaeciolaza) |
+| Victor Morales      | Frontend          | [Linkedin](www.linkedin.com/in/victorpahomo) |
 | Esmir Roque Castellano | Frontend      |[Linkedin](linkedin.com/in/esmir-roque) |
 | Lucas Barceló       | Frontend          | [Linkedin](linkedin.com/in/lucas-barcelo11) |
 
