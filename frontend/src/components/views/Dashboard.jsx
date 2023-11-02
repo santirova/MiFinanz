@@ -34,7 +34,6 @@ const Dashboard = () => {
     if (billsPieChart,earningVsBill,stackedLineChart) {
         setLoading(false)
     }
-    console.log('en el use');
   },[billsPieChart,earningVsBill,stackedLineChart])
 
   if (loading) {
