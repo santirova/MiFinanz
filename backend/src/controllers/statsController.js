@@ -223,7 +223,7 @@ const earningVsBillController = async (UserId, month) => {
   }
 
   const response = {
-    sumearnings: isNaN(sumearnings) ? 0 : sumEarnings,
+    sumearnings: isNaN(sumearnings) ? 0 : sumearnings,
     sumbill: isNaN(sumbill) ? 0 : sumbill,
   };
   return response;
