@@ -40,6 +40,10 @@ const BillsPieChart = () => {
           tooltip:{
             show:true
           },
+          legend: {
+            top: '5%',
+            left: 'center'
+          },
           label: {
             formatter: function (params) {
               return `{a|${params.name}}`;
@@ -57,13 +61,14 @@ const BillsPieChart = () => {
           backgroundColor: darkMode === 'dark' ? '#0B0909' : '#EEEEEE',
           series: [
             {
-              name: "Nightingale Chart",
+              name: "'Access From'",
               type: "pie",
-              radius: [35, 130],
-              center: ["50%", "50%"],
-              roseType: "area",
+              radius: [35, 100],
+              center: ["50%", "60%"],
+              //  roseType: "radius",
+              // avoidLabelOverlap: false,
               itemStyle: {
-                borderRadius: 8,
+                borderRadius: 2,
               },
               data: billsPieChart,
             },
