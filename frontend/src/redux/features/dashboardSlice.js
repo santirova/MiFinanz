@@ -56,10 +56,10 @@ export const setEarningVsBillAction = (userid,month) => (dispatch) => {
       .post(`/stats/earningVsBill/${userid}?month=${month}`)
       .then((res) => {
           console.log("Respuesta del servidor:", res.data);
-        const {sumearnings, sumbill, neto }= res.data
+        const {sumearnings, sumbill }= res.data
     
 
-      dispatch(setEarningVsBill({sumearnings, sumbill, neto }));
+      dispatch(setEarningVsBill({sumearnings, sumbill }));
 
         //resolve();
       })

@@ -142,7 +142,6 @@ const obtenerDatosParaGrafico = async (userId) => {
             return {
                 name: paymentMethod,
                 type: 'line',
-                stack: 'Total',
                 data,
             };
         });
@@ -184,13 +183,9 @@ const earningVsBillController = async (UserId, month ) => {
         ],
         raw: true
       })
-      
+      console.log('respuesta bdd sum earnng',sumEarnings);
       const sumearnings = parseInt(sumEarnings[0].sumEarnings) ;
       
-      if (sumEarnings[0].sumEarnings===null) {
-          return `El usuario no tiene ingresos asociados  `
-        }
-        console.log(sumearnings);
 
 //Suma todos los Gatos por mes de un usuario 
     const sumBill = await Bill.findAll({
@@ -205,21 +200,18 @@ const earningVsBillController = async (UserId, month ) => {
       })
     const sumbill = parseInt(sumBill[0].sumBill) 
 
-    if (sumBill[0].sumBill===null) {
-    return `El usuario no tiene Gatos asociados`
+    if (isNaN(sumbill) && isNaN(sumearnings)) {
+        return {
+            sumearnings:0,
+            sumbill:0,
+        }
     }
-console.log(sumbill);
-
-   //Operacion para intepretar los resultados 
-
-    const neto = sumearnings - sumbill
 
     const response ={
-        sumearnings,
-        sumbill,
-        neto
+        sumearnings:isNaN(sumearnings) ? 0 : sumEarnings,
+        sumbill: isNaN(sumbill) ? 0 : sumbill,
     } 
-    return   response  ;
+    return   response;
 
  }
 
