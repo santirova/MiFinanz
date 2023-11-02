@@ -51,9 +51,9 @@ const Table2 = ({ mode, data, categories, handleCrudChanges }) => {
     setDeleteName(name); // Guarda el nombre del elemento a eliminar
   };
 
-  const handleEditClick = (billToEdit) => {
+  const handleEditClick = (dataToEdit) => {
     setOpenEditModal(true);
-    setDataToEdit(billToEdit);
+    setDataToEdit(dataToEdit);
   };
 
   const handlePreviousPage = () => {

@@ -80,8 +80,9 @@ const AddTransaction = () => {
         amount: parseFloat(data.amount),
         name: data.name,
         date: data.date,
-        CategoryEarningId: parseFloat(data.category),
+        CategoryEarningId: parseInt(data.CategoryEarningId),
       };
+      console.log("dataInput", dataInput);
       try {
         await dispatch(addEarning(id, dataInput));
         setShowSuccessAlert(true);

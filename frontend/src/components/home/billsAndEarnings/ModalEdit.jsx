@@ -23,6 +23,7 @@ import { getAllCategoryBill } from "@/redux/features/billSlice";
 import { getAllCardsAction } from "@/redux/features/creditCardSlice";
 import { updateBill } from "@/redux/features/billSlice";
 import { data } from "autoprefixer";
+import { updateEarning } from "@/redux/features/earningSlice";
 
 export function ModalEdit({
   openEdit,
@@ -37,7 +38,9 @@ export function ModalEdit({
   const isDarkMode = useAppSelector((state) => state.theme.darkMode);
   const [activeButton, setActiveButton] = useState("Efectivo");
   const cards = useAppSelector((state) => state.cards);
-  const selectedCategory = dataToEdit?.CategoryBill;
+  const selectedCategory = dataToEdit?.category;
+  console.log("dataToEdit", dataToEdit);
+  console.log("selectedCategory", selectedCategory);
   const {
     control,
     handleSubmit,
@@ -95,9 +98,12 @@ export function ModalEdit({
       categoryId: parseInt(data.categoryId),
       frequency: parseInt(data.frequency),
     };
-    console.log("FORM", formData.categoryId);
 
-    dispatch(updateBill(dataToEdit.id, formData, userId));
+    if (mode === "bill") {
+      dispatch(updateBill(dataToEdit.id, formData, userId));
+    } else {
+      dispatch(updateEarning(dataToEdit.id, formData, userId));
+    }
     handleOpenModal(false);
     handleCrudChanges();
   };
@@ -138,7 +144,7 @@ export function ModalEdit({
                 </div>
               )}
               <form onSubmit={handleSubmit(submit)}>
-                {activeButton === "TARJETA" && (
+                {activeButton === "TARJETA" && mode === "bill" && (
                   <Controller
                     name="cardId"
                     control={control}
@@ -318,45 +324,50 @@ export function ModalEdit({
                     </div>
                   )}
                 />
-
-                <Controller
-                  name="frequency"
-                  control={control}
-                  rules={{ required: "Debe seleccionar una frecuencia" }}
-                  render={({ field }) => (
-                    <div className="w-72 flex items-center mb-4">
-                      <div className="mr-2">
-                        <RepeatSVG
-                          fillColor={isDarkMode === "dark" ? "#EEEEEE" : "#000"}
-                        />
+                {mode === "bill" && (
+                  <Controller
+                    name="frequency"
+                    control={control}
+                    rules={{ required: "Debe seleccionar una frecuencia" }}
+                    render={({ field }) => (
+                      <div className="w-72 flex items-center mb-4">
+                        <div className="mr-2">
+                          <RepeatSVG
+                            fillColor={
+                              isDarkMode === "dark" ? "#EEEEEE" : "#000"
+                            }
+                          />
+                        </div>
+                        <div className="flex-col w-72">
+                          <Select
+                            label="Frecuencia*"
+                            type="select"
+                            name="frequency"
+                            color={
+                              isDarkMode === "dark" ? "light-blue" : "gray"
+                            }
+                            {...field}
+                            required={true}
+                          >
+                            {Array.from({ length: 4 }).map((_, index) => (
+                              <Option
+                                key={index + 1}
+                                value={(index + 1).toString()}
+                              >
+                                {`${index + 1} veces`}
+                              </Option>
+                            ))}
+                          </Select>
+                          {errors.frequency && (
+                            <div className="text-xs text-red-500 ">
+                              {errors.frequency.message}
+                            </div>
+                          )}
+                        </div>
                       </div>
-                      <div className="flex-col w-72">
-                        <Select
-                          label="Frecuencia*"
-                          type="select"
-                          name="frequency"
-                          color={isDarkMode === "dark" ? "light-blue" : "gray"}
-                          {...field}
-                          required={true}
-                        >
-                          {Array.from({ length: 4 }).map((_, index) => (
-                            <Option
-                              key={index + 1}
-                              value={(index + 1).toString()}
-                            >
-                              {`${index + 1} veces`}
-                            </Option>
-                          ))}
-                        </Select>
-                        {errors.frequency && (
-                          <div className="text-xs text-red-500 ">
-                            {errors.frequency.message}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )}
-                />
+                    )}
+                  />
+                )}
 
                 <div className="flex flex-col sm:flex-row sm:gap-3">
                   <Button onClick={handleOpen}>Cancelar</Button>
