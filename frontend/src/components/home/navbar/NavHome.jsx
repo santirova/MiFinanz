@@ -12,6 +12,8 @@ import { BiSolidFolder } from "react-icons/bi";
 import { BiWindowOpen } from "react-icons/bi";
 import { BiImport } from "react-icons/bi";
 import Image from "next/image";
+import logo from "@/assets/shared/logo.png";
+import NavHomeMobile from "./NavHomeMobile";
 
 export default function NavHome() {
   const [open, setOpen] = useState(true);
@@ -25,15 +27,10 @@ export default function NavHome() {
       {!open ? (
         <NavHomeClose handleSetSection={handleSetSection} setOpen={setOpen} />
       ) : (
-        <div className=" flex mt-5 bg-black relative flex-col transition-all duration-100 rounded-xl ml-2  p-5">
+        <div className=" lg:flex mt-5 bg-black relative flex-col transition-all duration-100 rounded-xl hidden ml-2 p-3 ">
           <div className="text-white">
             <div className="flex p-10 gap-2 place-items-center text-xl">
-              <Image
-                src={"/logo_app.png"}
-                width={30}
-                height={30}
-                alt="logo.png"
-              />
+              <Image src={logo} width={30} height={30} alt="logo.png" />
               <h2 className="">miFinanz</h2>
             </div>
             <div className="p-10 flex flex-col xl:gap-5 md:gap-5 2xl:gap-10">
@@ -78,6 +75,7 @@ export default function NavHome() {
           </div>
         </div>
       )}
+      <NavHomeMobile/>
     </section>
   );
 }

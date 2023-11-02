@@ -20,8 +20,13 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const { darkMode } =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("darkMode")) || {}
+      : {};
+
   return (
-    <html lang="es" className="dark">
+    <html lang="es" className={` ${darkMode == "light" ? "" : "dark"}`}>
       <body className={poppins.className}>
         <ProviderWrapper>{children}</ProviderWrapper>
       </body>

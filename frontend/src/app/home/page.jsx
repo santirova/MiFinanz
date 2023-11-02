@@ -1,9 +1,11 @@
 "use client";
-import AddTransaction from "@/components/views/AddTransaction";
+import Profile from "@/components/home/dropProfile/Profile";
+import AddTransaction from "@/components/home/billsAndEarnings/AddTransaction";
 import CreditCard from "@/components/views/CreditCard";
 import Dashboard from "@/components/views/Dashboard";
-import Table from "@/components/views/Table";
 import { useAppSelector } from "@/redux/hooks";
+import Bill from "@/components/views/Bill";
+import Earning from "@/components/views/Earning";
 
 const AppHome = () => {
   const activeSection = useAppSelector(
@@ -11,25 +13,27 @@ const AppHome = () => {
   );
   switch (activeSection) {
     case "dashboard":
-      return <div className="dark:bg-mBlack w-full ">
-        <Dashboard/>
-      </div>;
+      return (
+        <div className="w-full ">
+          <Dashboard />
+        </div>
+      );
     case "cards":
       return (
-        <div className="dark:bg-mBlack w-full ">
+        <div className="w-full ">
           <CreditCard />
         </div>
       );
     case "bills":
       return (
-        <div className="dark:bg-mBlack w-full ">
-          <Table />
+        <div className="w-full">
+          <Bill />
         </div>
       );
     case "earnings":
       return (
-        <div className="dark:bg-mBlack w-full ">
-          <Table />
+        <div className="w-full ">
+          <Earning />
         </div>
       );
     case "addTransaction":
@@ -38,16 +42,22 @@ const AppHome = () => {
           <AddTransaction />
         </div>
       );
+    case "profile":
+      return (
+        <div className="w-full ">
+          <Profile />
+        </div>
+      );
     case "exception":
       return (
-        <div className="dark:bg-mBlack w-full ">
+        <div className="w-full ">
           <h1>Bienvenido al Sistema</h1>
         </div>
       );
     default:
       return (
-        <div className="dark:bg-mBlack w-full ">
-          <h1>Bienvenido al Sistema</h1>
+        <div className="w-full ">
+          <Dashboard />
         </div>
       );
   }

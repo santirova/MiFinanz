@@ -20,11 +20,14 @@ const userInfoSlice = createSlice({
 const { setUserInfoGlobal } = userInfoSlice.actions;
 
 export const loginUser = (data) => (dispatch) => {
+  console.log('en la action');
   return new Promise((resolve, reject) => {
+    
     // Devuelve una promesa para poder capturar el error en el componente
     axiosMiFinanz
       .post("/user/login", data)
       .then((res) => {
+        console.log(res.data);
         if (res.data.token) {
           localStorage.setItem("userInfo", JSON.stringify(res.data));
           dispatch(setUserInfoGlobal(res.data));

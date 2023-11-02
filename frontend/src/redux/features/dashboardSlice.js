@@ -2,28 +2,36 @@ import { createSlice } from "@reduxjs/toolkit";
 import { axiosMiFinanz } from "@/utils/configAxios";
 
 export const dashboardSlice = createSlice({
-  name: "dashboard",
-  initialState: {
-    billsPieChart: null,
-    stackedLineChart:null,
-  },
-  reducers: {
-    setBillsPieCharts: (state, action) => {
-      state.billsPieChart = action.payload;
+
+    name: 'dashboard',
+    initialState: { 
+      billsPieChart:null,
+      earningVsBill:null,
+      stackedLineChart:null,
     },
-    setStackedLineChart: (state, action) => {
+  
+    reducers: {
+        setBillsPieCharts: (state,action) => {
+            state.billsPieChart = action.payload;
+        },
+        setEarningVsBill: (state,action) => {
+          state.earningVsBill= action.payload;
+      },
+        setStackedLineChart: (state, action) => {
       state.stackedLineChart = action.payload;
     },
   },
 });
-const { setBillsPieCharts,setStackedLineChart } = dashboardSlice.actions;
+
+const { setBillsPieCharts , setEarningVsBill, setStackedLineChart } = dashboardSlice.actions;
+
 
 export const setBillsPieChartsAction = (userid, month) => (dispatch) => {
-  return new Promise((resolve, reject) => {
-    // Devuelve una promesa para poder capturar el error en el componente
-    axiosMiFinanz
-      .post(`/stats/billscategory/${userid}?month=${month}`)
-      .then((res) => {
+  return axiosMiFinanz
+    .post(`/stats/billscategory/${userid}?month=${month}`)
+    .then((res) => {
+      if (Array.isArray(res.data)) {
+        // Hay registros, procesa los datos
         const cleanData = res.data.map((e) => {
           return {
             name: e.category_name,
@@ -31,12 +39,36 @@ export const setBillsPieChartsAction = (userid, month) => (dispatch) => {
           };
         });
         dispatch(setBillsPieCharts(cleanData));
+      } else {
+        // No hay registros, devolver un objeto vacío o un mensaje informativo
+        dispatch(setBillsPieCharts([]));
+      }
+    });
+};
+
+
+
+
+export const setEarningVsBillAction = (userid,month) => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    // Devuelve una promesa para poder capturar el error en el componente
+    axiosMiFinanz
+      .post(`/stats/earningVsBill/${userid}?month=${month}`)
+      .then((res) => {
+          console.log("Respuesta del servidor:", res.data);
+        const {sumearnings, sumbill }= res.data
+    
+
+      dispatch(setEarningVsBill({sumearnings, sumbill }));
+
+        //resolve();
       })
       .catch((err) => {
-        reject(new Error(err));
+        reject(new Error(err)); 
       });
-  });
-};
+  })
+}
+
 
 export const setStackedLineChartAction = (userid) => (dispatch) => {
   return new Promise((resolve, reject) => {
@@ -53,3 +85,4 @@ export const setStackedLineChartAction = (userid) => (dispatch) => {
   });
 };
 export default dashboardSlice.reducer;
+
