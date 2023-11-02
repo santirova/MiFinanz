@@ -6,9 +6,10 @@ import * as echarts from 'echarts';
 const EarningVsBill = () => {
   const {earningVsBill } = useAppSelector((state) => state.dashboard);
   const {user} = useAppSelector((state)=> state.userInfo);
-  // const fechaActual = new Date();
-  // const month = fechaActual.getMonth() + 1;
-  const month = 10
+  const {darkMode} = useAppSelector((state)=> state.theme)
+  const fechaActual = new Date();
+  const month = fechaActual.getMonth() + 1;
+
   const dispatch = useAppDispatch();
 
 
@@ -22,7 +23,7 @@ const EarningVsBill = () => {
    
     const chartCont = document.getElementById('chart2-container');
     if (chartCont) {
-      const chart = echarts.init(chartCont, 'dark');
+      const chart = echarts.init(chartCont);
       if (earningVsBill) {
         var option;
         option = {
@@ -32,12 +33,13 @@ const EarningVsBill = () => {
               fontFamily:'sans-serif',
               fonstStyle:'normal',
               fontWeight: 'normal',
+              color:  darkMode === 'dark' ? '#EEEEEE': '#0B0909' ,
             },
           },
           grid: {
             left: '15%', 
           },
-          backgroundColor:'mBlack',
+          backgroundColor: darkMode === 'dark' ? '#0B0909' : '#EEEEEE',
           tooltip:{
             show:true
           },
@@ -69,12 +71,12 @@ const EarningVsBill = () => {
         chart.setOption(option)
       }
     }
-  }, [earningVsBill])
+  }, [dispatch,earningVsBill,darkMode])
 
   return(
     <div className="items-center">
-    {earningVsBill && <div id="chart2-container" style={{ width: '100%', height: '400px' }}></div>}
-  </div>
+      {earningVsBill && <div id="chart2-container" style={{ width: '100%', height: '400px' }}></div>}
+    </div>
   )
 };
 

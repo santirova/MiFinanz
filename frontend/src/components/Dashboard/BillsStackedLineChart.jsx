@@ -8,8 +8,10 @@ import { setStackedLineChartAction } from "@/redux/features/dashboardSlice";
 
 const BillsStackedLineChart = () => {
     const { stackedLineChart } = useAppSelector((state) => state.dashboard);
-    const {user} = useAppSelector((state)=> state.userInfo)
+    const {user} = useAppSelector((state)=> state.userInfo);
+    const {darkMode} = useAppSelector((state)=> state.theme)
     const dispatch = useAppDispatch();
+
     useEffect(() => {
         if (!stackedLineChart) {
           dispatch(setStackedLineChartAction(user?.id));
@@ -21,13 +23,14 @@ const BillsStackedLineChart = () => {
         if (chartContainer) {
             const chart = echarts.init(chartContainer, "dark")
         const option = {
-          backgroundColor:'mBlack',
+          backgroundColor: darkMode === 'dark' ? '#0B0909' : '#EEEEEE',
             title: {
               text: 'Gastos por metodos de pago ultimos 15 dias',
               textStyle:{
                 fontFamily:'sans-serif',
                 fonstStyle:'normal',
                 fontWeight: 'normal',
+                color:  darkMode === 'dark' ? '#EEEEEE': '#0B0909' ,
               },
             },
             tooltip: {
@@ -55,7 +58,8 @@ const BillsStackedLineChart = () => {
           }
           chart.setOption(option);
         }
-    },[dispatch,stackedLineChart])
+    },[dispatch,stackedLineChart,darkMode])
+
   return (
     <div>
         <div

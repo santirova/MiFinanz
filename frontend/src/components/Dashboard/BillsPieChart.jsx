@@ -8,10 +8,9 @@ const BillsPieChart = () => {
   const { billsPieChart } = useAppSelector((state) => state.dashboard);
   const {user} = useAppSelector((state)=> state.userInfo)
   const {darkMode} = useAppSelector((state)=> state.theme)
-   const fechaActual = new Date();
-   const month = fechaActual.getMonth() + 1;
-  //  const month = 10;
   const dispatch = useAppDispatch();
+  const fechaActual = new Date();
+  const month = fechaActual.getMonth() + 1;
 
   useEffect(() => {
     // Carga los datos una vez que se monta el componente
@@ -24,7 +23,7 @@ const BillsPieChart = () => {
     const chartContainer = document.getElementById("chart-container");
 
     if (chartContainer) {
-      const chart = echarts.init(chartContainer,"dark");
+      const chart = echarts.init(chartContainer);
 
       // Verifica que billsPieChart tenga datos antes de usarlo en el gráfico
       if (billsPieChart) {
@@ -35,7 +34,7 @@ const BillsPieChart = () => {
               fontFamily:'sans-serif',
               fonstStyle:'normal',
               fontWeight: 'normal',
-              textColor:'#EEEEEE',
+              color:  darkMode === 'dark' ? '#EEEEEE': '#0B0909' ,
             },
           },
           tooltip:{
@@ -47,7 +46,7 @@ const BillsPieChart = () => {
             },
             rich: {
               a: {
-                color: "#EEEEEE",
+                color:  darkMode === 'dark' ? '#EEEEEE': '#0B0909' ,
                 fontSize: 12,
                 fontWeight: "normal",
                 padding: [5, 10],
@@ -55,7 +54,7 @@ const BillsPieChart = () => {
               },
             },
       },
-          backgroundColor: darkMode === 'dark' ? 'mBalck' : 'mWhite',
+          backgroundColor: darkMode === 'dark' ? '#0B0909' : '#EEEEEE',
           series: [
             {
               name: "Nightingale Chart",
