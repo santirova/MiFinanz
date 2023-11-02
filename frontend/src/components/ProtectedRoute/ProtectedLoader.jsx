@@ -2,7 +2,7 @@ import logo from "@/assets/shared/logo.png";
 import Image from "next/image";
 const ProtectedLoader = () => {
   return (
-    <div className="flex w-screen h-screen bg-mDarkGray justify-center items-center">
+    <div className="flex w-full h-screen bg-mDarkGray justify-center items-center">
       <Image
         src={logo}
         alt="Logo"

@@ -13,11 +13,11 @@ const EarningVsBill = () => {
   const dispatch = useAppDispatch();
 
 
-  useEffect(() => {
-    if (!earningVsBill) {
-      dispatch(setEarningVsBillAction(user.id, month));   
-    }
-  }, [dispatch, earningVsBill]);
+  // useEffect(() => {
+  //   if (!earningVsBill) {
+  //     dispatch(setEarningVsBillAction(user.id, month));   
+  //   }
+  // }, [dispatch, earningVsBill]);
 
   useEffect(() => {
    
@@ -29,6 +29,7 @@ const EarningVsBill = () => {
         option = {
           title: {
             text: 'Gastos vs Ingresos mensuales',
+            padding: [10,10,10,10],
             textStyle:{
               fontFamily:'sans-serif',
               fonstStyle:'normal',
@@ -45,10 +46,26 @@ const EarningVsBill = () => {
           },
           xAxis: {
             type: 'category',
-            data: ['Ingresos', 'Gastos' ]
+            data: [{
+              value:'Ingresos',
+              textStyle: {
+                color:'#8C8C8C',
+              }
+            },{
+              value:'Gastos',
+              textStyle: {
+                color:'#8C8C8C',
+            }
+            } ],
+          
           },
           yAxis: {
-            type: 'value'
+            type: 'value',
+            axisLabel:{
+              textStyle:{
+                color:'#8C8C8C'
+              }
+            }
           },
           series: [
             {

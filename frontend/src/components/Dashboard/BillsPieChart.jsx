@@ -12,12 +12,12 @@ const BillsPieChart = () => {
   const fechaActual = new Date();
   const month = fechaActual.getMonth() + 1;
 
-  useEffect(() => {
-    // Carga los datos una vez que se monta el componente
-    if (!billsPieChart) {
-      dispatch(setBillsPieChartsAction(user?.id, month));
-    }
-  }, [])
+  // useEffect(() => {
+  //   // Carga los datos una vez que se monta el componente
+  //   if (!billsPieChart) {
+  //     dispatch(setBillsPieChartsAction(user?.id, month));
+  //   }
+  // }, [])
 
   useEffect(() => {
     const chartContainer = document.getElementById("chart-container");
@@ -30,9 +30,10 @@ const BillsPieChart = () => {
         const option = {
           title: {
             text: 'Gastos por categoria mensuales',
+            padding: [10, 10,10,10],
             textStyle:{
               fontFamily:'sans-serif',
-              fonstStyle:'normal',
+              fonstStyle:'lighter',
               fontWeight: 'normal',
               color:  darkMode === 'dark' ? '#EEEEEE': '#0B0909' ,
             },
@@ -42,7 +43,15 @@ const BillsPieChart = () => {
           },
           legend: {
             top: '5%',
-            left: 'center'
+            left: 'left',
+            padding:[15,10,10,10],
+            textStyle :{
+              fontSize: 12,
+              color:'#8C8C8C',
+              fontWeight: "normal",
+              padding: [5, 3],
+              borderRadius: 4,
+            }
           },
           label: {
             formatter: function (params) {
@@ -50,7 +59,7 @@ const BillsPieChart = () => {
             },
             rich: {
               a: {
-                color:  darkMode === 'dark' ? '#EEEEEE': '#0B0909' ,
+                color: '#8C8C8C',
                 fontSize: 12,
                 fontWeight: "normal",
                 padding: [5, 10],
@@ -84,9 +93,11 @@ const BillsPieChart = () => {
       {Array.isArray(billsPieChart) && billsPieChart.length > 0 ? (
         <div id="chart-container" style={{ width: "100%", height: "400px" }}></div>
       ) : (
-        <div className="w-full h-400px bg-black flex flex-col justify-center items-start">
-          <h1 className="text-base text-mWhite">Gastos por categoria mensuales</h1>
-          <p className="text-mWhite">No hay registros para el mes actual</p>
+        <div className="w-full h-400px bg-mWhite dark:bg-mBlack flex flex-col items-start justify-center border border-mLightGray">
+          <h1 className="text-base text-mBlack dark:text-mWhite p-2">Gastos por categoria mensuales</h1>
+          <div className="h-full w-full flex items-center justify-center">
+            <p className="text-mLightGray p-2">No hay registros para el mes actual</p>
+          </div>
         </div>
       )}
     </div>
