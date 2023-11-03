@@ -19,14 +19,13 @@ const CreditCard = () => {
   };
 
   useEffect(() => {
-    console.log("Solicitando tarjetas");
     dispatch(getAllCardsAction(userId));
     setCardEdited(false);
   }, [cards.length, userId, cardEdited]);
 
   return (
     <>
-      <section className="flex flex-wrap w-full ">
+      <section className="flex flex-wrap w-full max-h-[calc(100vh_-_70px)] overflow-auto">
         <AddCard handleAddView={handleAddView} openAddView={openAddView} />
 
         {cards?.map((cardData) => (

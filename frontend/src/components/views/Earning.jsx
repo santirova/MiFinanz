@@ -37,7 +37,7 @@ const Earning = () => {
   };
 
   return (
-    <section>
+    <section className="h-full w-full px-3">
       <Table2
         mode={tableMode}
         data={earningData}

@@ -23,8 +23,6 @@ const Bill = () => {
   }, []);
 
   useEffect(() => {
-    console.log("PRUEBA RENDER", crudChanges);
-
     dispatch(getAllBill(userId));
   }, [billsData.length, userId, crudChanges]);
 
@@ -33,7 +31,7 @@ const Bill = () => {
   };
 
   return (
-    <section>
+    <section className="h-full w-full px-3">
       <Table2
         mode={tableMode}
         data={billsData}

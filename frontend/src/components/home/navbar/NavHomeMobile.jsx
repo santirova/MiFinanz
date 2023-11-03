@@ -14,38 +14,41 @@ export default function NavHomeMobile() {
     dispatch(setSection(section));
   };
   return (
-    <section className="flex fixed lg:hidden z-40 bottom-0 left-0 w-full bg-black dark:bg-mLightGray rounded-t-lg text-sm">
+    <section className="flex fixed lg:hidden z-40 bottom-0 left-0 w-full bg-mLightGray dark:bg-black rounded-t-lg text-sm">
       <div className="container mx-auto flex justify-between items-center p-4 text-gray-400 gap-2">
-        <div onClick={() => handleSetSection("dashboard")} className="flex flex-col items-center">
-          <VscGraph className="text-xl" />
-          <p>Panel</p>
+        <div
+          onClick={() => handleSetSection("dashboard")}
+          className="flex flex-col items-center"
+        >
+          <VscGraph className="text-xl text-white" />
+          <p className="text-white">Panel</p>
         </div>
         <div
           onClick={() => handleSetSection("cards")}
           className="flex flex-col items-center cursor-pointer"
         >
-          <BiSolidFolder className="text-xl" />
-          <p>Tarjetas</p>
+          <BiSolidFolder className="text-xl text-white" />
+          <p className="text-white">Tarjetas</p>
         </div>
         <div className="flex flex-col items-center">
           <div className="bg-blue-500 rounded-full h-10 w-10 flex items-center justify-center">
-            <BiPlus className="text-3xl " />
+            <BiPlus className="text-3xl text-white" />
           </div>
-          <p>Agregar</p>
+          <p className="text-white">Agregar</p>
         </div>
         <div
           onClick={() => handleSetSection("bills")}
           className="flex flex-col items-center cursor-pointer"
         >
-          <BiWindowOpen className="text-xl" />
-          <p>Gastos</p>
+          <BiWindowOpen className="text-xl text-white" />
+          <p className="text-white">Gastos</p>
         </div>
         <div
           onClick={() => handleSetSection("earnings")}
           className="flex flex-col items-center cursor-pointer"
         >
-          <BiImport className="text-xl" />
-          <p>Ingresos</p>
+          <BiImport className="text-xl text-white" />
+          <p className="text-white">Ingresos</p>
         </div>
       </div>
     </section>

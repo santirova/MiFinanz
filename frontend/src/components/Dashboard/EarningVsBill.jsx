@@ -20,13 +20,13 @@ const EarningVsBill = () => {
               fontFamily: "sans-serif",
               fonstStyle: "normal",
               fontWeight: "normal",
-              color: darkMode === "dark" ? "#EEEEEE" : "#0B0909",
+              color: darkMode === "dark" ? "#fff" : "#0B0909",
             },
           },
           grid: {
             left: "15%",
           },
-          backgroundColor: darkMode === "dark" ? "#0B0909" : "#EEEEEE",
+          backgroundColor: darkMode === "dark" ? "#0B0909" : "#fff",
           tooltip: {
             show: true,
           },
@@ -81,7 +81,7 @@ const EarningVsBill = () => {
       {earningVsBill && (
         <div
           id="chart2-container"
-          className="items-center border border-mLightGray w-full h-72"
+          className="items-center border border-mLightGray w-full h-72 rounded-md shadow-md"
         ></div>
       )}
     </>

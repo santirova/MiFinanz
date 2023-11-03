@@ -22,7 +22,7 @@ const BillsPieChart = () => {
               fontFamily: "sans-serif",
               fonstStyle: "lighter",
               fontWeight: "normal",
-              color: darkMode === "dark" ? "#EEEEEE" : "#0B0909",
+              color: darkMode === "dark" ? "#fff" : "#0B0909",
             },
           },
           tooltip: {
@@ -54,7 +54,7 @@ const BillsPieChart = () => {
               },
             },
           },
-          backgroundColor: darkMode === "dark" ? "#0B0909" : "#EEEEEE",
+          backgroundColor: darkMode === "dark" ? "#0B0909" : "#fff",
           series: [
             {
               type: "pie",
@@ -77,7 +77,7 @@ const BillsPieChart = () => {
       {Array.isArray(billsPieChart) && billsPieChart.length > 0 ? (
         <div
           id="chart-container"
-          className="border item-center border-mLightGray w-full h-72"
+          className="border item-center border-mLightGray w-full h-72 rounded-md shadow-md"
         ></div>
       ) : (
         <div className="w-full h-56 bg-mWhite dark:bg-mBlack flex flex-col items-start justify-center">

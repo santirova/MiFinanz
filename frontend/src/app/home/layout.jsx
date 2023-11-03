@@ -11,7 +11,7 @@ export const metadata = {
 const LayoutHome = ({ children }) => {
   return (
     <PrivateRoute>
-      <div className="flex h-full w-full bg-mWhite dark:bg-mDarkGray">
+      <div className="flex h-screen w-full bg-mWhite dark:bg-mDarkGray">
         <NavHome />
         <div className="w-full">
           <TopBar />

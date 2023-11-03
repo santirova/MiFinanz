@@ -22,7 +22,7 @@ const BillsStackedLineChart = () => {
     if (chartContainer) {
       const chart = echarts.init(chartContainer, "dark");
       const option = {
-        backgroundColor: darkMode === "dark" ? "#0B0909" : "#EEEEEE",
+        backgroundColor: darkMode === "dark" ? "#0B0909" : "#fff",
         title: {
           text: "Gastos por metodos de pago ultimos 15 dias",
           padding: [10, 10],
@@ -30,7 +30,7 @@ const BillsStackedLineChart = () => {
             fontFamily: "sans-serif",
             fonstStyle: "normal",
             fontWeight: "normal",
-            color: darkMode === "dark" ? "#EEEEEE" : "#0B0909",
+            color: darkMode === "dark" ? "#fff" : "#0B0909",
           },
         },
         tooltip: {
@@ -75,7 +75,7 @@ const BillsStackedLineChart = () => {
   return (
     <div
       id="stacked-line"
-      className="h-72 w-full border border-mLightGray"
+      className="h-72 w-full border border-mLightGray rounded-md shadow-md"
     ></div>
   );
 };

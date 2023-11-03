@@ -117,7 +117,7 @@ const Table2 = ({ mode, data, categories, handleCrudChanges }) => {
         TABS={TABS}
         categories={categories}
       />
-      <CardBody className="overflow-scroll px-0">
+      <CardBody className="overflow-auto px-0">
         <table className="mt-4 w-full min-w-max table-auto text-left">
           <thead>
             <tr>
