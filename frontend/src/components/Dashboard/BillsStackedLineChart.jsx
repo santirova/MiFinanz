@@ -61,9 +61,7 @@ const BillsStackedLineChart = () => {
         yAxis: {
           type: "value",
           axisLabel: {
-            textStyle: {
-              color: "#8C8C8C",
-            },
+            color: "#8C8C8C",
           },
         },
         series: stackedLineChart?.series,

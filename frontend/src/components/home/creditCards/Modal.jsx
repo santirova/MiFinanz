@@ -22,7 +22,6 @@ const Modal = ({ isOpen, handleOpenModal, selectedCard }) => {
 
   const handleDeleteCard = async (id) => {
     await dispatch(deleteCardAction(id));
-    console.log("Eliminando tarjeta");
   };
 
   const handleSaveTask = () => {

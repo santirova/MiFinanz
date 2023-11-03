@@ -18,7 +18,7 @@ const Card = ({ cardData, setCardEdited }) => {
   });
 
   useEffect(() => {
-    console.log("Card Component");
+    
   }, [cardData]);
 
   const handleEditMode = () => {
@@ -27,13 +27,11 @@ const Card = ({ cardData, setCardEdited }) => {
 
   const handleDeleteCard = async (id) => {
     await dispatch(deleteCardAction(id));
-    console.log("Eliminando tarjeta");
   };
 
   const handleEditCard = async (e, id, name, bankName, branch) => {
     e.preventDefault();
     await dispatch(editCardAction(id, name, bankName, branch));
-    console.log("Editando tarjeta");
     // close add view
     handleEditMode();
     setCardEdited(true);

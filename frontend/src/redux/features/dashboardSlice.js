@@ -29,7 +29,6 @@ export const setBillsPieChartsAction = (userid, month) => (dispatch) => {
   return axiosMiFinanz
     .post(`/stats/billscategory/${userid}?month=${month}`)
     .then((res) => {
-      console.log(month);
       if (Array.isArray(res.data)) {
         // Hay registros, procesa los datos
         const cleanData = res.data.map((e) => {
@@ -52,11 +51,8 @@ export const setEarningVsBillAction = (userid, month) => (dispatch) => {
     axiosMiFinanz
       .post(`/stats/earningVsBill/${userid}?month=${month}`)
       .then((res) => {
-        console.log("Respuesta del servidor:", res.data);
         const { sumearnings, sumbill } = res.data;
-
         dispatch(setEarningVsBill({ sumearnings, sumbill }));
-
         //resolve();
       })
       .catch((err) => {
@@ -74,7 +70,7 @@ export const setStackedLineChartAction = (userid) => (dispatch) => {
         dispatch(setStackedLineChart(res.data));
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         reject(new Error(err));
       });
   });

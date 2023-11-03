@@ -27,8 +27,6 @@ const Earning = () => {
   }, []);
 
   useEffect(() => {
-    console.log("PRUEBA RENDER", crudChanges);
-
     dispatch(getAllEarning(userId));
   }, [earningData.length, userId, crudChanges]);
 
