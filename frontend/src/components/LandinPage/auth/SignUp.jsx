@@ -36,7 +36,7 @@ const SignUp = () => {
 
   const submit = async (data) => {
     try {
-      // console.log(data);
+
       await dispatch(signup(data));
       reset({
         name: "",
@@ -50,7 +50,6 @@ const SignUp = () => {
       }, 5000);
     } catch (error) {
       setShowErrorAlert(true);
-      // console.log( error);
       setTimeout(() => {
         setShowErrorAlert(false);
       }, 5000);

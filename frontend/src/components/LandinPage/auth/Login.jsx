@@ -37,7 +37,7 @@ const Login = () => {
       setErrorMessage("");
       window.location.href = "/home";
     } catch (error) {
-      console.log(error);
+      console.error(error);
       setErrorMessage("Usuario o clave incorrecta");
     }
   };

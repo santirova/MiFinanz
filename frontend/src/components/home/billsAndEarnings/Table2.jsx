@@ -45,7 +45,6 @@ const Table2 = ({ mode, data, categories, handleCrudChanges }) => {
   let filteredTableData = "";
 
   const handleOpenModal = (id, name) => {
-    console.log("PRUEBA", id, name);
     setOpenDialog(true); // Abre el diálogo
     setDeleteRecordId(id); // Guarda el ID del elemento a eliminar
     setDeleteName(name); // Guarda el nombre del elemento a eliminar
@@ -101,9 +100,7 @@ const Table2 = ({ mode, data, categories, handleCrudChanges }) => {
   const endIndex = startIndex + itemsPage;
 
   const visibleItems = filteredTableData.slice(startIndex, endIndex);
-  console.log(data);
-  console.log(visibleItems);
-
+  
   return (
     <Card className="h-full w-full dark:bg-mLightGray">
       <TableHeader

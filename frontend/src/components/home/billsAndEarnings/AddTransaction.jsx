@@ -60,15 +60,13 @@ const AddTransaction = () => {
 
       try {
         await dispatch(addBill(id, dataInput));
-
         setShowSuccessAlert(true);
-        //console.log("datos:", id, dataInput);
         setTimeout(() => {
           setShowSuccessAlert(false);
         }, 5000);
       } catch (error) {
         setShowErrorAlert(true);
-        console.log(error);
+        console.error(error);
         setTimeout(() => {
           setShowErrorAlert(false);
         }, 5000);
@@ -82,17 +80,15 @@ const AddTransaction = () => {
         date: data.date,
         CategoryEarningId: parseInt(data.CategoryEarningId),
       };
-      console.log("dataInput", dataInput);
       try {
         await dispatch(addEarning(id, dataInput));
         setShowSuccessAlert(true);
-        //console.log("datos:", id, dataInput);
         setTimeout(() => {
           setShowSuccessAlert(false);
         }, 5000);
       } catch (error) {
         setShowErrorAlert(true);
-        console.log(error);
+        console.error(error);
         setTimeout(() => {
           setShowErrorAlert(false);
         }, 5000);
