@@ -1,18 +1,18 @@
-**MisFinanzas**
+**MiFinanzs**
 
 Bienvenido a MisFinanzas, tu solución personal de gestión financiera. Este proyecto está diseñado para ayudarte a llevar un control efectivo de tus finanzas personales de una manera sencilla y eficiente.
 
-[MisFinanzas](https://c14-17-ft-node-react.vercel.app/)
+[MiFinanzs](https://c14-17-ft-node-react.vercel.app/)
 
 🏁 El proyecto terminó el 3/11/2023 pero se va seguir escalando en sus funcionalidades y su aspecto visual.
 
 Herramientas utilizadas
-| UX/UI   | FrontEnd | BackEnd   | DataBase |
-| ------- | ---------| ----------|----------|
-| Figma   | Next.JS  | Node.js   | MySQL    |
-|         | Tailwind | Express.js|
-|         |JavaScript| JavaScript|
-|         |Redux Toolkit| Sequelice |          |
+| UX/UI   | FrontEnd | BackEnd   | DataBase | Tester QA |
+| ------- | ---------| ----------|----------|-----------|
+| Figma   | Next.JS  | Node.js   | MySQL    | Postman   |
+|         | Tailwind | Express.js|          | Jira      |
+|         |JavaScript| JavaScript|          | Qmetry    |
+|         |Redux Toolkit| Sequelice |          | Google sheets|
 
 
 | Integrantes         | Rol               | Contacto            |
