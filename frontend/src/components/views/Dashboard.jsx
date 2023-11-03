@@ -1,60 +1,59 @@
 import BillsPieChart from "../Dashboard/BillsPieChart";
 import EarningVsBill from "../Dashboard/EarningVsBill";
 import BillsStackedLineChart from "../Dashboard/BillsStackedLineChart";
-import { useAppSelector,useAppDispatch } from "@/redux/hooks";
-import { setBillsPieChartsAction,setEarningVsBillAction,setStackedLineChartAction} from "@/redux/features/dashboardSlice";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import {
+  setBillsPieChartsAction,
+  setEarningVsBillAction,
+  setStackedLineChartAction,
+} from "@/redux/features/dashboardSlice";
 import { useEffect, useState } from "react";
 import ProtectedLoader from "../ProtectedRoute/ProtectedLoader";
 
 const Dashboard = () => {
-
-  const {billsPieChart,earningVsBill,stackedLineChart} = useAppSelector((state) => state.dashboard);
-  const {user} = useAppSelector((state)=> state.userInfo);
+  const bills = useAppSelector((state) => state.bill?.bill) || [];
+  const earnings = useAppSelector((state) => state.earning?.earning) || [];
+  const { billsPieChart, earningVsBill, stackedLineChart } = useAppSelector(
+    (state) => state.dashboard
+  );
+  const { user } = useAppSelector((state) => state.userInfo);
   const dispatch = useAppDispatch();
-  const [loading,setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const fechaActual = new Date();
   const month = fechaActual.getMonth() + 1;
 
-  useEffect(()=>{
-    if (!billsPieChart) {
-      dispatch(setBillsPieChartsAction(user?.id, month));
-    }
-    if (!stackedLineChart) {
-      dispatch(setStackedLineChartAction(user?.id));
-    }
-    if (!earningVsBill) {
-      dispatch(setEarningVsBillAction(user.id, month));   
-    }
+  useEffect(() => {
+    dispatch(setBillsPieChartsAction(user?.id, month));
 
+    dispatch(setStackedLineChartAction(user?.id));
 
-  },[billsPieChart,earningVsBill,stackedLineChart])
+    dispatch(setEarningVsBillAction(user.id, month));
+  }, [bills, earnings]);
 
-
-  useEffect(()=>{
-    if (billsPieChart,earningVsBill,stackedLineChart) {
-        setLoading(false)
+  useEffect(() => {
+    if (billsPieChart && earningVsBill && stackedLineChart) {
+      setLoading(false);
     }
-  },[billsPieChart,earningVsBill,stackedLineChart])
+  }, [billsPieChart, earningVsBill, stackedLineChart]);
 
   if (loading) {
-    return(
+    return (
       <div>
-        <ProtectedLoader/>
+        <ProtectedLoader />
       </div>
-    )
-    
+    );
   }
   return (
-    <div className="p-4 dark:bg-mDarkGray bg-mWhite"> {/* Agrega padding al contenedor */}
-      <div className="flex gap-4 pb-4"> {/* Utiliza flexbox y gap para colocar los gráficos de torta lado a lado */}
+    <div className="h-full w-full  px-4  ">
+      <div className="flex flex-col md:flex-row gap-4 pb-4">
         <div className="w-1/2 ">
-          <BillsPieChart/>
+          <BillsPieChart />
         </div>
         <div className="w-1/2 ">
-          <EarningVsBill/>
+          <EarningVsBill />
         </div>
       </div>
-      <BillsStackedLineChart/>
+      <BillsStackedLineChart />
     </div>
   );
 };

@@ -73,14 +73,14 @@ const BillsPieChart = () => {
   }, [billsPieChart, darkMode]);
 
   return (
-    <div className="h-400px border item-center border-mLightGray">
+    <>
       {Array.isArray(billsPieChart) && billsPieChart.length > 0 ? (
         <div
           id="chart-container"
-          style={{ width: "100%", height: "408px" }}
+          className="border item-center border-mLightGray w-full h-72"
         ></div>
       ) : (
-        <div className="w-full h-400px bg-mWhite dark:bg-mBlack flex flex-col items-start justify-center">
+        <div className="w-full h-56 bg-mWhite dark:bg-mBlack flex flex-col items-start justify-center">
           <h1 className="text-base text-mBlack dark:text-mWhite p-2">
             Gastos por categoria mensuales
           </h1>
@@ -91,7 +91,7 @@ const BillsPieChart = () => {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

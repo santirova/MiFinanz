@@ -11,17 +11,14 @@ export const metadata = {
 const LayoutHome = ({ children }) => {
   return (
     <PrivateRoute>
-    <div className="flex max-h-screen w-full bg-mWhite dark:bg-mDarkGray">
-      <NavHome />
-      {/*       <NavBar />
-       */}{" "}
-      <div className="w-full">
-        <TopBar />
-        
-        {children}
-        
+      <div className="flex h-full w-full bg-mWhite dark:bg-mDarkGray">
+        <NavHome />
+        <div className="w-full">
+          <TopBar />
+
+          {children}
+        </div>
       </div>
-    </div>
     </PrivateRoute>
   );
 };
