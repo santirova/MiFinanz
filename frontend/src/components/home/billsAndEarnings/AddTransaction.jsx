@@ -107,7 +107,9 @@ const AddTransaction = () => {
           icon={<IconSuccess />}
           className="rounded-none border-l-4 border-[#2ec946] bg-[#2ec946]/10 font-medium text-[#2ec946]"
         >
-          !Gasto registrado correctamente!
+          {selectedButton === "GASTOS"
+            ? "!Gasto registrado correctamente!"
+            : "!Ingreso registrado correctamente!"}
         </Alert>
       )}
       {showErrorAlert && (

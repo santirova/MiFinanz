@@ -35,12 +35,11 @@ export function ModalEdit({
   handleCrudChanges,
 }) {
   const dispatch = useAppDispatch();
-  const isDarkMode = useAppSelector((state) => state.theme.darkMode);
   const [activeButton, setActiveButton] = useState("Efectivo");
   const cards = useAppSelector((state) => state.cards);
   const selectedCategory = dataToEdit?.category;
-  console.log("dataToEdit", dataToEdit);
-  console.log("selectedCategory", selectedCategory);
+  // console.log("dataToEdit", dataToEdit);
+  // console.log("selectedCategory", selectedCategory);
   const {
     control,
     handleSubmit,
@@ -57,6 +56,8 @@ export function ModalEdit({
       cardId: "",
     },
   });
+
+  const isDarkMode = useAppSelector((state) => state.theme.darkMode);
 
   useEffect(() => {
     dispatch(getAllCardsAction(userId));
@@ -115,7 +116,7 @@ export function ModalEdit({
         handleOpenModal={handleOpen}
         className="bg-transparent shadow-none"
       >
-        <Card className="mx-auto w-full max-w-[24rem]">
+        <Card className="mx-auto w-full max-w-[24rem] dark:bg-mLightGray">
           <CardBody className="flex flex-col gap-4">
             <Typography variant="h4" color="blue-gray">
               Editar {mode === "bill" ? "Gasto" : "Ingreso"}
