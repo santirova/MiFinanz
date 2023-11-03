@@ -27,7 +27,6 @@ const AddCard = ({ handleAddView, openAddView }) => {
     e.preventDefault();
     // reset inputs
     await dispatch(addCardAction(userId, name, bankName, branch));
-    console.log("Agregando tarjeta");
     // close add view
     handleAddView();
     setCard({

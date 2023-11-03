@@ -38,8 +38,7 @@ export function ModalEdit({
   const [activeButton, setActiveButton] = useState("Efectivo");
   const cards = useAppSelector((state) => state.cards);
   const selectedCategory = dataToEdit?.category;
-  // console.log("dataToEdit", dataToEdit);
-  // console.log("selectedCategory", selectedCategory);
+
   const {
     control,
     handleSubmit,

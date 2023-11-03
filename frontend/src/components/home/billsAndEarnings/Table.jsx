@@ -42,11 +42,10 @@ const Table = () => {
   const { user: { id } = {} } = useAppSelector((store) => store.userInfo) || {};
   const data = useAppSelector((state) => state.bill.bill);
   const bills = data && data.Bills ? data.Bills : [];
-  //  console.log(bills);
   const categories = bills
     ? [...new Set(bills.map((row) => row.CategoryBill.name))]
     : [];
-  // console.log(categories);
+
 
   const handleOpenModal = (id, name) => {
     setOpen(true); // Abre el diálogo
@@ -98,7 +97,6 @@ const Table = () => {
 
   useEffect(() => {
     if (id) {
-      //console.log("Loading data...");
       dispatch(getAllBill(id));
     }
   }, [dispatch, id]);
