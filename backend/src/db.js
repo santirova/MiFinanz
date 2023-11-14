@@ -1,4 +1,5 @@
 const {Sequelize} = require('sequelize')
+const mysql2 = require('mysql2')
 require('dotenv').config()
 const UserFunction = require('./models/user')
 const CategoryBillFunction = require('./models/categoryBill')
@@ -11,7 +12,11 @@ const EarningFunction = require("./models/earning");
 
 const sequelize = new Sequelize(
     process.env.DB_URI,
-    {logging:false}
+    {
+        logging:false,
+        dialect: 'mysql',
+        dialectModule: mysql2,
+    }
 )
 
 //MODELS FUNCTIONS
