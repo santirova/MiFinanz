@@ -1,5 +1,6 @@
 import axios from "axios";
+const api = process.env.API;
 
 export const axiosMiFinanz = axios.create({
-  baseURL: "https://c14-17-ft-node-react-production.up.railway.app",
+  baseURL: api
 });
