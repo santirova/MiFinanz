@@ -18,10 +18,7 @@ const PrivateRoute = ({ children }) => {
         push("/login");
         return;
       } else {
-        setContent(children);
-      }
-
-      /*  try {
+        try {
         // Realiza una llamada a la ruta del servidor para validar el token
         const response = await axiosMiFinanz("/user/validate-token", {
           method: "GET",
@@ -29,7 +26,7 @@ const PrivateRoute = ({ children }) => {
             "x-auth-token": `${token}`, // Agrega el token al encabezado de autorización
           },
         });
-
+  
         if (response.status !== 200) {
           // El token no es válido, realiza la acción de cerrar sesión
           push("/login");
@@ -39,7 +36,10 @@ const PrivateRoute = ({ children }) => {
       } catch (error) {
         console.error("Error al validar el token:", error);
         push("/login");
-      } */
+      } 
+       
+      }
+
     };
 
     validateToken();
