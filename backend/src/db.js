@@ -1,5 +1,4 @@
 const {Sequelize} = require('sequelize')
-const mysql2 = require('mysql2')
 require('dotenv').config()
 const UserFunction = require('./models/user')
 const CategoryBillFunction = require('./models/categoryBill')
@@ -10,14 +9,19 @@ const CardFunction = require("./models/card")
 const EarningFunction = require("./models/earning");
 
 
-const sequelize = new Sequelize(
-    process.env.DB_URI,
-    {
-        logging:false,
-        dialect: 'mysql',
-        dialectModule: mysql2,
+
+const sequelize = new Sequelize(process.env.POSTGRES_DATABASE, process.env.POSTGRES_USER, process.env.POSTGRES_PASSWORD, {
+  host: process.env.POSTGRES_HOST,
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
     }
-)
+  },
+});
+
+module.exports = { sequelize };
 
 //MODELS FUNCTIONS
 UserFunction(sequelize);

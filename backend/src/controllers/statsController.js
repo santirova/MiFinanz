@@ -50,14 +50,23 @@ const sumBillsByCategoryController = async (UserId, month) => {
     };
   }
   if (!month || month > 12 || month < 1) {
-    return { error: "El mes enviado es incorrecto, deberia ser entre 1 y 12" };
+    return { error: "El mes enviado es incorrecto, debería ser entre 1 y 12" };
   }
   const response = await Bill.findAll({
     where: {
       UserId,
-      date: sequelize.literal(
-        `YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = ${month}`
-      ),
+      date: {
+        [Op.and]: [
+          sequelize.where(
+            sequelize.fn("EXTRACT", sequelize.literal("YEAR FROM date")),
+            sequelize.fn("EXTRACT", sequelize.literal("YEAR FROM CURRENT_DATE"))
+          ),
+          sequelize.where(
+            sequelize.fn("EXTRACT", sequelize.literal("MONTH FROM date")),
+            month
+          ),
+        ],
+      },
     },
     attributes: [
       [sequelize.col("CategoryBill.name"), "category_name"],
@@ -75,35 +84,48 @@ const sumBillsByCategoryController = async (UserId, month) => {
   return response;
 };
 
+
+
+
 const sumBillsMonthControlle = async (UserId, month) => {
   const user = await User.findByPk(UserId);
   if (!user) {
     return {
-      error: "El usuario no exite",
+      error: "El usuario no existe",
     };
   }
   if (!month || month > 12 || month < 1) {
-    return { error: "El mes enviado es incorrecto, deberia ser entre 1 y 12" };
+    return { error: "El mes enviado es incorrecto, debería ser entre 1 y 12" };
   }
   const response = await Bill.findAll({
     where: {
       UserId,
-      date: sequelize.literal(
-        `YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = ${month}`
-      ),
+      date: {
+        [Op.and]: [
+          sequelize.where(
+            sequelize.fn('EXTRACT', sequelize.literal('MONTH FROM "date"')),
+            month
+          ),
+          sequelize.where(
+            sequelize.fn('EXTRACT', sequelize.literal('YEAR FROM "date"')),
+            sequelize.fn('EXTRACT', sequelize.literal('YEAR FROM CURRENT_DATE'))
+          )
+        ]
+      }
     },
     attributes: [
-      [sequelize.fn("MONTH", sequelize.col("date")), "month"],
+      [sequelize.fn("EXTRACT", sequelize.literal("MONTH FROM date")), "month"],
       [sequelize.fn("SUM", sequelize.col("amount")), "total_monto"],
     ],
     group: ["month"],
     raw: true,
   });
   if (response.length == 0) {
-    return `El Mes no tiene Gatos Asociados `;
+    return `El mes no tiene gastos asociados`;
   }
   return response;
 };
+
 
 const obtenerDatosParaGrafico = async (userId) => {
   try {
@@ -114,6 +136,7 @@ const obtenerDatosParaGrafico = async (userId) => {
       date.setDate(today.getDate() - i);
       lastFifteenDays.push(date.toISOString().slice(0, 10));
     }
+
     const response = await Bill.findAll({
       where: {
         UserId: userId,
@@ -133,7 +156,7 @@ const obtenerDatosParaGrafico = async (userId) => {
           attributes: [],
         },
       ],
-      group: ["fecha", "nombre_tarjeta", "payment_method"], // Agrupa por fecha, nombre de la tarjeta y método de pago
+      group: ["fecha", "nombre_tarjeta", "payment_method"],
       order: ["fecha"],
     });
 
@@ -175,59 +198,69 @@ const obtenerDatosParaGrafico = async (userId) => {
   }
 };
 
+
 const earningVsBillController = async (UserId, month) => {
   const user = await User.findByPk(UserId);
 
   if (!user) {
     return {
-      error: "El usuario no exite",
+      error: "El usuario no existe",
     };
   }
 
   if (!month || month > 12 || month < 1) {
-    return { error: "El mes enviado es incorrecto, deberia ser entre 1 y 12" };
+    return { error: "El mes enviado es incorrecto, debería ser entre 1 y 12" };
   }
 
-  //Suma todos los ingresos por mes de un usuario
-
-  const sumEarnings = await Earning.findAll({
+  // Suma todos los ingresos por mes de un usuario
+  const sumEarnings = await Earning.sum('amount', {
     where: {
       UserId,
-      date: sequelize.literal(
-        `YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = ${month}`
-      ),
+      date: {
+        [Op.and]: [
+          sequelize.where(
+            sequelize.fn('EXTRACT', sequelize.literal('YEAR FROM "date"')),
+            sequelize.fn('EXTRACT', sequelize.literal('YEAR FROM CURRENT_DATE'))
+          ),
+          sequelize.where(
+            sequelize.fn('EXTRACT', sequelize.literal('MONTH FROM "date"')),
+            month
+          ),
+        ],
+      },
     },
-    attributes: [[sequelize.fn("SUM", sequelize.col("amount")), "sumEarnings"]],
     raw: true,
   });
-  const sumearnings = parseInt(sumEarnings[0].sumEarnings);
+  const sumearnings = parseInt(sumEarnings) || 0;
 
-  //Suma todos los Gatos por mes de un usuario
-  const sumBill = await Bill.findAll({
+  // Suma todos los Gastos por mes de un usuario
+  const sumBill = await Bill.sum('amount', {
     where: {
       UserId,
-      date: sequelize.literal(
-        `YEAR(date) = YEAR(CURRENT_DATE) AND MONTH(date) = ${month}`
-      ),
+      date: {
+        [Op.and]: [
+          sequelize.where(
+            sequelize.fn('EXTRACT', sequelize.literal('YEAR FROM "date"')),
+            sequelize.fn('EXTRACT', sequelize.literal('YEAR FROM CURRENT_DATE'))
+          ),
+          sequelize.where(
+            sequelize.fn('EXTRACT', sequelize.literal('MONTH FROM "date"')),
+            month
+          ),
+        ],
+      },
     },
-    attributes: [[sequelize.fn("SUM", sequelize.col("amount")), "sumBill"]],
     raw: true,
   });
-  const sumbill = parseInt(sumBill[0].sumBill);
-
-  if (isNaN(sumbill) && isNaN(sumearnings)) {
-    return {
-      sumearnings: 0,
-      sumbill: 0,
-    };
-  }
+  const sumbill = parseInt(sumBill) || 0;
 
   const response = {
-    sumearnings: isNaN(sumearnings) ? 0 : sumearnings,
-    sumbill: isNaN(sumbill) ? 0 : sumbill,
+    sumearnings,
+    sumbill,
   };
   return response;
 };
+
 
 module.exports = {
   sumEarningsByCategoryController,
