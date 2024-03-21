@@ -35,7 +35,7 @@ export const loginUser = (data) => (dispatch) => {
         }
       })
       .catch((err) => {
-        reject(new Error("Error en la solicitud")); // Rechaza la promesa con un error en la solicitud
+        reject(new Error(err.response.data.message)); // Rechaza la promesa con un error en la solicitud
       });
   });
 };
@@ -56,7 +56,7 @@ export const signup = (data) => (dispatch) => {
       })
       .catch((err) => {
         console.error(err);
-        reject(err);
+        reject(new Error(err.response.data.message));
       });
   });
 };

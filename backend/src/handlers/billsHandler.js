@@ -5,9 +5,9 @@ const getBillByUserIdHandler = async (req,res) =>{
     try {
         const userId = req.params.userId;
         const Bills = await billUserGet(userId)
-        res.status(200).send({message: "hola",Bills})
+        res.status(200).send({Bills,message:'holasa'})
     } catch (error) {
-        res.status(400).send({error:error.message})
+        res.status(400).send({ error: error.message })
     }
 };
 
@@ -21,7 +21,7 @@ const createBillHandler = async (req, res) => {
   
       res.status(201).json({ message: 'Gasto registrado con éxito', bill });
     } catch (error) {
-      res.status(500).json({ error: 'Error interno del servidor', message: error.message });
+      res.status(500).json({ error: error.message });
     }
   };
   
@@ -38,7 +38,7 @@ const createBillHandler = async (req, res) => {
       await bill.destroy();
       res.status(204).send("Gasto eliminado con éxito"); // Respuesta exitosa sin contenido.
     } catch (error) {
-      res.status(500).json({ error: 'Error interno del servidor' });
+      res.status(500).json({ error: error.message });
     }
   };
 
@@ -49,7 +49,7 @@ const createBillHandler = async (req, res) => {
   
       const bill = await Bill.findByPk(billId);
       if (!bill) {
-        return res.status(404).json({ error: 'El gasto no se encontró.' });
+        return res.status(404).json({ error: error.message });
       }
   
       // Actualiza los campos del gasto según sea necesario.
@@ -78,7 +78,7 @@ const createBillHandler = async (req, res) => {
       await bill.save();
       res.status(200).json({ message: 'Gasto actualizada con éxito', bill });
     } catch (error) {
-      res.status(500).json({ error: 'Error interno del servidor' });
+      res.status(500).json({ error: error.message });
     }
   };
   

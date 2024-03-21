@@ -21,7 +21,7 @@ const postCardController = async (userId, name, bank_name, branch) => {
 const getCardsByUserIdController = async (userId) => {
     try {
         const cards = await Card.findAll({
-            where: { userId: userId }
+            where: { UserId: userId }
         })
         return cards;
     } catch (error) {

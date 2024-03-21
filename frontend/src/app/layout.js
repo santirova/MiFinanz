@@ -13,10 +13,6 @@ const poppins = Poppins({
 export const metadata = {
   title: "MiFinanz",
   description: "Plataforma para gestionar tus finanzas personales",
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-  },
 };
 
 export default function RootLayout({ children }) {

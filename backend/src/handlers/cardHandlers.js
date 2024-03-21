@@ -7,7 +7,7 @@ const postCardHandler = async (req, res) => {
         const card = await postCardController(userId, name, bank_name, branch);
         res.status(200).json({message: 'Tarjeta registrada con éxito', card});
     } catch (error) {
-        res.status(500).json({ error: 'Error interno del servidor', message: error.message });
+        res.status(500).json({error: error.message});
     }
 };
 
@@ -17,7 +17,7 @@ const getCardsByUserIdHandler = async (req,res) => {
         const cards =  await getCardsByUserIdController(userId)
         res.status(200).send(cards)
     } catch (error) {
-        res.status(400).send({error:error.messages})
+        res.status(400).send({error:error.message})
     }
 };
 
@@ -28,7 +28,7 @@ const putCardHandler = async (req, res) => {
         const card = await putCardController(cardId, name, bank_name, branch);
         res.status(200).send(card);
     } catch (error) {
-        res.status(400).send({error:error.messages})
+        res.status(400).send({error:error.message})
     }
 };
 
@@ -38,7 +38,7 @@ const deleteCardHandler = async (req, res) => {
         const card = await deleteCardController(cardId);
         res.status(200).send("Tarjeta eliminada con éxito")
     } catch (error) {
-        res.status(500).json({ error: 'Error interno del servidor' })
+        res.status(500).json({error:error.message})
     }
 };
 

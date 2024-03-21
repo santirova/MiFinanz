@@ -11,7 +11,7 @@ const getEarnigsByUserIdHandler = async (req,res) => {
         res.status(200).send(earnings)
     } catch (error) {
         console.log(error);
-        res.status(400).send({error:error.messages})
+        res.status(400).send({error:error.message})
 
     }
 }

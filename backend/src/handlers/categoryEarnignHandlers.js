@@ -18,7 +18,7 @@ const getCategoryEarnignsHandler = async (req,res) => {
         const categoryEarnigns = await getCategoryEarnignsController()
         res.status(200).send(categoryEarnigns)
     } catch (error) {
-        res.status(400).send({error:error.messages})
+        res.status(400).send({error:error.message})
     }
 }
 const postMultiCatEarningsHandler = async (req,res)=>{
@@ -27,7 +27,7 @@ const postMultiCatEarningsHandler = async (req,res)=>{
         const response = await postMultiCatEarningsController()
         res.status(200).send(response)
     } catch (error) {
-        res.status(400).send({error:error.messages})
+        res.status(400).send({error:error.message})
     }
 }
 

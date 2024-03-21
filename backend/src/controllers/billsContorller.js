@@ -2,19 +2,18 @@ const {Bill, CategoryBill, Card, User } = require('../db');
 const Sequelize = require('sequelize');
 
 
-const billUserGet = async (userId) => {
-    try {
-        const expenses = await Bill.findAll({
-            where: { userId: userId },
-            include: [
-              { model: CategoryBill}
-            ],
-          });
+const billUserGet = async (UserId) => {
+  try {
+    const expenses = await Bill.findAll({
+      where: { UserId}, // Aquí se usa userId para filtrar las facturas del usuario específico
+      include: [{ model: CategoryBill }],
+    });
     return expenses; 
-    } catch (error) {
-        throw error
-    }
+  } catch (error) {
+    throw error;
+  }
 };
+
 
 
 const createBill = async (userId, amount, date, name, payment_method, categoryId, cardId, frequency) => {

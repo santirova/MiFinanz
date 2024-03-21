@@ -55,7 +55,8 @@ export const getAllCardsAction = (userId) => (dispatch) => {
         } else reject(new Error("Error en la solicitud"));
       })
       .catch((err) => {
-        reject(new Error(err));
+        console.log(err)
+        reject(new Error(err.response.data.message));
       });
   });
 };
@@ -79,7 +80,7 @@ export const addCardAction =
           } else reject(new Error("Error en la solicitud"));
         })
         .catch((err) => {
-          reject(new Error(err));
+          reject(new Error(err.response.data.message));
         });
     });
   };
@@ -101,7 +102,7 @@ export const editCardAction =
           } else reject(new Error("Error en la solicitud"));
         })
         .catch((err) => {
-          reject(new Error(err));
+          reject(new Error(err.response.data.message));
         });
     });
   };
@@ -117,7 +118,7 @@ export const deleteCardAction = (cardId) => (dispatch) => {
         } else reject(new Error("Error en la solicitud"));
       })
       .catch((err) => {
-        reject(new Error(err));
+        reject(new Error(err.response.data.message));
       });
   });
 };

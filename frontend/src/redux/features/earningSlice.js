@@ -51,7 +51,7 @@ export const getAllEarning = (id) => (dispatch) => {
         } else reject(new Error("Error en la solicitud"));
       })
       .catch((err) => {
-        reject(new Error(err));
+        reject(new Error(err.response.data.message));
       });
   });
 };

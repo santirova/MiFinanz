@@ -6,7 +6,7 @@ catBillPostHandler = async (req, res) => {
         const category = await categoryBillPostController(name);
         res.status(201).json({ message: 'Categoria registrada con éxito', category});
     } catch (error) {
-        console.log(error.message)
+        res.status(500).json({error:error.message});
     }
 };
 
@@ -15,7 +15,7 @@ catGetHandler = async (req, res) => {
         const allCategory = await catGetController();
         res.status(200).send(allCategory)
     } catch (error){
-        res.status(500).json({ error: 'Error interno del servidor' });
+        res.status(500).json({error:error.message});
     }
 };
 const postMultiCatBillHandler = async (req,res) =>{
@@ -23,7 +23,7 @@ const postMultiCatBillHandler = async (req,res) =>{
         const response = await postMultiCatBillController();
         res.status(200).send(response)
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({error: error.message});
     }
 };
 module.exports = { catBillPostHandler, catGetHandler, postMultiCatBillHandler };

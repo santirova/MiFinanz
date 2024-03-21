@@ -56,7 +56,7 @@ export const setEarningVsBillAction = (userid, month) => (dispatch) => {
         //resolve();
       })
       .catch((err) => {
-        reject(new Error(err));
+        reject(new Error(err.response.data.message));
       });
   });
 };
@@ -71,7 +71,7 @@ export const setStackedLineChartAction = (userid) => (dispatch) => {
       })
       .catch((err) => {
         console.error(err);
-        reject(new Error(err));
+        reject(new Error(err.response.data.message));
       });
   });
 };
